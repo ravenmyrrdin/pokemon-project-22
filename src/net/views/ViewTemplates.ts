@@ -118,7 +118,6 @@ class Nbb {
         message: undefined,
       },
     };
-
     return response;
   }
 
