@@ -131,4 +131,25 @@ class Nbb {
     return response;
   }
 }
+@ViewTemplates.set
+class Contact {
+  get(req: Request, res: Response, next: NextFunction): IWebResponse {
+    const response: IWebResponse = {
+      data: {
+        message: undefined,
+      },
+    };
+    return response;
+  }
+
+  public post(req: any, res: any, next: NextFunction): IWebResponse {
+    const response: IWebResponse = {
+      data: {
+        message: `<h2>Welcome, ${(req.body as any).fname}</h2>`,
+      },
+    };
+
+    return response;
+  }
+}
 //#endregion
