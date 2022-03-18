@@ -1,0 +1,31 @@
+{
+  "name": "express-js-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@types/node": "^17.0.21",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "expressjs": "^1.0.1",
+    "file-system": "^2.2.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13"
+  },
+  "scripts": {
+    "start": "ts-node ./src/App.ts",
+    "install": "tsc --init --experimentalDecorators --rootDir \"./src\" --outDir \"./bin\" && npm install --save @types/node && npm install --save express && npm install --save file-system && npm install --save ejs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JannickOste/TypescriptServer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JannickOste/TypescriptServer/issues"
+  },
+  "homepage": "https://github.com/JannickOste/TypescriptServer#readme"
+}
