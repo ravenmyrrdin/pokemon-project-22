@@ -1,5 +1,13 @@
-export namespace StringTools 
+/**
+ * String manipulation tools.
+ */
+export class StringTools 
 {
+    private constructor(){}
+
     // Checks for the characters (&, <, >, ', ") and replaces them by there keycode value : &#CODE;
-    export const htmlspecialchars = (str: string): string => str.replace(/[&<>'"]/g, i => `&#${i.charCodeAt(0)};`) 
+    public htmlspecialchars (str: string): string 
+    {
+        return  str.replace(/[&<>'"]/g, i => `&#${i.charCodeAt(0)};`) ;
+    }
 }
