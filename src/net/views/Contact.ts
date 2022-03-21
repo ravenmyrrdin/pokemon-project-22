@@ -1,9 +1,8 @@
 import { NextFunction } from "express";
 import { IWebResponse } from "../interfaces/IWebResponse";
-import { ViewTemplates } from "../ViewTemplates";
+import { IViewTemplate } from '../interfaces/IViewTemplate';
 
-@ViewTemplates.set
-class Contact {
+export const Contact: IViewTemplate = {
   get(req: Request, res: Response, next: NextFunction): IWebResponse {
     const response: IWebResponse = {
       data: {
@@ -11,9 +10,9 @@ class Contact {
       },
     };
     return response;
-  }
+  },
 
-  public post(req: any, res: any, next: NextFunction): IWebResponse {
+  post(req: any, res: any, next: NextFunction): IWebResponse {
     const response: IWebResponse = {
       data: {
         message: `<h2>Welcome, ${(req.body as any).fname}</h2>`,

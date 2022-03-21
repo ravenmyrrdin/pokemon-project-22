@@ -3,16 +3,15 @@
 
 import { NextFunction } from "express";
 import { IWebResponse } from "../interfaces/IWebResponse";
-import { ViewTemplates } from "../ViewTemplates";
+import { IViewTemplate } from '../interfaces/IViewTemplate';
 
 /**
  * Callback interface based on IWebRequest for endpoint: /.
  */
-@ViewTemplates.set
-export class Index {
+export const Index: IViewTemplate = {
    get(req: Request, res: Response, next: NextFunction): IWebResponse  {
      return {data:{}}
-   }
+   },
  
-   post = undefined;
+   post: undefined
  }
