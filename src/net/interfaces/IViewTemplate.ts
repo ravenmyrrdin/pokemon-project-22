@@ -11,6 +11,7 @@ import { IWebRequest } from './IWebRequest';
  * View data interface
  */
  export abstract class IViewTemplate {
+
     /**
      * Post method callback
      */
