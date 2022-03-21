@@ -122,25 +122,22 @@ export class WebServer
                              if(callbackInterface[requestType] === undefined ) continue;
                              const renderViewCallback = (req: any, res: any, next : any) => (res as any).render(ejsName, callbackInterface[requestType](req, res, next));
      
-                             let setter: Function | undefined;  
-                             if(/^[a-zA-Z]+$/.test(ejsName))
-                             {  
-                                 switch(requestType)
-                                 {
-                                     case "get":      setter = () => this.listener.get(endpoint, renderViewCallback); break;
-                                     case "post":     setter = () => this.listener.post(endpoint, renderViewCallback); break;
-                                     case "put":      setter = () => this.listener.put(endpoint, renderViewCallback); break;
-                                     case "patch":    setter = () => this.listener.patch(endpoint,renderViewCallback); break;
-                                     case "delete":   setter = () => this.listener.delete(endpoint, renderViewCallback); break;
-                                     case "copy":     setter = () => this.listener.copy(endpoint, renderViewCallback); break;
-                                     case "head":     setter = () => this.listener.head(endpoint, renderViewCallback); break;
-                                     case "options":  setter = () => this.listener.options(endpoint, renderViewCallback); break;
-                                     case "purge":    setter = () => this.listener.purge(endpoint, renderViewCallback); break;
-                                     case "lock":     setter = () => this.listener.lock(endpoint, renderViewCallback); break;
-                                     case "unlock":   setter = () => this.listener.unlock(endpoint, renderViewCallback); break;
-                                     case "propfind": setter = () => this.listener.propfind(endpoint, renderViewCallback); break;
-                                 }
-                             } 
+                            let setter: Function | undefined;  
+                            switch(requestType)
+                            {
+                                case "get":      setter = () => this.listener.get(endpoint, renderViewCallback); break;
+                                case "post":     setter = () => this.listener.post(endpoint, renderViewCallback); break;
+                                case "put":      setter = () => this.listener.put(endpoint, renderViewCallback); break;
+                                case "patch":    setter = () => this.listener.patch(endpoint,renderViewCallback); break;
+                                case "delete":   setter = () => this.listener.delete(endpoint, renderViewCallback); break;
+                                case "copy":     setter = () => this.listener.copy(endpoint, renderViewCallback); break;
+                                case "head":     setter = () => this.listener.head(endpoint, renderViewCallback); break;
+                                case "options":  setter = () => this.listener.options(endpoint, renderViewCallback); break;
+                                case "purge":    setter = () => this.listener.purge(endpoint, renderViewCallback); break;
+                                case "lock":     setter = () => this.listener.lock(endpoint, renderViewCallback); break;
+                                case "unlock":   setter = () => this.listener.unlock(endpoint, renderViewCallback); break;
+                                case "propfind": setter = () => this.listener.propfind(endpoint, renderViewCallback); break;
+                            }
                              
                              if(setter)
                                  endpointSetters.unshift(setter);
