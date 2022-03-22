@@ -23,3 +23,8 @@ body.contact main form label {
   font-size: 1.5rem;
   width: 80%;
 }
+
+.imgWrap {
+  display: flex;
+  justify-content: center;
+}
