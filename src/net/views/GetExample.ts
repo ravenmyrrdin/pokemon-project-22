@@ -1,12 +1,11 @@
 import { NextFunction } from "express";
 import { IWebResponse } from '../interfaces/IWebResponse';
-import { ViewTemplates } from "../ViewTemplates";
+import { IViewTemplate } from '../interfaces/IViewTemplate';
 
 /**
  * Callback interface based on IWebRequest for endpoint: getExample.
  */
-@ViewTemplates.set
-export class GetExample
+export const GetExample: IViewTemplate =
 {
   get(req: Request, res: Response, next: NextFunction): IWebResponse 
   {
@@ -20,7 +19,7 @@ export class GetExample
     }
 
     return response;
-  }
+  },
 
-  post = undefined
+  post: undefined
 }
