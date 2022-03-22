@@ -2,26 +2,15 @@ article {
   margin: 2rem 0 0 0;
 }
 
-article a {
-  text-decoration: none;
-  font-size: 1.5rem;
-  text-align: center;
-  color: #414040;
-}
-
 article:hover {
   background-color: #64646475;
   border-radius: 2rem;
-  border: 2px solid #646464;
-}
-
-article a:hover {
-  color: black;
 }
 
 body.contact main {
   margin: 2rem 0 0 0;
   border: 3px solid black;
+  border-radius: 2rem;
 }
 
 body.contact main form div,
