@@ -15,7 +15,9 @@ async function generateDocumentation() {
     app.bootstrap({
         // typedoc options here
         entryPoints: ["src"],
-        entryPointStrategy: "expand"
+        entryPointStrategy: "expand",
+        mergeModulesRenameDefaults: true,
+        mergeModulesMergeMode: "module"
     });
 
     const project = app.convert();
