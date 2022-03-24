@@ -1,6 +1,6 @@
 {
   "name": "nbb-project-22",
-  "version": "1.0.0",
+  "version": "0.2.0a",
   "description": "",
   "main": "App.js",
   "bin": {
@@ -10,15 +10,18 @@
     "doc": "docs"
   },
   "dependencies": {
+    "@types/node": "^17.0.23",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
-    "file-system": "^2.2.2",
-    "typedoc": "^0.22.13"
+    "file-system": "^2.2.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "typedoc": "^0.22.13",
+    "typedoc-plugin-merge-modules": "^3.1.0"
+  },
   "scripts": {
     "start": "ts-node ./src/App.ts",
-    "install": "tsc --init --experimentalDecorators --rootDir \"./src\" --outDir \"./bin\" && npm install --save-dev typedoc && npm install --save @types/node && npm install --save express && npm install --save file-system && npm install --save ejs",
+    "install": "tsc --init --experimentalDecorators --rootDir \"./src\" --outDir \"./bin\" && npm install --save-dev typedoc @types/node express file-system ejs typedoc-plugin-merge-modules",
     "compile": "tsc",
     "start-release": "node ./bin/App.js"
   },
