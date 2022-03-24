@@ -109,7 +109,7 @@ export class WebServer
                  
                  if(/^[0-9]{3}$/.test(ejsName))
                  {
-                     endpointSetters.push(() => this.listener.use((req, res, next) => {
+                     endpointSetters.push(() => this.listener.use((req: any, res: any, next: any) => {
                          res.status(Number.parseInt(ejsName));
                          return res.render(ejsName, {});
                      }));
