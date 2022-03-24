@@ -1,4 +1,7 @@
 /**
+ * @module src.misc
+ */
+/**
  * Reserved for future logger, currently only prints line to console.
  */
 export class Logger

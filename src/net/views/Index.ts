@@ -1,6 +1,6 @@
-
-//#region Page objects
-
+/**
+ * @module src.net.views
+ */
 import { NextFunction } from "express";
 import { IWebResponse } from "../interfaces/IWebResponse";
 import { IViewTemplate } from '../interfaces/IViewTemplate';

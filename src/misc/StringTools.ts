@@ -1,4 +1,7 @@
 /**
+ * @module src.misc
+ */
+/**
  * String manipulation tools.
  */
 export class StringTools 

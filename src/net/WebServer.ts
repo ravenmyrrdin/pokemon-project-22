@@ -1,7 +1,7 @@
 /**
  * Network/Request handeling module 
  * 
- * @module net
+ * @module src.net
  */
 
 import express from "express";

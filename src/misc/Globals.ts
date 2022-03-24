@@ -1,3 +1,6 @@
+/**
+ * @module src.misc
+ */
 import path from 'path';
 
 /**

@@ -1,10 +1,8 @@
-import { IWebRequest } from './IWebRequest';
 /**
- * IViewTemplate interface object, namespace and implemntations.
- * 
- * Implementation have to be implemented in IViewTemplate.ts otherwise they will not be recognized by the namespace.
- * @!TODO: look for universal solution
+ * @module src.net.interfaces
  */
+import { IWebRequest } from './IWebRequest';
+
 
 //#region View interface and namespace.
 /**

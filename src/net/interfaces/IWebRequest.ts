@@ -1,3 +1,6 @@
+/**
+ * @module src.net.interfaces
+ */
 import { Response, Request, NextFunction } from "express"; 
 import { IWebResponse } from './IWebResponse';
 

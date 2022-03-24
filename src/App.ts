@@ -1,3 +1,6 @@
+/**
+ * @module src
+ */
 import { WebServer } from "./net/WebServer";
 import { Logger } from './misc/Logger';
 import { Globals } from "./misc/Globals";
