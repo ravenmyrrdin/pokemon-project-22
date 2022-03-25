@@ -8,31 +8,32 @@
     <%- include('partials/navbar.ejs'); %>
         <main class="p-lg-3 w-50 mx-auto">
             <h1 class="mx-auto text-center">Contactformulier</h1>
-            <form>
+            <%= data["message"] %>
+            <form action="/contact" method="POST" >
                 <div class="form-group row">
                   <label for="firstName" class="col-lg-2 col-form-label">Voornaam</label>
                   <div class="col-lg-10">
-                    <input type="text" class="form-control" id="firstName" placeholder="Voornaam">
+                    <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Voornaam">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="lastName" class="col-lg-2 col-form-label">Achternaam</label>
                   <div class="col-lg-10">
-                    <input type="text" class="form-control" id="lastName" placeholder="Achternaam">
+                    <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Achternaam">
                   </div>
                 </div>
                 <div class="form-group row">
                     <label for="email" class="col-lg-2 col-form-label">E-mail</label>
                     <div class="col-lg-10">
-                      <input type="email" class="form-control" id="email" placeholder="voorbeeld@email.com">
+                      <input type="email" class="form-control" name="email" id="email" placeholder="voorbeeld@email.com">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="msg" class="col-lg-2 col-form-label">Bericht</label>
-                    <div class="col-lg-10"><textarea class="form-control" id="msg" rows="6" placeholder="Schrijf hier uw bericht ..."></textarea></div>
+                    <div class="col-lg-10"><textarea class="form-control" name="msg" id="msg" rows="6" placeholder="Schrijf hier uw bericht ..."></textarea></div>
                   </div>
                 <div class="input-group col-lg-10">
-                    <button type="submit" class="btn btn-primary" id="contact">Indienen</button>
+                    <input type="submit" class="btn btn-primary" id="contact" value="submit" />
                 </div>
               </form>
         </main>

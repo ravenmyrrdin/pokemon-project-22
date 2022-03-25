@@ -18,7 +18,7 @@ body.contact main form label {
   margin: 1rem 0 0 0;
 }
 
-.input-group button#contact {
+.input-group input[type="submit"]#contact {
   margin: 0 auto;
   font-size: 1.5rem;
   width: 80%;

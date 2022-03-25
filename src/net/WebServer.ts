@@ -11,11 +11,10 @@ import path from 'path';
 import { IWebRequest } from './interfaces/IWebRequest';
 
 /**
- * ExpressJS server module extension class.
+ * ExpressJS server module extension class. (sealed)
  */
 export class WebServer
 {
-    /** No object construction allowed externaly + hide constructor from typedoc documentation generator */
     private constructor() { }
 
     /** ExpressJS server application for listening for webrequests */
@@ -62,7 +61,6 @@ export class WebServer
                     const objectName: string = Object.getOwnPropertyNames(modulePrototype)[0];
 
                     _interface = Object.assign({}, (modulePrototype as {[key: string]: any})[objectName]);
-
                 } catch(e) {}
             }
 
@@ -117,16 +115,24 @@ export class WebServer
                  else if (/^[a-zA-Z]+$/.test(ejsName)) {
                      if(callbackInterface) 
                      {
+
                          for(const requestType in callbackInterface)
                          {
                              if(callbackInterface[requestType] === undefined ) continue;
-                             const renderViewCallback = (req: any, res: any, next : any) => (res as any).render(ejsName, callbackInterface[requestType](req, res, next));
+                             const renderViewCallback = (req: any, res: any, next : any) => 
+                             {
+
+                                
+                                 (res as any).render(ejsName, callbackInterface[requestType](req, res, next));
+                             }
      
                             let setter: Function | undefined;  
                             switch(requestType)
                             {
                                 case "get":      setter = () => this.listener.get(endpoint, renderViewCallback); break;
                                 case "post":     setter = () => this.listener.post(endpoint, renderViewCallback); break;
+
+                                // Can be added to interface as requirement or class based implementation of interface with additional methods could be used.
                                 case "put":      setter = () => this.listener.put(endpoint, renderViewCallback); break;
                                 case "patch":    setter = () => this.listener.patch(endpoint,renderViewCallback); break;
                                 case "delete":   setter = () => this.listener.delete(endpoint, renderViewCallback); break;
@@ -140,7 +146,9 @@ export class WebServer
                             }
                              
                              if(setter)
-                                 endpointSetters.unshift(setter);
+                             {
+                                endpointSetters.unshift(setter);
+                             }
                          }
                      } 
                      else 
