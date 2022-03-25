@@ -5,6 +5,7 @@ import { NextFunction } from "express";
 import { IWebResponse } from "../interfaces/IWebResponse";
 import { IViewTemplate } from '../interfaces/IViewTemplate';
 import { StringTools } from "../../misc/StringTools";
+import { IWebRequest } from '../interfaces/IWebRequest';
 
 interface User
 {
@@ -35,7 +36,9 @@ export const Contact: IViewTemplate = {
         if(!StringTools.isEmail(userData.email)) errors.push("Invalid e-mail.");
     } else errors.push("Request error");
 
-    if(errors) return { data: { error: errors.join("\n")}}
-    else return { data: { message: "E-mail send test"} }
+    const response: IWebResponse =  { data: { message:  errors.length ? errors.join("\n") : "E-mail send test"}};
+    console.dir(response);
+
+    return response;
   }
 }
