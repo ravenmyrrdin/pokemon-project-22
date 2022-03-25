@@ -28,3 +28,7 @@ body.contact main form label {
   display: flex;
   justify-content: center;
 }
+
+img#logo {
+  border-radius: 50%;
+}
