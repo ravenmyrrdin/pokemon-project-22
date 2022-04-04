@@ -36,3 +36,19 @@ body.contact main form label {
 img#logo {
   border-radius: 50%;
 }
+
+.popup {
+  text-align: center;
+}
+
+.popup h1 {
+  margin: 3rem 0 1rem 0;
+}
+.popup button {
+  margin: 2rem 0 0 0;
+}
+
+.popup button a {
+  text-decoration: none;
+  color: inherit;
+}
