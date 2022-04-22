@@ -1,7 +1,8 @@
 node_modules
-package-lock.json
+lib
 tsconfig.json
 bin
+dist
 docs
 keys.json
 idea

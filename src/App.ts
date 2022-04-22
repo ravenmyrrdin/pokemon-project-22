@@ -37,4 +37,4 @@ Logger.log("Updating documentation...");
 generateDocumentation().then(r => console.log("succesfully updated documentation"))
                         .catch(e => console.log("Failed to update documentation"));
 
-WebServer.start();
+WebServer.singleton.start();

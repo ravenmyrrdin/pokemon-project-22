@@ -1,0 +1,1 @@
+web: tsc && node ./dist/App.js

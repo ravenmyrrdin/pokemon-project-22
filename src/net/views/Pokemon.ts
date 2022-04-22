@@ -3,9 +3,9 @@
  */
 import { NextFunction } from "express";
 import { IWebResponse } from "../interfaces/IWebResponse";
-import { IViewTemplate } from '../interfaces/IViewTemplate';
+import { IViewTemplate } from "../interfaces/IViewTemplate";
 
-export const Nbb: IViewTemplate = {
+export const Pokemon: IViewTemplate = {
   get(req: Request, res: Response, next: NextFunction): IWebResponse {
     const response: IWebResponse = {
       data: {
@@ -23,5 +23,5 @@ export const Nbb: IViewTemplate = {
     };
 
     return response;
-  }
-}
+  },
+};

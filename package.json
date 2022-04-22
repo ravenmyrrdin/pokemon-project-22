@@ -1,11 +1,8 @@
 {
   "name": "nbb-project-22",
-  "version": "0.2.0a",
-  "description": "",
-  "main": "App.js",
-  "bin": {
-    "NBB-project-22": "App.js"
-  },
+  "version": "0.2.0-a",
+  "description": "Compare two pokémons",
+  "main": "App.ts",
   "directories": {
     "doc": "docs"
   },
@@ -13,24 +10,29 @@
     "axios": "^0.26.1",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.6.3",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "express": "^4.17.3",
+    "ejs": "^3.1.6"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
-    "@types/node": "^17.0.23",
+    "@types/node": "^17.0.25",
     "@types/uuid": "^8.3.4",
-    "body-parser": "^1.19.2",
-    "ejs": "^3.1.6",
+    "body-parser": "^1.20.0",
+    "ejs": "^3.1.7",
     "express": "^4.17.3",
     "file-system": "^2.2.2",
-    "typedoc": "^0.22.13",
+    "typedoc": "^0.22.15",
     "typedoc-plugin-merge-modules": "^3.1.0"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
-    "start": "ts-node ./src/App.ts",
-    "install": "tsc --init --experimentalDecorators --rootDir \"./src\" --outDir \"./bin\" && npm install --save-dev typedoc @types/node express @types/express file-system ejs typedoc-plugin-merge-modules",
-    "compile": "tsc",
-    "start-release": "node ./bin/App.js"
+    "start": "node ./dist/App.js",
+    "tsc": "tsc",
+    "postinstall": "npm run tsc",
+    "serve": "ts-node-dev ./src/App.ts"
   },
   "repository": {
     "type": "git",
@@ -42,5 +44,8 @@
   "bugs": {
     "url": "https://github.com/ravenmyrrdin/NBB-project-22/issues"
   },
-  "homepage": "https://github.com/ravenmyrrdin/NBB-project-22#readme"
+  "homepage": "https://github.com/ravenmyrrdin/NBB-project-22#readme",
+  "dist": {
+    "nbb-project-22": "App.js"
+  }
 }
