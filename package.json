@@ -1,6 +1,6 @@
 {
-  "name": "nbb-project-22",
-  "version": "0.2.0-a",
+  "name": "pokemon-api-22",
+  "version": "0.2.0a",
   "description": "Compare two pokémons",
   "main": "App.ts",
   "directories": {
@@ -30,8 +30,6 @@
   },
   "scripts": {
     "start": "node ./dist/App.js",
-    "tsc": "tsc",
-    "postinstall": "npm run tsc",
     "serve": "ts-node-dev ./src/App.ts"
   },
   "repository": {

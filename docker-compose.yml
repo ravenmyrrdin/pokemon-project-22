@@ -1,0 +1,12 @@
+
+services:
+    app:
+        container_name: pokemonapi
+        image: pokemonapi
+        restart: always
+        build:
+            context: ../
+            dockerfile: Dockerfile
+            target: ./app
+        ports:
+            - "${PORT}" 

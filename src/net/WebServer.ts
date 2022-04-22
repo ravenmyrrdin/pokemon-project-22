@@ -50,7 +50,7 @@ export class WebServer
                                                                 .map(i => i.substring(0, i.length-4));}
 
     /** Get ejs view interfaces root */
-    public get viewInterfacesRoot(): string { return path.join(Globals.projectRoot, "src", "net", "views"); }
+    public get viewInterfacesRoot(): string { return path.join(__dirname, "views"); }
     
     /** Get names of all ejs view interfaces */
     public get viewInterfaceNames(): string[] { return (Globals.fs.readdirSync(this.viewInterfacesRoot) as string[]).filter(i => i.toLowerCase().endsWith(".ts")).map(i => i.substring(0, i.length-3));}
