@@ -28,7 +28,8 @@
   },
   "scripts": {
     "start": "node ./bin/App.js",
-    "build": "tsc",
+    "build": "tsc --experimentalDecorators --rootDir \"./src\" --outDir \"./bin\" && npm install --save-dev typedoc @types/node express @types/express file-system ejs typedoc-plugin-merge-modules",
+    "compile": "tsc",
     "serve": "ts-node-dev ./src/App.ts"
   },
   "repository": {
