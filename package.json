@@ -33,7 +33,7 @@
     "start": "node ./dist/App.js",
     "serve": "ts-node-dev ./src/App.ts",
     "tsc": "tsc",
-    "postinstall": "npm run tsc"
+    "build": "npm run tsc"
   },
   "repository": {
     "type": "git",
