@@ -86,8 +86,7 @@ export class WebServer
         this.listener.use(express.urlencoded({extended: true}));
         this.listener.use(express.static(assetsFolder));
         
-        if(process.env.PORT !== undefined)
-            this._serverPort = process.env.PORT || 8080;
+        this._serverPort = process.env.PORT || 8080;
     }
 
     /**

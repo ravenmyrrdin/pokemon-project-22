@@ -11,8 +11,6 @@ class PokemonAPI
     {
       return (await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`));
     }
-
-
 }
 
 new PokemonAPI().getByName("ditto").then(i => console.log(i));
