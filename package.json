@@ -30,7 +30,8 @@
   },
   "scripts": {
     "start": "node ./dist/App.js",
-    "build": "tsc",
+    "tsc": "tsc",
+    "postinstall": "npm run tsc",
     "serve": "ts-node-dev ./src/App.ts"
   },
   "repository": {

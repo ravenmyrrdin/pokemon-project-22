@@ -93,5 +93,4 @@ new PokemonAPI().getByName("ditto").then(p => {
   console.log(`Weight: ${p.weight}`);
   console.log(`Abilities: ${JSON.stringify(p.weight)}`);
   console.log(`Sprites (GEN 1): ${JSON.stringify(p.getSprites(1))}`);
-
 });
