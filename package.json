@@ -31,7 +31,6 @@
   },
   "scripts": {
     "start": "node ./dist/App.js",
-    "build": "tsc",
     "serve": "ts-node-dev ./src/App.ts"
   },
   "repository": {
