@@ -3,24 +3,18 @@ import { AxiosInstance, AxiosResponse } from "axios"
 const axios = require("axios");
 import {v4 as uuidv4} from 'uuid';
 
-interface keydata {
-    authentic: string[];
-    'authentic-archive': string[];
-    extracts: string[];
-    'improved-archive': string[];
-    improved: string[];
-}
-
 class NBBApi 
 {
+    
+    private readonly categories: string[] = ["authentic", "authentic-archive", "extracts","improved-archive", "improved"];
     private apiEndpoint: string = "https://ws.uat2.cbso.nbb.be";
-    private readonly keys: keydata = require("../keys.json")
+    private readonly keys = require("../keys.json")
 
-    private getCategoryKey(category: string): string | undefined
+    private getKey(): string | undefined
     {
-        if(Object.keys(this.keys).includes(category))
+        if(Object.keys(this.keys).includes("full-access"))
         {
-            const keySet: string = (Object.assign({}, this.keys) as any)[category];
+            const keySet: string = (Object.assign({}, this.keys) as any)["full-access"];
             if(keySet)
                 return keySet[0];
         }
@@ -32,9 +26,13 @@ class NBBApi
     {
         return new Promise<AxiosResponse<any, any>>(async(resolve, reject) => 
         {
-            const key: string | undefined = this.getCategoryKey(category);
-            if(!key) reject(new Error("Invalid category, allowed categories: "+Object.keys(this.keys).join(", ")))
-
+            if(!this.categories.includes(category))
+                reject(new Error("Invalid category, allowed categories: "+Object.keys(this.keys).join(", ")))
+            
+            const key: string | undefined = this.getKey();
+            if(!key)
+                reject(new Error("Key not found"));
+            
             const url: string = `${this.apiEndpoint}/${category}/${endpoint}`;
             let response: any
             try
