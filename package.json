@@ -2,10 +2,7 @@
   "name": "nbb-project-22",
   "version": "0.2.0a",
   "description": "",
-  "main": "App.js",
-  "dist": {
-    "pokemon-project-22": "App.js"
-  },
+  "main": "App.ts",
   "directories": {
     "doc": "docs"
   },
@@ -31,7 +28,7 @@
   },
   "scripts": {
     "start": "node ./dist/App.js",
-    "build": "tsc --experimentalDecorators",
+    "build": "tsc",
     "serve": "ts-node-dev ./src/App.ts"
   },
   "repository": {
