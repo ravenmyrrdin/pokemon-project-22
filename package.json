@@ -1,7 +1,7 @@
 {
   "name": "nbb-project-22",
-  "version": "0.2.0a",
-  "description": "",
+  "version": "0.2.0-a",
+  "description": "��#\u0000 \u0000P\u0000o\u0000k\u0000e\u0000m\u0000o\u0000n\u0000 \u0000P\u0000r\u0000o\u0000j\u0000e\u0000c\u0000t\u0000 \u00002\u00002\u0000\r\u0000 \u0000\r\u0000 \u0000I\u0000n\u0000s\u0000t\u0000a\u0000l\u0000l\u0000:\u0000\r\u0000 \u0000\r\u0000 \u0000-\u0000 \u0000n\u0000p\u0000m\u0000 \u0000r\u0000u\u0000n\u0000 \u0000i\u0000n\u0000s\u0000t\u0000a\u0000l\u0000l\u0000\r\u0000 \u0000\r\u0000 \u0000S\u0000t\u0000a\u0000r\u0000t\u0000:\u0000\r\u0000 \u0000\r\u0000 \u0000-\u0000 \u0000n\u0000p\u0000m\u0000 \u0000r\u0000u\u0000n\u0000 \u0000s\u0000t\u0000a\u0000r\u0000t\u0000\r\u0000 \u0000",
   "main": "App.ts",
   "directories": {
     "doc": "docs"
@@ -43,5 +43,8 @@
   "bugs": {
     "url": "https://github.com/ravenmyrrdin/NBB-project-22/issues"
   },
-  "homepage": "https://github.com/ravenmyrrdin/NBB-project-22#readme"
+  "homepage": "https://github.com/ravenmyrrdin/NBB-project-22#readme",
+  "bin": {
+    "nbb-project-22": "App.js"
+  }
 }
