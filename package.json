@@ -26,6 +26,9 @@
     "typedoc": "^0.22.13",
     "typedoc-plugin-merge-modules": "^3.1.0"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "start": "node ./bin/App.js",
     "build": "tsc --experimentalDecorators --rootDir \"./src\" --outDir \"./bin\" && npm install --save-dev typedoc @types/node express @types/express file-system ejs typedoc-plugin-merge-modules",
