@@ -32,7 +32,7 @@
   "scripts": {
     "start": "node ./dist/App.js",
     "serve": "ts-node-dev ./src/App.ts",
-    "tsc": "tsc",
+    "tsc": "./node_modules/typescript/bin/tsc",
     "build": "npm run tsc"
   },
   "repository": {
