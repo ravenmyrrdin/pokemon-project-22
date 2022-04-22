@@ -2,6 +2,7 @@ node_modules
 package-lock.json
 tsconfig.json
 bin
+dist
 docs
 keys.json
 idea

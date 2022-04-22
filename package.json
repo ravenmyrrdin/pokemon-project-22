@@ -27,7 +27,7 @@
     "typedoc-plugin-merge-modules": "^3.1.0"
   },
   "scripts": {
-    "start": "node ./bin/App.js",
+    "start": "node ./dist/App.js",
     "build": "tsc --experimentalDecorators --rootDir \"./src\" --outDir \"./bin\"",
     "compile": "tsc",
     "serve": "ts-node-dev ./src/App.ts"
