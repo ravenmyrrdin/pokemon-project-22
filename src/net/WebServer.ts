@@ -21,9 +21,9 @@ export class WebServer
     private static readonly listener = express();
 
     /** Listening port for webrequests. */
-    public static get serverPort(): Number  { return this.listener.get("port");}
+    public static get serverPort(): string | Number  { return this.listener.get("port");}
     /** Internal setter for listening port. */
-    private static set _serverPort(value: Number) { this.listener.set("port", value);};
+    private static set _serverPort(value: string | Number) { this.listener.set("port", value);};
 
     /** Get the current rendering engine for express-js (default: ejs) */
     public static get viewEngine(): string { return this.listener.get("view engine");}
@@ -45,7 +45,9 @@ export class WebServer
     /** Get names of all ejs view interfaces */
     public static get viewInterfaceNames(): string[] { return (Globals.fs.readdirSync(this.viewInterfacesRoot) as string[]).filter(i => i.toLowerCase().endsWith(".ts")).map(i => i.substring(0, i.length-3));}
     
-    /** Get all viewnames and there prototype if available  */
+    /** 
+     * Get all viewnames, attempt 
+     *  */
     public static async getViewPrototypes() : Promise<Map<string, {[key: string]: IWebRequest} | undefined>> 
     {
         let output: Map<string, {[key: string]: IWebRequest} | undefined> = new Map<string, {[key: string]: IWebRequest} | undefined>();
@@ -77,14 +79,15 @@ export class WebServer
      * - Then it assigns middle ware for incomming json objects, url encoded objects and an accessor for access to the public files directory.
      * - Then it sets the port to the port argument (default:  8080)
      */
-    private static setupListener({assetsFolder = "public", port = 8080} = {}): void
+    private static setupListener({assetsFolder = "public"} = {}): void
     {
 
         this.listener.use(express.json({limit: "1mb"}));
         this.listener.use(express.urlencoded({extended: true}));
         this.listener.use(express.static(assetsFolder));
-
-        this._serverPort = port;
+        
+        if(process.env.PORT !== undefined)
+            this._serverPort = process.env.PORT || 8080;
     }
 
     /**
