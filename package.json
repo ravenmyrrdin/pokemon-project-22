@@ -28,7 +28,6 @@
   },
   "scripts": {
     "start": "node ./bin/App.js",
-    "install": "tsc",
     "build": "tsc",
     "serve": "ts-node-dev ./src/App.ts"
   },
