@@ -21,7 +21,10 @@ export class WebServer
     public static get singleton(): WebServer 
     {
         if(this._singleton == undefined)
+        {
+            console.log("Loading WebServer singleton (global instance) and configuring using default values");
             this._singleton = new WebServer();
+        }
             
         return this._singleton;
     }
@@ -72,6 +75,7 @@ export class WebServer
         this._serverPort = process.env.PORT || port;
         this.viewEngine = "ejs";
     }
+
     /** 
      * Get all viewnames, attempt 
      */
@@ -99,8 +103,6 @@ export class WebServer
         return output;
     }
 
-
-
     /**
      * Setup listener and start listening for requests.
      * 
@@ -123,5 +125,4 @@ export class WebServer
                 () => console.log(`[${this.constructor.name}]: listening for requests on port ${this.serverPort}`));
         }
     }
-
 }

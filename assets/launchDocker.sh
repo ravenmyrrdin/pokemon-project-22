@@ -3,4 +3,5 @@ echo #############################
 echo # Docker container launcher #
 echo #############################
 
-docker start api
+docker stop api
+docker run -p 8080 --name api api

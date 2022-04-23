@@ -4,6 +4,7 @@
 import { WebServer } from "./net/WebServer";
 import { Logger } from './misc/Logger';
 import { Globals } from "./misc/Globals";
+import { StringTools } from './misc/StringTools';
 
 
 if(Globals.refreshDoc)
@@ -42,4 +43,4 @@ if(Globals.refreshDoc)
                             .catch(e => console.log("Failed to update documentation"));
 }
 
-WebServer.singleton.start();
+//WebServer.singleton.start();

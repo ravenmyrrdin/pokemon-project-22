@@ -1,18 +1,24 @@
 FROM node:16
-# Create app directory
+
+# directory de bash/shell in bevind.
 WORKDIR /usr/local/app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# Kopieer package naar de docker image.
 COPY package*.json ./
+
+# NPM run install
 RUN npm install
-# If you are building your code for production
+
+# Production moet ik nog bekijke nog niet gebruikt maar wordt wel aangerade 
 # RUN npm ci --only=production
 
-# Bundle app source
+# Structuur doorgeven
 ADD ./bin ./bin/misc ./bin/net ./bin/net/interfaces ./bin/net/views /usr/local/app/www/
 ADD ./views  /usr/local/app/views/
 ADD ./public  /usr/local/app/public/
 
+# Poort openen "exposen"
 EXPOSE 8080
+
+# Launch command
 CMD [ "node", "/usr/local/app/www/App.js" ]
