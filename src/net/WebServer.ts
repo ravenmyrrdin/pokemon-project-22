@@ -21,7 +21,10 @@ export class WebServer
     public static get singleton(): WebServer 
     {
         if(this._singleton == undefined)
+        {
+            console.log("Loading WebServer singleton (global instance) and configuring using default values");
             this._singleton = new WebServer();
+        }
             
         return this._singleton;
     }
@@ -50,7 +53,7 @@ export class WebServer
                                                                 .map(i => i.substring(0, i.length-4));}
 
     /** Get ejs view interfaces root */
-    public get viewInterfacesRoot(): string { return path.join(Globals.projectRoot, "src", "net", "views"); }
+    public get viewInterfacesRoot(): string { return path.join(__dirname, "views"); }
     
     /** Get names of all ejs view interfaces */
     public get viewInterfaceNames(): string[] { return (Globals.fs.readdirSync(this.viewInterfacesRoot) as string[]).filter(i => i.toLowerCase().endsWith(".ts")).map(i => i.substring(0, i.length-3));}
@@ -72,6 +75,7 @@ export class WebServer
         this._serverPort = process.env.PORT || port;
         this.viewEngine = "ejs";
     }
+
     /** 
      * Get all viewnames, attempt 
      */
@@ -99,8 +103,6 @@ export class WebServer
         return output;
     }
 
-
-
     /**
      * Setup listener and start listening for requests.
      * 
@@ -123,5 +125,4 @@ export class WebServer
                 () => console.log(`[${this.constructor.name}]: listening for requests on port ${this.serverPort}`));
         }
     }
-
 }
