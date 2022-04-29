@@ -43,4 +43,4 @@ if(Globals.refreshDoc)
                             .catch(e => console.log("Failed to update documentation"));
 }
 
-//WebServer.singleton.start();
+WebServer.singleton.start();
