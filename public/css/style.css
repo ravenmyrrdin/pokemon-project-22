@@ -52,3 +52,8 @@ img#logo {
   text-decoration: none;
   color: inherit;
 }
+
+.pokeballcontainer{
+  background-color: rgb(251,27,27,0.5);
+  border-radius: 200px;
+}
