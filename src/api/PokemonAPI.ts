@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IPokemonStat } from "./IPokemonStat";
 import { Pokemon } from "./Pokemon";
 import { PokemonGame } from "./PokemonGame";
 import { SpriteType } from "./SpriteType";
@@ -16,7 +17,7 @@ export class PokemonAPI
     
     public async getById(id: number)
     {
-      return (await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`));
+      return new Pokemon((await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)));
     }
 }
 
@@ -26,6 +27,7 @@ new PokemonAPI().getByName("ditto").then(p => {
   console.log(`Name: ${p.name}`);
   console.log(`Weight: ${p.weight}`);
   console.log(`Abilities: ${JSON.stringify(p.abilities)}`);
+  console.log(`Attack stat: ${JSON.stringify(p.getStat(IPokemonStat.Attack))}`);
   
   console.log("Front Normal: " + p.getFrontSprite(PokemonGame.FireredLeafgreen));
   console.log("Front Shiny: " + p.getFrontSprite(PokemonGame.FireredLeafgreen, SpriteType.Shiny));

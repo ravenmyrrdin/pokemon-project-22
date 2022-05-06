@@ -44,5 +44,8 @@
   "bugs": {
     "url": "https://github.com/ravenmyrrdin/NBB-project-22/issues"
   },
-  "homepage": "https://github.com/ravenmyrrdin/NBB-project-22#readme"
+  "homepage": "https://github.com/ravenmyrrdin/NBB-project-22#readme",
+  "dist": {
+    "nbb-project-22": "App.js"
+  }
 }

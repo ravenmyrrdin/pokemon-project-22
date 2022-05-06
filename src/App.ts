@@ -1,46 +1,41 @@
-/**
- * @module src
- */
-import { WebServer } from "./net/WebServer";
-import { Logger } from './misc/Logger';
-import { Globals } from "./misc/Globals";
-import { StringTools } from './misc/StringTools';
+import { IPokemonStat } from "./api/IPokemonStat";
+import { PokemonAPI } from "./api/PokemonAPI";
+
+const express = require("express");
+const app = express();
+app.set("port", 8080 || process.env.PORT);
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+
+app.get("/", (req: any, res: any) => {
+  res.render("index");
+});
+
+app.get("/pokemon", (req: any, res: any) => {
+  res.render("pokemon");
+});
+
+app.get("/catch", (req: any, res: any) => {
+  res.render("catch");
+});
+
+<<<<<<< HEAD
+app.get("/popup", (req: any, res: any) => {
+  res.render("popup");
+});
+
+=======
+app.get("/vergelijking", async (req: any, res: any) => {
+    const api = new PokemonAPI();
+    const pokemon = await api.getById(1);
+
+    res.render("vergelijking", { "attackA": pokemon.baseExperience});
+});
 
 
-if(Globals.refreshDoc)
-{
-    const TypeDoc = require("typedoc");
 
-    async function generateDocumentation() {
-        const app = new TypeDoc.Application();
-    
-        app.options.addReader(new TypeDoc.TSConfigReader());
-        app.options.addReader(new TypeDoc.TypeDocReader());
-    
-        app.bootstrap({
-            // typedoc options here
-            entryPoints: ["src"],
-            entryPointStrategy: "expand",
-            mergeModulesRenameDefaults: true,
-            mergeModulesMergeMode: "module"
-        });
-    
-        const project = app.convert();
-    
-        if (project) {
-            // Project may not have converted correctly
-            const outputDir = "docs";
-    
-            // Rendered docs
-            await app.generateDocs(project, outputDir);
-            // Alternatively generate JSON output
-            await app.generateJson(project, outputDir + "/documentation.json");
-        }
-    }
-    
-    Logger.log("Updating documentation...");
-    generateDocumentation().then(r => console.log("succesfully updated documentation"))
-                            .catch(e => console.log("Failed to update documentation"));
-}
-
-WebServer.singleton.start();
+>>>>>>> 577c73093516937c3588ff6df31b8ff4221e9c0b
+app.listen(
+  app.get("port"),
+  console.log(`[SERVER]: Running on http://localhost:${app.get("port")}`)
+);
