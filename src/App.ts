@@ -19,7 +19,7 @@ app.get("/catch", (req: any, res: any) => {
   res.render("catch");
 });
 
-app.get("/dashbord", (req: any, res: any) => {
+app.get("/dashboard", (req: any, res: any) => {
   res.render("dashboard");
 });
 
