@@ -17,7 +17,7 @@ export class PokemonAPI
     
     public async getById(id: number)
     {
-      return new Pokemon((await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)));
+      return new Pokemon((await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)).data);
     }
 }
 
