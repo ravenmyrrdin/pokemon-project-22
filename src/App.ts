@@ -19,22 +19,17 @@ app.get("/catch", (req: any, res: any) => {
   res.render("catch");
 });
 
-<<<<<<< HEAD
 app.get("/popup", (req: any, res: any) => {
   res.render("popup");
 });
 
-=======
 app.get("/vergelijking", async (req: any, res: any) => {
-    const api = new PokemonAPI();
-    const pokemon = await api.getById(1);
+  const api = new PokemonAPI();
+  const pokemon = await api.getById(1);
 
-    res.render("vergelijking", { "attackA": pokemon.baseExperience});
+  res.render("vergelijking", { attackA: pokemon.baseExperience });
 });
 
-
-
->>>>>>> 577c73093516937c3588ff6df31b8ff4221e9c0b
 app.listen(
   app.get("port"),
   console.log(`[SERVER]: Running on http://localhost:${app.get("port")}`)
