@@ -3,6 +3,7 @@ import { StringTools } from '../misc/StringTools';
 import { ISprite } from './ISprite';
 import { PokemonGame } from './PokemonGame';
 import { SpriteType } from './SpriteType';
+import { IPokemonStat } from './IPokemonStat';
 /**
  * Scraped pokemon result data object
  */
@@ -28,6 +29,7 @@ export class Pokemon
     for(const key of Object.keys(thisData))
     {
       const sanitzedKey = key.replace("_", "");
+      console.log(sanitzedKey);
       if(Object.keys(json).includes(sanitzedKey))
       {
         let binding: {[key: string]: any} = {}
@@ -37,6 +39,7 @@ export class Pokemon
       }
     }
   }
+
 
 
   /** The id setter of the pokemon */
@@ -70,6 +73,12 @@ export class Pokemon
   
   /** Sprites setter for pokemon */
   private _sprites: {[key: string]: any} = [];
+
+  private _stats:  any[] = [];
+  public getStat(stat: IPokemonStat)
+  {
+    return this._stats[stat].base_stat;
+  }
 
   /** Get all sprites of the pokemon in a specific generation */
   private getSpritesFromGeneration(pokemonGame: PokemonGame): {[key: string]: string} { 

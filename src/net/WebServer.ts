@@ -42,7 +42,7 @@
      public get viewEngine(): string { return this.listener.get("view engine");}
  
      /**  Set the express-js "Views" engine  */
-     public set viewEngine(value: string) { this.listener.set("view engine", value);};
+     public set viewEngine(value: string) {     this.listener.set("view engine", value);};
  
      /** Get the rootpath to the ejs views directory. */
      public get ejsViewsRoot(): string { return this.listener.settings.views; }
