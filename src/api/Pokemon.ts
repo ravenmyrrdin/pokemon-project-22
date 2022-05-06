@@ -1,9 +1,8 @@
 import { IAbility } from './IAbility';
-import { StringTools } from '../misc/StringTools';
-import { ISprite } from './ISprite';
 import { PokemonGame } from './PokemonGame';
 import { SpriteType } from './SpriteType';
 import { IPokemonStat } from './IPokemonStat';
+import { StringTools } from '../StringTools';
 /**
  * Scraped pokemon result data object
  */
