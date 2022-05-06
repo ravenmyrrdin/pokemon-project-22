@@ -2,6 +2,7 @@
 <html lang="nl-BE">
   <head>
     <title>Startpagina</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     <%- include('partials/head'); %>
   </head>
   <body>
@@ -12,7 +13,11 @@
       >
         <article
           class="p-2 bd-highlight"
-          onClick="window.open('./popup','Popup','width=500,height=530,scrollbars=no,toolbar=no,location=no')"
+          onClick="Swal.fire({
+            icon: 'error',
+            title: 'Sorry',
+            text: 'Dit project is momenteel niet beschikbaar!', 
+          })"
         >
           <div class="imgWrap">
             <img
