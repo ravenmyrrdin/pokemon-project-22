@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "mongodb": "^4.5.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.6.3",
     "uuid": "^8.3.2",
@@ -43,8 +44,13 @@
   "bugs": {
     "url": "https://github.com/ravenmyrrdin/NBB-project-22/issues"
   },
+<<<<<<< HEAD
   "homepage": "https://github.com/ravenmyrrdin/NBB-project-22#readme",
   "dist": {
     "nbb-project-22": "App.js"
   }
 }
+=======
+  "homepage": "https://github.com/ravenmyrrdin/NBB-project-22#readme"
+}
+>>>>>>> Databank
