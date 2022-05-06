@@ -16,6 +16,10 @@ app.get("/catch", (req: any, res: any) => {
   res.render("catch");
 });
 
+app.get("/popup", (req: any, res: any) => {
+  res.render("popup");
+});
+
 app.listen(
   app.get("port"),
   console.log(`[SERVER]: Running on http://localhost:${app.get("port")}`)
