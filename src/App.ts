@@ -25,6 +25,12 @@ app.get("/vergelijking", async (req: any, res: any) => {
     const pokemonA = await api.getById(1);
     const pokemonB = await api.getById(2);
 
+    let data = [];
+    for(let i = 1; i <= 10; i++)
+        data.push(await api.getById(i));
+
+    console.log(data[0].name);
+
     res.render("vergelijking", { 
         "name":           [ pokemonA.name, pokemonB.name ],
         "sprite":         [ pokemonA.getFrontSprite(PokemonGame.RedBlue), pokemonB.getFrontSprite(PokemonGame.RedBlue) ],

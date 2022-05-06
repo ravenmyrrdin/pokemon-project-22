@@ -21,7 +21,7 @@ export class PokemonAPI
     }
 }
 
-
+/*
 new PokemonAPI().getByName("ditto").then(p => {
   console.log(`ID: ${p.id}`);
   console.log(`Name: ${p.name}`);
@@ -34,3 +34,4 @@ new PokemonAPI().getByName("ditto").then(p => {
   console.log("Back Normal: " + p.getBackSprite(PokemonGame.FireredLeafgreen));
   console.log("Back Shiny: " + p.getBackSprite(PokemonGame.FireredLeafgreen, SpriteType.Shiny));
 });
+*/
