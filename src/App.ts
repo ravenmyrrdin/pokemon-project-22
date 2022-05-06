@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 app.set("port", 8080 || process.env.PORT);
 app.set("view engine", "ejs");
-app.use(express.static("public"));  
+app.use(express.static("public"));
 
 app.get("/", (req: any, res: any) => {
   res.render("index");
@@ -19,16 +19,16 @@ app.get("/catch", (req: any, res: any) => {
   res.render("catch");
 });
 
-
-app.get("/vergelijking", async (req: any, res: any) => {
-    const api = new PokemonAPI();
-    const pokemon = await api.getById(1);
-
-    res.render("vergelijking", { "attackA": pokemon.baseExperience});
+app.get("/popup", (req: any, res: any) => {
+  res.render("popup");
 });
 
+app.get("/vergelijking", async (req: any, res: any) => {
+  const api = new PokemonAPI();
+  const pokemon = await api.getById(1);
 
-
+  res.render("vergelijking", { attackA: pokemon.baseExperience });
+});
 
 app.listen(
   app.get("port"),
