@@ -1,8 +1,10 @@
 import { IPokemonStat } from "./api/IPokemonStat";
+import { Pokemon } from "./api/Pokemon";
 import { PokemonAPI } from "./api/PokemonAPI";
 
 const express = require("express");
 const app = express();
+const api = new PokemonAPI();
 app.set("port", 8080 || process.env.PORT);
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -11,22 +13,27 @@ app.get("/", (req: any, res: any) => {
   res.render("index");
 });
 
-app.get("/pokemon", (req: any, res: any) => {
-  res.render("pokemon");
+app.get("/pokemon", async (req: any, res: any) => {
+  const pokemons:Pokemon[] =[];
+  for(let i =1;i<13;i++){
+    const pokemon = await api.getById(i);
+    pokemons.push(pokemon);
+  }
+  res.render("pokemon",{
+    "pokemons": await pokemons
+  });
 });
 
 app.get("/catch", (req: any, res: any) => {
   res.render("catch");
 });
 
-<<<<<<< HEAD
 app.get("/popup", (req: any, res: any) => {
   res.render("popup");
 });
 
-=======
 app.get("/vergelijking", async (req: any, res: any) => {
-    const api = new PokemonAPI();
+
     const pokemon = await api.getById(1);
 
     res.render("vergelijking", { "attackA": pokemon.baseExperience});
@@ -34,7 +41,6 @@ app.get("/vergelijking", async (req: any, res: any) => {
 
 
 
->>>>>>> 577c73093516937c3588ff6df31b8ff4221e9c0b
 app.listen(
   app.get("port"),
   console.log(`[SERVER]: Running on http://localhost:${app.get("port")}`)

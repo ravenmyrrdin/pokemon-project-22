@@ -7,73 +7,58 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Tool om te vergelijken</title>
+    <title>Pokemons</title>
     <%- include('partials/head'); %>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
   </head>
   <body>
     <%- include('partials/navbar.ejs'); %>
     <main class="p-lg-3">
-      <form class="d-flex bd-highlight">
-        <fieldset class="p-2 flex-fill bd-highlight mb-lg-3">
-          <legend>
-            <label for="pokeInput" class="form-label">Pokémon 1</label>
-            <input
-              type="text"
-              id="pokeInput"
-              class="form-control"
-              placeholder="pokenummer 1"
-              aria-label="Username"
-              aria-describedby="addon-wrapping"
-              required
-            />
-            <button type="submit" class="btn btn-danger">Submit</button>
-          </legend>
-        </fieldset>
-        <fieldset class="p-2 flex-fill bd-highlight mb-lg-3">
-          <legend>
-            <label for="pokeInput2" class="form-label">Pokémon 2</label>
-            <input
-              type="text"
-              id="pokeInput2"
-              class="form-control"
-              placeholder="pokenummer 2"
-              aria-label="Username"
-              aria-describedby="addon-wrapping"
-              required
-            />
-          </legend>
-        </fieldset>
-        <fieldset class="p-2 flex-fill bd-highlight">
-          <legend>
-            <label for="searchbar" class="form-label">Historie</label>
-            <div class="input-group">
-              <input
-                type="search"
-                id="searchbar"
-                class="form-control rounded"
-                placeholder="Opzoeken pokemon"
-                aria-label="Search"
-                aria-describedby="search-addon"
-              />
-              <button type="button" class="btn btn-outline-danger">zoek</button>
-            </div>
-          </legend>
-        </fieldset>
-      </form>
       <div class="container">
-        <section class="row compare">
-          <article class="col-sm pokemon1">
-            <h1 class="name1">Pokémon 1</h1>
-          </article>
-          <article class="col-sm pokemon2">
-            <h1 class="name2">Pokémon 2</h1>
-          </article>
-          <article class="col-sm pokemon2">
-            <h1 class="name2"></h1>
-          </article>
-        </section>
+        <div class="row align-items-start">
+          <div class="col">
+            <%= pokemons[0].name %>
+          </div>
+          <div class="col">
+            <%= pokemons[1].name %>
+          </div>
+          <div class="col">
+            <%= pokemons[2].name %>
+          </div>
+          <div class="col">
+            <%= pokemons[3].name %>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col">
+            <%= pokemons[4].name %>
+          </div>
+          <div class="col">
+            <%= pokemons[5].name %>
+          </div>
+          <div class="col">
+            <%= pokemons[6].name %>
+          </div>
+          <div class="col">
+            <%= pokemons[7].name %>
+          </div>
+        </div>
+        <div class="row align-items-end">
+          <div class="col">
+            <%= pokemons[8].name %>
+          </div>
+          <div class="col">
+            <%= pokemons[9].name %>
+          </div>
+          <div class="col">
+            <%= pokemons[10].name %>
+          </div>
+          <div class="col">
+            <%= pokemons[11].name %>
+          </div>
+        </div>
       </div>
+        
     </main>
   </body>
 </html>
