@@ -13,18 +13,18 @@
   <%- include('partials/navbar.ejs'); %>
         <main class="d-flex justify-content-center">
             <div class="card w-25 m-5" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" src="<%= sprite[0] %>" alt="Card image cap">
                 <div class="card-body">
                   <h5 class="card-title">PokemonA</h5>
                 </div>
                 
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">HP: </li>
-                  <li class="list-group-item">Attack: <% attackA %></li>
-                  <li class="list-group-item">Defence: </li>
-                  <li class="list-group-item">Special Attack: </li>
-                  <li class="list-group-item">Special Defence: </li>
-                  <li class="list-group-item">Speed: </li>
+                  <li class="list-group-item">HP: <%= hp[0] %> </li>
+                  <li class="list-group-item">Attack: <%= attack[0] %></li>
+                  <li class="list-group-item">Defence: <%= defence[0] %></li>
+                  <li class="list-group-item">Special Attack: <%= specialattack[0] %></li>
+                  <li class="list-group-item">Special Defence: <%= specialdefence[0] %></li>
+                  <li class="list-group-item">Speed:  <%= speed[0] %></li>
                 </ul>
                 <div class="card-body">
                   <a href="#" class="card-link">Card link</a>
@@ -32,18 +32,18 @@
                 </div>
             </div>
             <div class="card w-25 m-5" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" src="<%= sprite[1] %>" alt="Card image cap">
                 <div class="card-body">
                   <h5 class="card-title">PokemonA</h5>
                 </div>
                 
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">HP: </li>
-                  <li class="list-group-item">Attack: </li>
-                  <li class="list-group-item">Defence: </li>
-                  <li class="list-group-item">Special Attack: </li>
-                  <li class="list-group-item">Special Defence: </li>
-                  <li class="list-group-item">Speed: </li>
+                  <li class="list-group-item">HP: <%= hp[1] %> </li>
+                  <li class="list-group-item">Attack: <%= attack[1] %></li>
+                  <li class="list-group-item">Defence: <%= defence[1] %></li>
+                  <li class="list-group-item">Special Attack: <%= specialattack[1] %></li>
+                  <li class="list-group-item">Special Defence: <%= specialdefence[1] %></li>
+                  <li class="list-group-item">Speed:  <%= speed[1] %></li>
                 </ul>
                 <div class="card-body">
                   <a href="#" class="card-link">Card link</a>
