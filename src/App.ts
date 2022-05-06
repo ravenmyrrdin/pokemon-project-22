@@ -28,8 +28,8 @@ app.get("/catch", (req: any, res: any) => {
   res.render("catch");
 });
 
-app.get("/popup", (req: any, res: any) => {
-  res.render("popup");
+app.get("/dashboard", (req: any, res: any) => {
+  res.render("dashboard");
 });
 
 app.get("/vergelijking", async (req: any, res: any) => {
