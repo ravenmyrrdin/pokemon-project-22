@@ -13,7 +13,7 @@ RUN npm install
 # RUN npm ci --only=production
 
 # Structuur doorgeven
-ADD ./bin ./bin/misc ./bin/net ./bin/net/interfaces ./bin/net/views /usr/local/app/www/
+ADD ./dist ./dist/api /usr/local/app/www/
 ADD ./views  /usr/local/app/views/
 ADD ./public  /usr/local/app/public/
 
