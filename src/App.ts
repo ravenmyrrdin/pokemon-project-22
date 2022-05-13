@@ -34,7 +34,6 @@ app.get("/dashboard", (req: any, res: any) => {
 
 app.get("/vergelijking", async (req: any, res: any) => {
   const pokemon = await api.getById(1);
-
   res.render("vergelijking", { attackA: pokemon.baseExperience });
 });
 
