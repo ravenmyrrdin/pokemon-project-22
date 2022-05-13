@@ -16,56 +16,21 @@
     <main class="p-lg-3">
 
       <div class="d-flex flex-wrap justify-content">
+        <% for (let i = 0; i<pokemons.length; i++){%>
         <article class="pokemonkaart">
           <div class="row">
-            <img src="<%= pokemons[0]._sprites.front_default %>" class="spriteimg"/>
+            <img src="<%= pokemons[i]._sprites.front_default %>" class="spriteimg"/>
           </div>
           <div class="row">
             <div class="col">
-              <%= pokemons[0].name %>
+              <%= pokemons[i].name %>
             </div>
             <div class="col">
               <img src="images\pokeball.png" class="pokeballimg"\>
             </div>
           </div>
         </article>
-        <article class="pokemonkaart">
-          <div class="row">
-            <img src="<%= pokemons[1]._sprites.front_default %>" class="spriteimg"/>
-          </div>
-          <div class="row">
-            <div class="col">
-              <%= pokemons[1].name %>
-            </div>
-            <div class="col">
-              <img src="images\pokeball.png" class="pokeballimg"\>
-            </div>
-          </div>
-        </article>
-        <article class="pokemonkaart">
-          <div class="row">
-            <img src="<%= pokemons[2]._sprites.front_default %>" class="spriteimg"/>
-          </div>
-          <div class="row">
-            <div class="col">
-              <%= pokemons[2].name %>
-            </div>
-            <div class="col">
-              <img src="images\pokeball.png" class="pokeballimg"\>
-            </div>
-          </div>
-        </article>
-        <article class="pokemonkaart">
-          <div class="row">
-            <img src="<%= pokemons[3]._sprites.front_default %>" class="spriteimg"/>
-          </div>
-          <div class="row">
-            <div class="col">
-              <%= pokemons[3].name %>
-            </div>
-            <div class="col">
-              <img src="images\pokeball.png" class="pokeballimg"\>
-            </div>
+        <%}%>
           </div>
         </article>
       </div>
