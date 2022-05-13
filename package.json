@@ -3,13 +3,11 @@
   "version": "0.2.0a",
   "description": "Compare two pokémons",
   "main": "App.ts",
-  "directories": {
-    "doc": "docs"
-  },
+  "directories": {},
   "dependencies": {
     "axios": "^0.26.1",
     "ejs": "^3.1.6",
-    "express": "^4.17.3",
+    "express": "*",
     "mongodb": "^4.5.0",
     "sweetalert2": "^11.4.10",
     "ts-node-dev": "^1.1.8",
@@ -22,17 +20,17 @@
     "@types/uuid": "^8.3.4",
     "body-parser": "^1.20.0",
     "ejs": "^3.1.7",
-    "express": "^4.17.3",
     "file-system": "^2.2.2",
     "typedoc": "^0.22.15",
     "typedoc-plugin-merge-modules": "^3.1.0",
     "typescript": "^4.6.3"
   },
   "engines": {
-    "node": "16.x"
+    "node": "14.x"
   },
   "scripts": {
     "start": "node ./dist/App.js",
+    "build": "tsc",
     "serve": "ts-node-dev ./src/App.ts"
   },
   "repository": {

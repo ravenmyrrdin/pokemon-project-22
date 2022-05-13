@@ -1,10 +1,11 @@
-article {
+section.index article {
   margin: 2rem 0 0 0;
 }
 
-article:hover {
+section.index article:hover {
   background-color: #64646475;
   border-radius: 2rem;
+  cursor: pointer;
 }
 
 body.contact main {
