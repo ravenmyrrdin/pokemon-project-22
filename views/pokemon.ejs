@@ -1,21 +1,13 @@
 <!DOCTYPE html>
 <html lang="nl-BE">
   <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Pokemons</title>
+    <title>Pokedex</title>
     <%- include('partials/head'); %>
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
   </head>
   <body>
     <%- include('partials/navbar.ejs'); %>
     <main class="p-lg-3">
-
-      <div class="d-flex flex-wrap justify-content">
+      <section class="d-flex flex-wrap justify-content">
         <% for (let i = 0; i<pokemons.length; i++){%>
         <article class="pokemonkaart">
           <div class="row">
@@ -31,7 +23,7 @@
           </div>
         </article>
         <%}%>
-          </div>
+          </section>
         </article>
       </div>
      
