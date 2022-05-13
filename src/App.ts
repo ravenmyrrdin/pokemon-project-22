@@ -3,7 +3,7 @@ import { PokemonAPI } from "./api/PokemonAPI";
 
 const express = require("express");
 const app = express();
-app.set("port", 8080 || process.env.PORT);
+app.set("port", process.env.PORT || 8080);
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
