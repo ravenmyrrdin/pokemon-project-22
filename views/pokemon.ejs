@@ -15,78 +15,27 @@
     <%- include('partials/navbar.ejs'); %>
     <main class="p-lg-3">
 
-      <div class="d-flex flex-wrap justify-content">
+      <div class="d-flex flex-wrap justify-content-center">
         <% for (let i = 0; i<pokemons.length; i++){%>
         <article class="pokemonkaart">
           <div class="row">
             <img src="<%= pokemons[i]._sprites.front_default %>" class="spriteimg"/>
           </div>
           <div class="row">
-            <div class="col">
-              <%= pokemons[i].name %>
+            <div class="col-8">
+              <h1 class="pokename text-capitalize">
+                <%= pokemons[i].name %>
+              </h1>
             </div>
-            <div class="col">
+            <div class="col-2">
               <img src="images\pokeball.png" class="pokeballimg"\>
             </div>
           </div>
         </article>
         <%}%>
-          </div>
+        </div>
         </article>
-      </div>
-     
-      <!-- <div class="container">
-        <div class="row align-items-start">
-          <div class="col ">
-            <div class="row">
-              <div class="col">
-                <img src="<%= pokemons[0]._sprites.front_default %>"/>
-              </div>
-              <div class="col">
-                <%= pokemons[0].name %>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <%= pokemons[1].name %>
-          </div>
-          <div class="col">
-            <%= pokemons[2].name %>
-          </div>
-          <div class="col">
-            <%= pokemons[3].name %>
-          </div>
-        </div>
-        <div class="row align-items-center">
-          <div class="col">
-            <%= pokemons[4].name %>
-          </div>
-          <div class="col">
-            <%= pokemons[5].name %>
-          </div>
-          <div class="col">
-            <%= pokemons[6].name %>
-          </div>
-          <div class="col">
-            <%= pokemons[7].name %>
-          </div>
-        </div>
-        <div class="row align-items-end">
-          <div class="col">
-            <%= pokemons[8].name %>
-          </div>
-          <div class="col">
-            <%= pokemons[9].name %>
-          </div>
-          <div class="col">
-            <%= pokemons[10].name %>
-          </div>
-          <div class="col">
-            <%= pokemons[11].name %>
-          </div>
-        </div>
-      </div> -->
-        
+      </div>       
     </main>
   </body>
 </html>
