@@ -1,10 +1,11 @@
-article {
+section.index article {
   margin: 2rem 0 0 0;
 }
 
-article:hover {
+section.index article:hover {
   background-color: #64646475;
   border-radius: 2rem;
+  cursor: pointer;
 }
 
 body.contact main {
@@ -83,4 +84,30 @@ div.dashboard {
 .centerimg{
   align-items:center
   
+.pokeballcontainer{
+  background-color: rgb(251,27,27,0.5);
+  border-radius: 200px;
+}
+
+.pokemonkaart{
+    display: grid;
+    text-align: center;
+    padding: 0.5rem; 
+    background-color: #e1c3c3eb;
+    border-radius: 1rem;
+    margin: 1rem;  
+}
+
+.pokemonkaart:hover {
+  background-color: #e1c3c3b5;
+}
+
+.pokeballimg{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.spriteimg{
+  width: 10rem;
+  height: 10rem;
 }
