@@ -30,8 +30,8 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "tsc && node ./dist/App.js",
-    "build": "npm install",
+    "start": "node ./dist/App.js",
+    "build": "tsc",
     "serve": "ts-node-dev ./src/App.ts"
   },
   "repository": {
