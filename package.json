@@ -4,7 +4,6 @@
   "description": "Compare two pokémons",
   "main": "App.ts",
   "directories": {
-    "doc": "docs"
   },
   "dependencies": {
     "axios": "^0.26.1",
@@ -33,7 +32,7 @@
   },
   "scripts": {
     "start": "node ./dist/App.js",
-    "build": "tsc",
+    "build": "npm install && tsc",
     "serve": "ts-node-dev ./src/App.ts"
   },
   "repository": {
