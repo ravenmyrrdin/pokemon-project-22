@@ -71,3 +71,7 @@ section.dashboard article {
   width: 30%;
   min-width: 300px;
 }
+.pokeballcontainer{
+  background-color: rgb(251,27,27,0.5);
+  border-radius: 200px;
+}
