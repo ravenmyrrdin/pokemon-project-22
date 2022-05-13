@@ -63,10 +63,24 @@ section.dashboard {
   row-gap: 5%;
   width: 90%;
   margin: 0 auto;
+  margin-top: 50px;
 }
 
 section.dashboard article {
   border: 1px red solid;
   width: 30%;
   min-width: 300px;
+}
+div.dashboard {
+  display: flex
+
+}
+.centerbutton{
+  width: fit-content;
+  margin: 1rem auto;
+
+}
+.centerimg{
+  align-items:center
+  
 }
