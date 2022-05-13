@@ -2,17 +2,22 @@
 <html lang="nl-BE">
   <head>
     <title>Startpagina</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     <%- include('partials/head'); %>
   </head>
   <body>
     <%- include('partials/navbar.ejs');%>
     <main>
       <section
-        class="d-lg-flex flex-row flex-lg-fill justify-content-center flex-lg-wrap bd-highlight mb-lg-8 w-75 mx-auto overflow-hidden"
+        class="d-lg-flex flex-row flex-lg-fill justify-content-center flex-lg-wrap bd-highlight mb-lg-8 w-75 mx-auto overflow-hidden index"
       >
         <article
           class="p-2 bd-highlight"
-          onClick="window.open('./popup','Popup','width=500,height=530,scrollbars=no,toolbar=no,location=no')"
+          onClick="Swal.fire({
+            icon: 'error',
+            title: 'Sorry',
+            text: 'Dit project is momenteel niet beschikbaar!', 
+          })"
         >
           <div class="imgWrap">
             <img
@@ -24,8 +29,12 @@
         </article>
 
         <article
-          class="p-2 bd-highlight"
-          onClick="window.open('./popup','Popup','width=500,height=530,scrollbars=no,toolbar=no,location=no')"
+        class="p-2 bd-highlight"
+        onClick="Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Dit project is momenteel niet beschikbaar!', 
+        })"
         >
           <div class="imgWrap">
             <img
@@ -37,8 +46,12 @@
         </article>
 
         <article
-          class="p-2 bd-highlight"
-          onClick="window.open('./popup','Popup','width=500,height=530,scrollbars=no,toolbar=no,location=center')"
+        class="p-2 bd-highlight"
+        onClick="Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Dit project is momenteel niet beschikbaar!', 
+        })"
         >
           <div class="imgWrap">
             <img
@@ -50,8 +63,12 @@
         </article>
 
         <article
-          class="p-2 bd-highlight"
-          onClick="window.open('./popup','Popup','width=500,height=530,scrollbars=no,toolbar=no,location=no')"
+        class="p-2 bd-highlight"
+        onClick="Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Dit project is momenteel niet beschikbaar!', 
+        })"
         >
           <div class="imgWrap">
             <img
@@ -74,8 +91,12 @@
         </article>
 
         <article
-          class="p-2 bd-highlight"
-          onClick="window.open('./popup','Popup','width=500,height=530,scrollbars=no,toolbar=no,location=no')"
+        class="p-2 bd-highlight"
+        onClick="Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Dit project is momenteel niet beschikbaar!', 
+        })"
         >
           <div class="imgWrap">
             <img
