@@ -5,7 +5,6 @@ import { PokemonAPI } from "./api/PokemonAPI";
 const express = require("express");
 const app = express();
 const api = new PokemonAPI();
-
 app.set("port", process.env.PORT || 8080);
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -15,13 +14,13 @@ app.get("/", (req: any, res: any) => {
 });
 
 app.get("/pokemon", async (req: any, res: any) => {
-  
-  const gen1:Pokemon[] = [];
-  for(let i = 1;i<10;i++){
-    gen1.push(await api.getById(i));
+  const pokemons:Pokemon[] =[];
+  for(let i =1;i<21;i++){
+    const pokemon = await api.getById(i);
+    pokemons.push(pokemon);
   }
   res.render("pokemon",{
-    "pokemons": [gen1]
+    "pokemons": await pokemons
   });
 });
 
