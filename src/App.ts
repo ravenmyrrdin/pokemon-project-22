@@ -3,6 +3,8 @@ import { PokemonAPI } from "./api/PokemonAPI";
 
 const express = require("express");
 const app = express();
+const api = new PokemonAPI();
+
 app.set("port", process.env.PORT || 8080);
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -24,9 +26,7 @@ app.get("/dashboard", (req: any, res: any) => {
 });
 
 app.get("/vergelijking", async (req: any, res: any) => {
-  const api = new PokemonAPI();
   const pokemon = await api.getById(1);
-
   res.render("vergelijking", { attackA: pokemon.baseExperience });
 });
 
