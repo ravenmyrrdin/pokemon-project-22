@@ -15,14 +15,15 @@ app.get("/", (req: any, res: any) => {
 });
 
 app.get("/pokemon", async (req: any, res: any) => {
-  const pokemons:Pokemon[] =[];
-  for(let i =1;i<21;i++){
-    const pokemon = await api.getById(i);
-    console.log(pokemon.id+" "+pokemon.name);
-    pokemons.push(pokemon);
+  const pokemonFetchers:Promise<Pokemon>[] =[];
+
+  let page = 1;
+  for(let i =(20*page)+1; i<(20*(page+1))+1;i++){
+    const pokemon = api.getById(i);
+    pokemonFetchers.push(pokemon);
   }
   res.render("pokemon",{
-    "pokemons": await pokemons
+    "pokemons": await Promise.all(pokemonFetchers)
   });
 });
 
