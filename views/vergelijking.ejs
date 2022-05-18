@@ -13,6 +13,7 @@
   <%- include('partials/navbar.ejs'); %>    
   <main class="d-flex justify-content-center">
       <div class="card w-25 m-5" style="width: 18rem;">
+          <% if(name[0] !== undefined){ %>
           <img class="card-img-top w-75 mw-75 m-auto" src="<%= sprite[0] %>" style="max-width: 10rem;">
           <div class="card-body">
             <h5 class="card-title"><%= name[0] %></h5>
@@ -29,8 +30,12 @@
             <a href="#" class="card-link">Card link</a>
             <a href="#" class="card-link">Another link</a>    
           </div>
+          <% } else { %>
+            <b>Pokemon not found</b>
+          <% } %>
       </div>
       <div class="card w-25 m-5" style="width: 18rem;">
+        <% if(name[1] !== undefined){ %>
           <img class="card-img-top w-75 m-auto" src="<%= sprite[1] %>" alt="Card image cap" style="max-width: 10rem;">
           <div class="card-body">
             <h5 class="card-title"><%= name[1] %></h5>
@@ -48,6 +53,9 @@
             <a href="#" class="card-link">Card link</a>
             <a href="#" class="card-link">Another link</a>
           </div>
+          <% } else { %>
+            <b>Pokemon not found</b>
+          <% } %>
       </div>
   </main>
 </body>

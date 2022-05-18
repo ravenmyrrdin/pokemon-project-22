@@ -45,17 +45,22 @@ app.get("/dashboard", (req: any, res: any) => {
 app.get("/vergelijking", async (req: any, res: any) => res.redirect("/vergelijking/1/2"));
 app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
     const api = new PokemonAPI();
-    const [pokemonA, pokemonB] = await Promise.all([api.getById(1), api.getById(2)]);
+    
+    // Catch promise rejections using map -> p.catch aka then equivalent, and map results to undefined if reject or value if resolved.
+    const [pokemonA, pokemonB] = (await Promise.all([ 
+      /^[0-9]+$/.test(req.params.a) ? api.getById(Number.parseInt(req.params.a)) : api.getByName(req.params.a),
+      /^[0-9]+$/.test(req.params.b) ? api.getById(Number.parseInt(req.params.b)) : api.getByName(req.params.b)
+    ].map(p => p.catch(e => e)))).map(i => i instanceof Error ? undefined : i);
 
     res.render("vergelijking", { 
-        "name":           [ pokemonA.name, pokemonB.name ],
-        "sprite":         [ pokemonA.getFrontSprite(PokemonGame.RedBlue), pokemonB.getFrontSprite(PokemonGame.RedBlue) ],
-        "attack":         [ pokemonA.getStat(IPokemonStat.Attack), pokemonB.getStat(IPokemonStat.Attack) ],
-        "hp":             [ pokemonA.getStat(IPokemonStat.HP), pokemonB.getStat(IPokemonStat.HP) ],
-        "defence":        [ pokemonA.getStat(IPokemonStat.Defence), pokemonB.getStat(IPokemonStat.Defence) ],
-        "specialattack":  [ pokemonA.getStat(IPokemonStat.SpecialAttack), pokemonB.getStat(IPokemonStat.SpecialAttack) ],
-        "specialdefence": [ pokemonA.getStat(IPokemonStat.SpecialDefence), pokemonB.getStat(IPokemonStat.SpecialDefence) ],
-        "speed":          [ pokemonA.getStat(IPokemonStat.SpecialDefence), pokemonB.getStat(IPokemonStat.SpecialDefence) ]
+        "name":           [ pokemonA?.name,                                 pokemonB?.name ],
+        "sprite":         [ pokemonA?.getFrontSprite(PokemonGame.RedBlue),  pokemonB?.getFrontSprite(PokemonGame.RedBlue) ],
+        "attack":         [ pokemonA?.getStat(IPokemonStat.Attack),         pokemonB?.getStat(IPokemonStat.Attack) ],
+        "hp":             [ pokemonA?.getStat(IPokemonStat.HP),             pokemonB?.getStat(IPokemonStat.HP) ],
+        "defence":        [ pokemonA?.getStat(IPokemonStat.Defence),        pokemonB?.getStat(IPokemonStat.Defence) ],
+        "specialattack":  [ pokemonA?.getStat(IPokemonStat.SpecialAttack),  pokemonB?.getStat(IPokemonStat.SpecialAttack) ],
+        "specialdefence": [ pokemonA?.getStat(IPokemonStat.SpecialDefence), pokemonB?.getStat(IPokemonStat.SpecialDefence) ],
+        "speed":          [ pokemonA?.getStat(IPokemonStat.SpecialDefence), pokemonB?.getStat(IPokemonStat.SpecialDefence) ]
     });
 });
 
