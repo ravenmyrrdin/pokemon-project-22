@@ -1,10 +1,13 @@
 import { IPokemonStat } from "./api/IPokemonStat";
+import { Pokemon } from "./api/Pokemon";
 import { PokemonAPI } from "./api/PokemonAPI";
 import { PokemonGame } from "./api/PokemonGame";
 
 const express = require("express");
 const app = express();
-app.set("port", 8080 || process.env.PORT);
+const api = new PokemonAPI();
+
+app.set("port", process.env.PORT || 8080);
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
@@ -12,24 +15,37 @@ app.get("/", (req: any, res: any) => {
   res.render("index");
 });
 
-app.get("/pokemon", (req: any, res: any) => {
-  res.render("pokemon");
+app.get("/pokemon", async (req: any, res: any) => {
+  const pokemons:Pokemon[] =[];
+  for(let i =1;i<21;i++){
+    const pokemon = await api.getById(i);
+    console.log(pokemon.id+" "+pokemon.name);
+    pokemons.push(pokemon);
+  }
+  res.render("pokemon",{
+    "pokemons": await pokemons
+  });
 });
 
-app.get("/catch", (req: any, res: any) => {
-  res.render("catch");
+// app.get("/catch", (req: any, res: any) => {
+//   res.render("catch");
+// });
+
+app.get("/catch/:index", async (req: any, res: any) => {
+  const pokemon:Pokemon = await api.getById(req.param);
+  res.render("catching", {pokemon : pokemon});
+
 });
 
-app.get("/vergelijking", async (req: any, res: any) => {
+app.get("/dashboard", (req: any, res: any) => {
+  res.render("dashboard");
+});
+
+
+app.get("/vergelijking", async (req: any, res: any) => res.redirect("/vergelijking/1/2"));
+app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
     const api = new PokemonAPI();
-    const pokemonA = await api.getById(1);
-    const pokemonB = await api.getById(2);
-
-    let data = [];
-    for(let i = 1; i <= 10; i++)
-        data.push(await api.getById(i));
-
-    console.log(data[0].name);
+    const [pokemonA, pokemonB] = await Promise.all([api.getById(1), api.getById(2)]);
 
     res.render("vergelijking", { 
         "name":           [ pokemonA.name, pokemonB.name ],
