@@ -14,10 +14,13 @@ app.get("/", (req: any, res: any) => {
   res.render("index");
 });
 
-app.get("/pokemon", async (req: any, res: any) => {
-  const pokemonFetchers:Promise<Pokemon>[] =[];
+app.get("/pokemon", async (req: any, res: any) => res.redirect("/pokemon/0"));
+app.get("/pokemon/:page", async (req: any, res: any) => {
+  if(isNaN(Number.parseInt(req.params.page)))
+    return res.redirect("/pokemon/0");
 
-  let page = 1;
+  const pokemonFetchers:Promise<Pokemon>[] =[];
+  let page = Number.parseInt(req.params.page);
   for(let i =(20*page)+1; i<(20*(page+1))+1;i++){
     const pokemon = api.getById(i);
     pokemonFetchers.push(pokemon);
