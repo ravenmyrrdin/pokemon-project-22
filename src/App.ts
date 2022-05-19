@@ -58,7 +58,7 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
     { 
       "infoA": pokemonA === undefined ? undefined : {
         "name": pokemonA.name,
-        "sprite": pokemonA.getFrontSprite(PokemonGame.RedBlue),
+        "sprite": pokemonA.getFrontSprite(PokemonGame.DiamondPearl),
         "stats": 
         {
           "attack":         pokemonA.getStat(IPokemonStat.Attack),        
@@ -71,7 +71,7 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
       },
       "infoB": pokemonB === undefined ? undefined : {
         "name": pokemonB.name,
-        "sprite": pokemonB.getFrontSprite(PokemonGame.RedBlue),
+        "sprite": pokemonB.getFrontSprite(PokemonGame.DiamondPearl),
         "stats": 
         {
           "attack":         pokemonB.getStat(IPokemonStat.Attack),        
