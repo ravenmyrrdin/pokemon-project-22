@@ -43,6 +43,7 @@ app.get("/dashboard", (req: any, res: any) => {
 
 
 app.get("/vergelijking", async (req: any, res: any) => res.redirect("/vergelijking/1/2"));
+app.post("/vergelijking/:a/:b", async (req: any, res: any) =>  res.redirect(`/vergelijking/${req.body.aIdentifier}/${req.body.bIdentifier}`));
 app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
     const api = new PokemonAPI();
     

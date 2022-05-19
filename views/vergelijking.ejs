@@ -11,29 +11,44 @@
   </head>
 <body>
   <%- include('partials/navbar.ejs'); %>    
-  <main class="d-flex justify-content-center">
-      <div class="card w-25 m-5" style="width: 18rem;">
-          <% if(name[0] !== undefined){ %>
-          <img class="card-img-top w-75 mw-75 m-auto" src="<%= sprite[0] %>" style="max-width: 10rem;">
-          <div class="card-body">
-            <h5 class="card-title"><%= name[0] %></h5>
+  <main>
+      <article class="container d-flex justify-content-center">
+        <section>
+          <form method="POST" class="row w-100 mx-auto">
+            <input type="text" name="aIdentifier" placeholder="Naam of nummer van de pokemon" value="<%= name[0] %>" class="col-sm" />
+            <input type="text" name="bIdentifier" placeholder="Naam of nummer van de pokemon"  value="<%= name[1] %>" class="col-sm"/>
+            <input type="submit" value="compare" class="col-sm"/>
+          </form>
+        </section>
+      </article>
+      <article>
+        <section class="d-flex justify-content-center">
+          <!-- Pokemon A -->
+          <div class="card w-25 m-5" style="width: 18rem;">
+            <% if(name[0] !== undefined){ %>
+  
+            <img class="card-img-top w-75 mw-75 m-auto" src="<%= sprite[0] %>" style="max-width: 10rem;">
+            <div class="card-body">
+              <h5 class="card-title"><%= name[0] %></h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-white <%= hp[0] < hp[1] ? 'bg-danger' : 'bg-success' %>"><strong>HP:</strong> <%= hp[0] %></li>
+              <li class="list-group-item text-white <%= attack[0] < attack[1] ? 'bg-danger' : 'bg-success' %>"><strong>Attack:</strong> <%= attack[0] %></li>
+              <li class="list-group-item text-white <%= defence[0] < defence[1] ? 'bg-danger' : 'bg-success' %>"><strong>Defence:</strong> <%= defence[0] %></li>
+              <li class="list-group-item text-white <%= specialattack[0] < specialattack[1] ? 'bg-danger' : 'bg-success' %>"><strong>Special </strong>Attack: <%= specialattack[0] %></li>
+              <li class="list-group-item text-white <%= specialdefence[0] < specialdefence[1] ? 'bg-danger' : 'bg-success' %>"><strong>Special </strong>Defence: <%= specialdefence[0] %></li>
+              <li class="list-group-item text-white <%= speed[0] < speed[1] ? 'bg-danger' : 'bg-success' %>"><strong>Speed:</strong>  <%= speed[0] %></li>
+            </ul>
+            <div class="card-body">
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>    
+            </div>
+            <% } else { %>
+              <b>Pokemon not found</b>
+            <% } %>
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item text-white <%= hp[0] < hp[1] ? 'bg-danger' : 'bg-success' %>"><strong>HP:</strong> <%= hp[0] %></li>
-            <li class="list-group-item text-white <%= attack[0] < attack[1] ? 'bg-danger' : 'bg-success' %>"><strong>Attack:</strong> <%= attack[0] %></li>
-            <li class="list-group-item text-white <%= defence[0] < defence[1] ? 'bg-danger' : 'bg-success' %>"><strong>Defence:</strong> <%= defence[0] %></li>
-            <li class="list-group-item text-white <%= specialattack[0] < specialattack[1] ? 'bg-danger' : 'bg-success' %>"><strong>Special </strong>Attack: <%= specialattack[0] %></li>
-            <li class="list-group-item text-white <%= specialdefence[0] < specialdefence[1] ? 'bg-danger' : 'bg-success' %>"><strong>Special </strong>Defence: <%= specialdefence[0] %></li>
-            <li class="list-group-item text-white <%= speed[0] < speed[1] ? 'bg-danger' : 'bg-success' %>"><strong>Speed:</strong>  <%= speed[0] %></li>
-          </ul>
-          <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>    
-          </div>
-          <% } else { %>
-            <b>Pokemon not found</b>
-          <% } %>
-      </div>
+        <!-- Pokemon B-->
+
       <div class="card w-25 m-5" style="width: 18rem;">
         <% if(name[1] !== undefined){ %>
           <img class="card-img-top w-75 m-auto" src="<%= sprite[1] %>" alt="Card image cap" style="max-width: 10rem;">
@@ -54,8 +69,14 @@
             <a href="#" class="card-link">Another link</a>
           </div>
           <% } else { %>
-            <b>Pokemon not found</b>
+            <div class="card-body text-center">
+
+              <b class="text-center">Pokemon not found</b>
+            </div>
           <% } %>
       </div>
+        </section>
+
+      </article>
   </main>
 </body>
