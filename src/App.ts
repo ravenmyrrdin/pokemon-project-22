@@ -21,12 +21,14 @@ app.get("/pokemon/:page", async (req: any, res: any) => {
 
   const pokemonFetchers:Promise<Pokemon>[] =[];
   let page = Number.parseInt(req.params.page);
-  for(let i =(20*page)+1; i<(20*(page+1))+1;i++){
+  let itemsOnPage = 30;
+  for(let i =(itemsOnPage*page)+1; i<(itemsOnPage*(page+1))+1;i++){
     const pokemon = api.getById(i);
     pokemonFetchers.push(pokemon);
   }
   res.render("pokemon",{
-    "pokemons": await Promise.all(pokemonFetchers)
+    "pokemons": await Promise.all(pokemonFetchers),
+    "pageId": page
   });
 });
 
