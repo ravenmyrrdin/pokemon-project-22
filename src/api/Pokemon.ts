@@ -3,6 +3,7 @@ import { PokemonGame } from './PokemonGame';
 import { SpriteType } from './SpriteType';
 import { IPokemonStat } from './IPokemonStat';
 import { StringTools } from '../StringTools';
+import { fileURLToPath } from 'url';
 /**
  * Scraped pokemon result data object
  */
@@ -14,6 +15,7 @@ export class Pokemon
    */
   constructor(json: {[key: string]: any})
   {
+    //console.log(json);
     this.assignValues(json);
   }
 
@@ -79,11 +81,28 @@ export class Pokemon
   }
 
   /** Get all sprites of the pokemon in a specific generation */
-  private getSpritesFromGeneration(pokemonGame: PokemonGame): {[key: string]: string} { 
-    const apiSectionString = PokemonGame[pokemonGame].split(/(?=[A-Z])/).join("-").toLowerCase();
+  private getSpritesFromGeneration(pokemonGame: PokemonGame, nextOnNull: boolean = true): {[key: string]: string} { 
+    let apiSectionString = PokemonGame[pokemonGame].split(/(?=[A-Z])/).join("-").toLowerCase();
     let generation = PokemonGame.getGeneration(pokemonGame);
+    console.log(apiSectionString);
+    for(let i = generation; i < PokemonGame.UltraSunUltraMoon; i++)
+    {
+      //console.log(this._sprites["versions"][`generation-${StringTools.numberToRoman(i)}`])
+      let sprite = this._sprites["versions"][`generation-${StringTools.numberToRoman(i)}`][apiSectionString];
+      
+      if (nextOnNull && (sprite === undefined || Object.values(sprite).filter( v => v !== null).length == 0))
+      {
+        if(i+1 != PokemonGame.UltraSunUltraMoon)
+          generation++;
+          console.log(PokemonGame.getGamesFromGeneration(generation));
+          apiSectionString = PokemonGame[PokemonGame.getGamesFromGeneration(generation)[0]].split(/(?=[A-Z])/).join("-").toLowerCase();
+        continue;
 
-    return this._sprites["versions"][`generation-${StringTools.numberToRoman(generation)}`][apiSectionString];
+      }
+
+      return sprite;
+    }
+    
   }
   
   /** Get the front sprite in a specific game (default or shiny) */

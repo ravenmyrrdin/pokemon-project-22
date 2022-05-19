@@ -10,6 +10,7 @@ const api = new PokemonAPI();
 app.set("port", process.env.PORT || 8080);
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+app.use(express.urlencoded({extended: true}));
 
 app.get("/", (req: any, res: any) => {
   res.render("index");
@@ -53,7 +54,8 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
       /^[0-9]+$/.test(req.params.b) ? api.getById(Number.parseInt(req.params.b)) : api.getByName(req.params.b)
     ].map(p => p.catch(e => e)))).map(i => i instanceof Error ? undefined : i);
 
-    res.render("vergelijking", { 
+    res.render("vergelijking", 
+    { 
         "name":           [ pokemonA?.name,                                 pokemonB?.name ],
         "sprite":         [ pokemonA?.getFrontSprite(PokemonGame.RedBlue),  pokemonB?.getFrontSprite(PokemonGame.RedBlue) ],
         "attack":         [ pokemonA?.getStat(IPokemonStat.Attack),         pokemonB?.getStat(IPokemonStat.Attack) ],
@@ -62,7 +64,8 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
         "specialattack":  [ pokemonA?.getStat(IPokemonStat.SpecialAttack),  pokemonB?.getStat(IPokemonStat.SpecialAttack) ],
         "specialdefence": [ pokemonA?.getStat(IPokemonStat.SpecialDefence), pokemonB?.getStat(IPokemonStat.SpecialDefence) ],
         "speed":          [ pokemonA?.getStat(IPokemonStat.SpecialDefence), pokemonB?.getStat(IPokemonStat.SpecialDefence) ]
-    });
+    }
+    );
 });
 
 
