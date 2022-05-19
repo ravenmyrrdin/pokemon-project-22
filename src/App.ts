@@ -54,16 +54,51 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
       /^[0-9]+$/.test(req.params.b) ? api.getById(Number.parseInt(req.params.b)) : api.getByName(req.params.b)
     ].map(p => p.catch(e => e)))).map(i => i instanceof Error ? undefined : i);
 
-    res.render("vergelijking", 
+    const responseData = 
     { 
-        "name":           [ pokemonA?.name,                                 pokemonB?.name ],
-        "sprite":         [ pokemonA?.getFrontSprite(PokemonGame.RedBlue),  pokemonB?.getFrontSprite(PokemonGame.RedBlue) ],
-        "attack":         [ pokemonA?.getStat(IPokemonStat.Attack),         pokemonB?.getStat(IPokemonStat.Attack) ],
-        "hp":             [ pokemonA?.getStat(IPokemonStat.HP),             pokemonB?.getStat(IPokemonStat.HP) ],
-        "defence":        [ pokemonA?.getStat(IPokemonStat.Defence),        pokemonB?.getStat(IPokemonStat.Defence) ],
-        "specialattack":  [ pokemonA?.getStat(IPokemonStat.SpecialAttack),  pokemonB?.getStat(IPokemonStat.SpecialAttack) ],
-        "specialdefence": [ pokemonA?.getStat(IPokemonStat.SpecialDefence), pokemonB?.getStat(IPokemonStat.SpecialDefence) ],
-        "speed":          [ pokemonA?.getStat(IPokemonStat.SpecialDefence), pokemonB?.getStat(IPokemonStat.SpecialDefence) ]
+      "infoA": pokemonA === undefined ? undefined : {
+        "name": pokemonA.name,
+        "sprite": pokemonA.getFrontSprite(PokemonGame.RedBlue),
+        "stats": 
+        {
+          "attack":         pokemonA.getStat(IPokemonStat.Attack),        
+          "hp":             pokemonA.getStat(IPokemonStat.HP),            
+          "defence":        pokemonA.getStat(IPokemonStat.Defence),       
+          "specialattack":  pokemonA.getStat(IPokemonStat.SpecialAttack), 
+          "specialdefence": pokemonA.getStat(IPokemonStat.SpecialDefence),
+          "speed":          pokemonA.getStat(IPokemonStat.SpecialDefence),
+        }
+      },
+      "infoB": pokemonB === undefined ? undefined : {
+        "name": pokemonB.name,
+        "sprite": pokemonB.getFrontSprite(PokemonGame.RedBlue),
+        "stats": 
+        {
+          "attack":         pokemonB.getStat(IPokemonStat.Attack),        
+          "hp":             pokemonB.getStat(IPokemonStat.HP),            
+          "defence":        pokemonB.getStat(IPokemonStat.Defence),       
+          "specialattack":  pokemonB.getStat(IPokemonStat.SpecialAttack), 
+          "specialdefence": pokemonB.getStat(IPokemonStat.SpecialDefence),
+          "speed":          pokemonB.getStat(IPokemonStat.SpecialDefence),
+        }
+      }
+    };
+    
+    let aCount = responseData.infoA === undefined ? -1 : 0;
+    let bCount = responseData.infoB === undefined ? -1 : 0;
+    if(aCount !== -1 && bCount !== -1)
+    {
+      for(let [key, value] of Object.entries(responseData.infoA))
+      {
+        if(value < responseData.infoB[key])
+          bCount++;
+        else aCount++;
+      }
+    }
+
+    res.render("vergelijking", {
+      ...responseData, 
+      "superior": aCount > bCount ? 0 : bCount > aCount ? 1 : -1
     }
     );
 });

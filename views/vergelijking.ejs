@@ -11,34 +11,30 @@
   </head>
 <body>
   <%- include('partials/navbar.ejs'); %>    
+
   <main>
-      <article>
+      <article  class="bg-danger" >
         <form class="input-group rounded" method="POST">
-          <input type="search" class="form-control rounded" name="aIdentifier" value="<%= name[0] %>" placeholder="Naam of nummer van de pokemon" aria-label="Search" aria-describedby="search-addon" />
-          <input type="search" class="form-control rounded" name="bIdentifier" value="<%= name[1] %>" placeholder="Naam of nummer van de pokemon" aria-label="Search" aria-describedby="search-addon" />
+          <input type="search" class="form-control rounded border-2 border-danger" name="aIdentifier" value="<%= infoA !== undefined ? infoA.name : '' %>" placeholder="Naam of nummer van de pokemon" aria-label="Search" aria-describedby="search-addon" />
+          <input type="search" class="form-control rounded border-2 border-danger" name="bIdentifier" value="<%= infoB !== undefined ? infoB.name : '' %>" placeholder="Naam of nummer van de pokemon" aria-label="Search" aria-describedby="search-addon" />
           
-          <input type="submit" value="vergelijk" class="btn btn-outline-danger" />
+          <input type="submit" value="vergelijk" class="btn btn-danger" />
         </form>
       </article>
       <article>
         <section class="d-flex justify-content-center" id="card-container">
-
           <!-- Pokemon A -->
-          <div class="card w-25 m-5" style="width: 18rem;">
-            <% if(name[0] !== undefined){ %>
-  
+          <div class="card w-25 m-5 border-3 <%= superior == 0 ? 'border-success' : 'border-danger'%>" style="width: 18rem;">
+            <% if(infoA !== undefined){ %>
               <div class="card-body">
-                <h5 class="card-title text-center"><%= name[0] %></h5>
+                <h5 class="card-title text-center"><%= infoA.name %></h5>
               </div>
-            <img class="card-img-top w-75 mw-75 m-auto" src="<%= sprite[0] %>" style="max-width: 10rem;">
+            <img class="card-img-top w-75 mw-75 m-auto" src="<%= infoA.sprite %>" style="max-width: 10rem;">
             <div class="my-5"></div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item text-white <%= hp[0] < hp[1] ? 'bg-danger' : 'bg-success' %>"><strong>HP:</strong> <%= hp[0] %></li>
-              <li class="list-group-item text-white <%= attack[0] < attack[1] ? 'bg-danger' : 'bg-success' %>"><strong>Attack:</strong> <%= attack[0] %></li>
-              <li class="list-group-item text-white <%= defence[0] < defence[1] ? 'bg-danger' : 'bg-success' %>"><strong>Defence:</strong> <%= defence[0] %></li>
-              <li class="list-group-item text-white <%= specialattack[0] < specialattack[1] ? 'bg-danger' : 'bg-success' %>"><strong>Special </strong>Attack: <%= specialattack[0] %></li>
-              <li class="list-group-item text-white <%= specialdefence[0] < specialdefence[1] ? 'bg-danger' : 'bg-success' %>"><strong>Special </strong>Defence: <%= specialdefence[0] %></li>
-              <li class="list-group-item text-white <%= speed[0] < speed[1] ? 'bg-danger' : 'bg-success' %>"><strong>Speed:</strong>  <%= speed[0] %></li>
+              <% for(let [key, value] of Object.entries(infoA.stats)){ %>
+                <li class="list-group-item text-white <%= (infoB === undefined || value >= infoB.stats[key]) ? 'bg-success' : 'bg-danger' %>"><strong><%= key %>:</strong> <%= value %></li>
+              <% } %>
             </ul>
             <% } else { %>
               <b>Pokemon not found</b>
@@ -46,25 +42,21 @@
           </div>
         <!-- Pokemon B-->
 
-      <div class="card w-25 m-5" style="width: 18rem;">
-        <% if(name[1] !== undefined){ %>
+      <div class="card w-25 m-5 border-3 <%= superior == 1 ? 'border-success' : 'border-danger'%>" style="width: 18rem;">
+        <% if(infoB !== undefined){ %>
           <div class="card-body">
-            <h5 class="card-title text-center"><%= name[1] %></h5>
+            <h5 class="card-title text-center"><%= infoB.name %></h5>
           </div>
-          <img class="card-img-top w-75 m-auto" src="<%= sprite[1] %>" alt="Card image cap" style="max-width: 10rem;">
+          <img class="card-img-top w-75 m-auto" src="<%= infoB.sprite %>" alt="Card image cap" style="max-width: 10rem;">
 
           <div class="my-5"></div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item <%= hp[1] < hp[0] ? 'bg-danger' : 'bg-success' %> text-white"><strong>HP:</strong> <%= hp[1] %> </li>
-            <li class="list-group-item <%= attack[1] < attack[0] ? 'bg-danger' : 'bg-success' %> text-white"><strong>Attack:</strong> <%= attack[1] %></li>
-            <li class="list-group-item <%= defence[1] < defence[0] ? 'bg-danger' : 'bg-success' %> text-white"><strong>Defence:</strong> <%= defence[1] %></li>
-            <li class="list-group-item <%= specialattack[1] < specialattack[0] ? 'bg-danger' : 'bg-success' %> text-white"><strong>Special Attack:</strong> <%= specialattack[1] %></li>
-            <li class="list-group-item <%= specialdefence[1] < specialdefence[0] ? 'bg-danger' : 'bg-success' %> text-white"><strong>Special Defence:</strong> <%= specialdefence[1] %></li>
-            <li class="list-group-item <%= speed[1] < speed[0] ? 'bg-danger' : 'bg-success' %> text-white"><strong>Speed:</strong>  <%= speed[1] %></li>
+            <% for(let [key, value] of Object.entries(infoB.stats)){ %>
+              <li class="list-group-item text-white <%= (infoA === undefined || value >= infoA.stats[key]) ? 'bg-success' : 'bg-danger' %>"><strong><%= key %>:</strong> <%= value %></li>
+            <% } %>
           </ul>
           <% } else { %>
             <div class="card-body text-center">
-
               <b class="text-center">Pokemon not found</b>
             </div>
           <% } %>
