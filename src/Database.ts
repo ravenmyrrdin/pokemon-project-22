@@ -7,12 +7,17 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 interface Player {
     _id?: ObjectId,
     sessionToken: string,
-    currentPokemon: number,
+    currentPokemon?: number,
     capturedPokemonList: Pokemon[]
 }
 interface Pokemon{
     id:number,
-    nickname:string
+    nickname?:string
+}
+
+let player: Player= {
+    sessionToken: "ditIsEenSessionId",
+    capturedPokemonList: [{id:1}, {id:50, nickname:"Alcatraz"}]
 }
 let doSomeDBCalls = async () => {
     try {
@@ -20,7 +25,7 @@ let doSomeDBCalls = async () => {
         await client.connect();
         console.log("Client connected!")
         // DBCalls
-        await client.db("ITProject").collection("pokemons").insertOne();
+        await client.db("ITProject").collection("pokemons").insertOne(player);
         console.log("DBCalls done!")
  
     } catch (e) {
