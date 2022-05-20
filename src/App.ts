@@ -14,21 +14,15 @@ app.get("/", (req: any, res: any) => {
   res.render("index");
 });
 
-app.get("/pokemon", async (req: any, res: any) => res.redirect("/pokemon/0"));
-app.get("/pokemon/:page", async (req: any, res: any) => {
-  if(isNaN(Number.parseInt(req.params.page)))
-    return res.redirect("/pokemon/0");
-
-  const pokemonFetchers:Promise<Pokemon>[] =[];
-  let page = Number.parseInt(req.params.page);
-  let itemsOnPage = 30;
-  for(let i =(itemsOnPage*page)+1; i<(itemsOnPage*(page+1))+1;i++){
-    const pokemon = api.getById(i);
-    pokemonFetchers.push(pokemon);
+app.get("/pokemon", async (req: any, res: any) => {
+  const pokemons:Pokemon[] =[];
+  for(let i =1;i<25;i++){
+    const pokemon = await api.getById(i);
+    console.log(pokemon.id + " " + pokemon.name);
+    pokemons.push(pokemon);
   }
-  res.render("pokemon",{
-    "pokemons": await Promise.all(pokemonFetchers),
-    "pageId": page
+  res.render("pokemon", {
+    pokemons: await pokemons,
   });
 });
 
@@ -37,9 +31,17 @@ app.get("/pokemon/:page", async (req: any, res: any) => {
 // });
 
 app.get("/catch/:index", async (req: any, res: any) => {
-  const pokemon:Pokemon = await api.getById(req.param);
-  res.render("catching", {pokemon : pokemon});
-
+  const index = req.params.index;
+  // if (index > 0 && index != null) {
+  //   const pokemon: Pokemon = await api.getById(index);
+  //   res.render("catching", { pokemon: await pokemon });
+  // } else {
+  //   res.render("404")
+  // }
+  const pokemon: Pokemon = await api.getById(index);
+  try {
+  res.render("catching", { pokemon: await pokemon });
+  } catch (err) {console.error(err);}
 });
 
 app.get("/dashboard", (req: any, res: any) => {

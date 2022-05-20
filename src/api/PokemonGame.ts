@@ -37,4 +37,17 @@ export namespace PokemonGame
             return 7;
         }
     }
+
+    export function getGamesFromGeneration(generation: number) 
+    {
+      return {
+        1 : [PokemonGame.Yellow,  PokemonGame.RedBlue],
+        2 : [PokemonGame.Crystal,  PokemonGame.Silver, PokemonGame.Gold],
+        3 : [PokemonGame.Emerald,  PokemonGame.FireredLeafgreen, PokemonGame.RubySapphire],
+        4 : [PokemonGame.DiamondPearl, PokemonGame.HeartgoldSoulsilver],
+        5 : [PokemonGame.BlachWhite],
+        6 : [PokemonGame.OmegarubyAlphasapphire, PokemonGame.XY],
+        7 : [PokemonGame.UltraSunUltraMoon]
+      }[generation];
+    }
 }
