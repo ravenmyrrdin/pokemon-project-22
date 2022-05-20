@@ -1,73 +1,41 @@
 <!DOCTYPE html>
 <html lang="nl-BE">
   <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Pokemons</title>
+    <title>Pokedex</title>
     <%- include('partials/head'); %>
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
   </head>
   <body>
     <%- include('partials/navbar.ejs'); %>
     <main class="p-lg-3">
+      <section class="d-flex flex-wrap justify-content">
+        <% for (let i = 0; i<pokemons.length; i++){%>
+        <article class="pokemonkaart">
+          <div class="row">
+            <img src="<%= pokemons[i]._sprites.front_default %>" class="spriteimg"/>
+          </div>
+          <div class="row">
+            <div class="col">
+              <%= pokemons[i].name %>
+            </div>
+            <div class="col">
+              <img src="/images/pokeball.png" class="pokeballimg"\>
+            </div>
+          </div>
+        </article>
 
-      <div class="d-flex flex-wrap justify-content">
-        <article class="pokemonkaart">
-          <div class="row">
-            <img src="<%= pokemons[0]._sprites.front_default %>" class="spriteimg"/>
-          </div>
-          <div class="row">
-            <div class="col">
-              <%= pokemons[0].name %>
-            </div>
-            <div class="col">
-              <img src="images\pokeball.png" class="pokeballimg"\>
-            </div>
-          </div>
+        <%  }%>
+          </section>
         </article>
-        <article class="pokemonkaart">
-          <div class="row">
-            <img src="<%= pokemons[1]._sprites.front_default %>" class="spriteimg"/>
-          </div>
-          <div class="row">
-            <div class="col">
-              <%= pokemons[1].name %>
-            </div>
-            <div class="col">
-              <img src="images\pokeball.png" class="pokeballimg"\>
-            </div>
-          </div>
-        </article>
-        <article class="pokemonkaart">
-          <div class="row">
-            <img src="<%= pokemons[2]._sprites.front_default %>" class="spriteimg"/>
-          </div>
-          <div class="row">
-            <div class="col">
-              <%= pokemons[2].name %>
-            </div>
-            <div class="col">
-              <img src="images\pokeball.png" class="pokeballimg"\>
-            </div>
-          </div>
-        </article>
-        <article class="pokemonkaart">
-          <div class="row">
-            <img src="<%= pokemons[3]._sprites.front_default %>" class="spriteimg"/>
-          </div>
-          <div class="row">
-            <div class="col">
-              <%= pokemons[3].name %>
-            </div>
-            <div class="col">
-              <img src="images\pokeball.png" class="pokeballimg"\>
-            </div>
-          </div>
-        </article>
+        <div class="text-center">
+
+
+          <% 
+          for (let i = pageId-2; i <= pageId+2; i++) {
+            if(i < 1) continue;
+          %>
+            <a href="/pokemon/<%= i-1 %>"><%= i %></a>
+        <% } %>
+        </div>
       </div>
      
       <!-- <div class="container">

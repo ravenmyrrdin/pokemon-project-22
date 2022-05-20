@@ -29,6 +29,7 @@ body.contact main form label {
   display: flex;
   justify-content: center;
 }
+
 .imgWrap img {
   border-radius: 50%;
   background-color: white;
@@ -45,6 +46,7 @@ img#logo {
 .popup h1 {
   margin: 3rem 0 1rem 0;
 }
+
 .popup button {
   margin: 2rem 0 0 0;
 }
@@ -54,6 +56,21 @@ img#logo {
   color: inherit;
 }
 
+section.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  column-gap: 5%;
+  row-gap: 5%;
+  width: 90%;
+  margin: 0 auto;
+}
+
+section.dashboard article {
+  border: 1px red solid;
+  width: 30%;
+  min-width: 300px;
+}
 .pokeballcontainer{
   background-color: rgb(251,27,27,0.5);
   border-radius: 200px;
