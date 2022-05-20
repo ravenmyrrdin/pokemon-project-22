@@ -28,7 +28,7 @@ export class Pokemon
     for(const key of Object.keys(thisData))
     {
       const sanitzedKey = key.replace("_", "");
-      console.log(sanitzedKey);
+      // console.log(sanitzedKey);
       if(Object.keys(json).includes(sanitzedKey))
       {
         let binding: {[key: string]: any} = {}
