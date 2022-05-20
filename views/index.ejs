@@ -2,68 +2,39 @@
 <html lang="nl-BE">
   <head>
     <title>Startpagina</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     <%- include('partials/head'); %>
   </head>
   <body>
     <%- include('partials/navbar.ejs');%>
     <main>
       <section
-        class="d-lg-flex flex-row flex-lg-fill justify-content-center flex-lg-wrap bd-highlight mb-lg-8 w-75 mx-auto overflow-hidden"
+        class="d-lg-flex flex-row flex-lg-fill justify-content-center flex-lg-wrap bd-highlight mb-lg-8 w-75 mx-auto overflow-hidden index"
       >
+      <%
+        let images = ["/images/logo-mtg-circle.png", "/images/logo-lego-circle.png", "/images/logo-lotr-circle.png", "/images/logo-fifa-circle.png", "images/logo-fortnite-circle.png"]
+        for(let image of images) {
+      %>  
         <article
-          class="p-2 bd-highlight"
-          onClick="window.open('./popup','Popup','width=500,height=530,scrollbars=no,toolbar=no,location=no')"
+        class="p-2 bd-highlight"
+        onClick="Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Dit project is momenteel niet beschikbaar!', 
+        })"
         >
           <div class="imgWrap">
             <img
-              src="images/logo-mtg-circle.png"
-              alt="Logo van Magic The Gathering"
+              src="<%= image %>"
+              alt="Logo van fortnite"
               height="300rem"
             />
           </div>
         </article>
-
-        <article
-          class="p-2 bd-highlight"
-          onClick="window.open('./popup','Popup','width=500,height=530,scrollbars=no,toolbar=no,location=no')"
-        >
-          <div class="imgWrap">
-            <img
-              src="images/logo-lego-circle.png"
-              alt="LEGO Logo"
-              height="300rem"
-            />
-          </div>
-        </article>
-
-        <article
-          class="p-2 bd-highlight"
-          onClick="window.open('./popup','Popup','width=500,height=530,scrollbars=no,toolbar=no,location=center')"
-        >
-          <div class="imgWrap">
-            <img
-              src="images/logo-lotr-circle.png"
-              alt="Logo van Lord of The Rings"
-              height="300rem"
-            />
-          </div>
-        </article>
-
-        <article
-          class="p-2 bd-highlight"
-          onClick="window.open('./popup','Popup','width=500,height=530,scrollbars=no,toolbar=no,location=no')"
-        >
-          <div class="imgWrap">
-            <img
-              src="images/logo-fifa-circle.png"
-              alt="Logo van FIFA"
-              height="300rem"
-            />
-          </div>
-        </article>
-
+      <% } %>
+      
         <article class="p-2 bd-highlight">
-          <a href="/pokemon" target="_blank"
+          <a href="/dashboard" 
             ><div class="imgWrap">
               <img
                 src="images/logo-pokemon-circle.png"
@@ -71,19 +42,6 @@
                 height="300rem"
               /></div
           ></a>
-        </article>
-
-        <article
-          class="p-2 bd-highlight"
-          onClick="window.open('./popup','Popup','width=500,height=530,scrollbars=no,toolbar=no,location=no')"
-        >
-          <div class="imgWrap">
-            <img
-              src="images/logo-fortnite-circle.png"
-              alt="Logo van fortnite"
-              height="300rem"
-            />
-          </div>
         </article>
       </section>
     </main>
