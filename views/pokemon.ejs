@@ -29,18 +29,18 @@
         <%  }%>
           </section>
         </article>
-        <div class="text-center">
-
-
-          <% 
-          for (let i = pageId-2; i <= pageId+2; i++) {
-            if(i < 1) continue;
-          %>
-            <a href="/pokemon/<%= i-1 %>"><%= i %></a>
-        <% } %>
-        </div>
+        
       </div>
-     
+      <div class="text-center">
+
+
+        <% 
+        for (let i = pageId-2; i <= pageId+2; i++) {
+          if(i < 1) continue;
+        %>
+          <a href="/pokemon/<%= i-1 %>"><%= i %></a>
+      <% } %>
+      </div>
       <!-- <div class="container">
         <div class="row align-items-start">
           <div class="col ">
