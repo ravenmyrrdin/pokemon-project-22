@@ -1,16 +1,18 @@
 import axios from "axios";
+import { ObjectId } from "mongodb";
 const { MongoClient } = require('mongodb');
 const uri = "mongodb+srv://dittodev:Hu7kTUgtKol1NDI3@itproject.x3zaj.mongodb.net/ITProject?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-let pikachu:Pokemon={
-    id:25,
-    name:"pikachu"
+interface Player {
+    _id?: ObjectId,
+    sessionToken: string,
+    currentPokemon: number,
+    capturedPokemonList: Pokemon[]
 }
-
 interface Pokemon{
-    id?:number,
-    name:string
+    id:number,
+    nickname:string
 }
 let doSomeDBCalls = async () => {
     try {
@@ -18,7 +20,7 @@ let doSomeDBCalls = async () => {
         await client.connect();
         console.log("Client connected!")
         // DBCalls
-        await client.db("ITProject").collection("pokemons").insertOne(pikachu);
+        await client.db("ITProject").collection("pokemons").insertOne();
         console.log("DBCalls done!")
  
     } catch (e) {
@@ -28,7 +30,7 @@ let doSomeDBCalls = async () => {
         console.log("Client closed!")
     }
 }
-console.log(pikachu);
+console.log();
 doSomeDBCalls();
 
 
