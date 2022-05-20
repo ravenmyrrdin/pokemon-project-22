@@ -85,7 +85,6 @@ export class Pokemon
   private getSpritesFromGeneration(pokemonGame: PokemonGame, nextOnNull: boolean = true): {[key: string]: string} { 
     let apiSectionString = PokemonGame[pokemonGame].split(/(?=[A-Z])/).join("-").toLowerCase();
     let generation = PokemonGame.getGeneration(pokemonGame);
-    console.log(apiSectionString);
     for(let i = generation; i < PokemonGame.UltraSunUltraMoon; i++)
     {
       //console.log(this._sprites["versions"][`generation-${StringTools.numberToRoman(i)}`])
@@ -95,7 +94,6 @@ export class Pokemon
       {
         if(i+1 != PokemonGame.UltraSunUltraMoon)
           generation++;
-          console.log(PokemonGame.getGamesFromGeneration(generation));
           apiSectionString = PokemonGame[PokemonGame.getGamesFromGeneration(generation)[0]].split(/(?=[A-Z])/).join("-").toLowerCase();
         continue;
 

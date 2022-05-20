@@ -3,15 +3,36 @@ import { IPokemonStat } from "./api/IPokemonStat";
 import { Pokemon } from "./api/Pokemon";
 import { PokemonAPI } from "./api/PokemonAPI";
 
+const checkSessionToken = (req, res, next) =>
+{
+  var cookie = req.cookies.cookieName;
+  if(cookie === undefined)
+  {
+    let days = 365;
+    res.cookie('sessionToken', `${Math.random()}`.slice(2), { maxAge: (24*60*60*1000)*days, httpOnly: true });
+  }
+
+  next();
+}
+
 const express = require("express");
 const app = express();
 const api = new PokemonAPI();
+var cookieParser = require('cookie-parser')
 
 app.set("port", process.env.PORT || 8080);
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
+app.use(checkSessionToken);
 
 app.get("/", (req: any, res: any) => {
+  // Cookies that have not been signed
+  console.dir(req.cookies)
+
+  // Cookies that have been signed
+  console.log('Signed Cookies: ', req.signedCookies)
   res.render("index");
 });
 
@@ -19,7 +40,7 @@ app.get("/pokemon", async (req: any, res: any) => res.redirect("/pokemon/0"));
 app.get("/pokemon/:page", async (req: any, res: any) => {
   if(isNaN(Number.parseInt(req.params.page)))
     return res.redirect("/pokemon/0");
-
+  
   const pokemonFetchers:Promise<Pokemon>[] =[];
   let page = Number.parseInt(req.params.page);
   let itemsOnPage = 30;
@@ -52,14 +73,13 @@ app.get("/catch/:index", async (req: any, res: any) => {
 });
 
 app.get("/dashboard", (req: any, res: any) => {
+
   res.render("dashboard");
 });
 
 app.get("/vergelijking", async (req: any, res: any) => res.redirect("/vergelijking/1/2"));
 app.post("/vergelijking/:a/:b", async (req: any, res: any) =>  res.redirect(`/vergelijking/${req.body.aIdentifier}/${req.body.bIdentifier}`));
 app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
-    const api = new PokemonAPI();
-    
     // Catch promise rejections using map -> p.catch aka then equivalent, and map results to undefined if reject or value if resolved.
     const [pokemonA, pokemonB] = (await Promise.all([ 
       /^[0-9]+$/.test(req.params.a) ? api.getById(Number.parseInt(req.params.a)) : api.getByName(req.params.a),
@@ -96,6 +116,7 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
       }
     };
     
+    // Count superior stats.
     let aCount = responseData.infoA === undefined ? -1 : 0;
     let bCount = responseData.infoB === undefined ? -1 : 0;
     if(aCount !== -1 && bCount !== -1)
