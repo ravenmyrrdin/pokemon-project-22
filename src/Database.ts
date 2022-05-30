@@ -16,8 +16,8 @@ interface Pokemon{
 }
 
 let player: Player= {
-    sessionToken: "ditIsEenSessionId",
-    capturedPokemonList: [{id:1}, {id:50, nickname:"Alcatraz"}]
+    sessionToken: "ditIsOokEenSessionId",
+    capturedPokemonList: [{id:23}, {id:35}, {id:35, nickname:"Grasspop"}]
 }
 let doSomeDBCalls = async () => {
     try {
