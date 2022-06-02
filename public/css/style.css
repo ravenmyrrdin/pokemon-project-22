@@ -98,3 +98,15 @@ section.dashboard article {
   width: 10rem;
   height: 10rem;
 }
+
+.width80 {
+  width: 80%;
+}
+
+.center {
+  margin: 0% auto;
+}
+
+.marginTop1{
+  margin-top: 1rem;
+}

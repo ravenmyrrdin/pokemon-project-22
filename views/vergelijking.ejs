@@ -12,19 +12,19 @@
 <body>
   <%- include('partials/navbar.ejs'); %>    
 
-  <main>
+  <main class="width80 center marginTop1">
       <article  class="bg-danger" >
-        <form class="input-group rounded" method="POST">
-          <input type="search" class="form-control rounded border-2 border-danger" name="aIdentifier" value="<%= infoA !== undefined ? infoA.name : '' %>" placeholder="Naam of nummer van de pokemon" aria-label="Search" aria-describedby="search-addon" />
-          <input type="search" class="form-control rounded border-2 border-danger" name="bIdentifier" value="<%= infoB !== undefined ? infoB.name : '' %>" placeholder="Naam of nummer van de pokemon" aria-label="Search" aria-describedby="search-addon" />
+        <form class="input-group rounded" method="POST" action="/vergelijking/aIdentifier/bIdentifier">
+          <input type="search" class="form-control rounded border-2 border-dark" name="aIdentifier" value="<%= infoA !== undefined ? infoA.name : '' %>" placeholder="Naam of nummer van de pokemon" aria-label="Search" aria-describedby="search-addon" />
+          <input type="search" class="form-control rounded border-2 border-dark" name="bIdentifier" value="<%= infoB !== undefined ? infoB.name : '' %>" placeholder="Naam of nummer van de pokemon" aria-label="Search" aria-describedby="search-addon" />
           
           <input type="submit" value="vergelijk" class="btn btn-danger" />
         </form>
       </article>
       <article>
-        <section class="d-flex justify-content-center" id="card-container">
+        <section class="d-md-flex flex-wrap justify-content-center" id="card-container">
           <!-- Pokemon A -->
-          <div class="card w-25 m-5 border-3 <%= superior == 0 ? 'border-success' : 'border-danger'%>" style="width: 18rem;">
+          <div class="card w-40 m-5 border-3 <%= superior == 0 ? 'border-success' : 'border-danger'%>" style="width: 18rem;">
             <% if(infoA !== undefined){ %>
               <div class="card-body my-5 container row">
                 <h5 class="card-title text-center"><%= infoA.name %></h5>
@@ -41,7 +41,7 @@
           </div>
         <!-- Pokemon B-->
 
-      <div class="card w-25 m-5 border-3 <%= superior == 1 ? 'border-success' : 'border-danger'%>" style="width: 18rem;">
+      <div class="card w-40 m-5 border-3 <%= superior == 1 ? 'border-success' : 'border-danger'%>" style="width: 18rem;">
         <% if(infoB !== undefined){ %>
           <div class="card-body container row my-5">
             <h5 class="card-title text-center"><%= infoB.name %></h5>
