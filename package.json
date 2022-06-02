@@ -6,6 +6,7 @@
   "directories": {},
   "dependencies": {
     "axios": "^0.26.1",
+    "cookie-parser": "^1.4.6",
     "ejs": "^3.1.6",
     "express": "*",
     "mongodb": "^4.5.0",

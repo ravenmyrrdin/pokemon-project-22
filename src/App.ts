@@ -19,6 +19,7 @@ const express = require("express");
 const app = express();
 const api = new PokemonAPI();
 var cookieParser = require('cookie-parser')
+var pokemon: Pokemon= null;
 
 app.set("port", process.env.PORT || 8080);
 app.set("view engine", "ejs");
@@ -75,6 +76,14 @@ app.get("/catch/:index", async (req: any, res: any) => {
 app.get("/dashboard", (req: any, res: any) => {
 
   res.render("dashboard");
+});
+
+app.get("/whosthatpokemon", async (req: any, res: any) => {
+  const getal = Math.floor((Math.random()*897)+1);
+  pokemon = await api.getById(getal);
+  try{
+    res.render("whosthat", {pokemon: await pokemon});
+  }catch (err){console.error(err);}
 });
 
 app.get("/vergelijking", async (req: any, res: any) => res.redirect("/vergelijking/1/2"));

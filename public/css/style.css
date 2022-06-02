@@ -86,3 +86,15 @@ img#logo {
   width: 10rem;
   height: 10rem;
 }
+
+.whosthatimg{
+  width: 40rem;
+  height: 40rem;
+  transition: filter .5s ease-out;
+  filter: brightness(0);
+}
+
+.centerdiv{
+  margin: 0 auto;
+  width:80%
+}

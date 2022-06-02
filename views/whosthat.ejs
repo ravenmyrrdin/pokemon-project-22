@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="nl-BE">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Who's that pokémon</title>
+    <%- include('partials/head'); %>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+<body>
+  <%- include('partials/navbar.ejs'); %>    
+
+<script>
+        let pokemonName = '<%= pokemon.name %>';
+        var form = document.getElementById("myForm");
+        function handleForm(event) { event.preventDefault(); } 
+        form.addEventListener('submit', handleForm);
+</script>
+
+<main>
+    <form class="centerdiv">
+        <div class="form-row">
+          <div class="col well centerdiv">
+            <img src="<%= pokemon._sprites.front_default %>" class="whosthatimg"/>
+          </div>
+        </div> 
+        <div class="row" >
+            <div class="col">
+                <input type="text" name="pokenaam" id="pokenaam" class="form-control" placeholder="Naam van de pokemon">
+              </div>
+              <div class="col">
+                
+                <button class="btn btn-primary mb-2" onclick="
+
+                    if(pokemonName == document.getElementById('pokenaam').value){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Dit was de juiste pokemon!',
+                            showConfirmButton: true,
+                            confirmButtonText: 'doorgaan',
+                            timer: 1500
+                            })
+                    }else{
+                       Swal.fire({
+                                icon: 'error',
+                                title: 'Sorry',
+                                text: 'Dit was niet de juiste pokemon!', 
+                                showConfirmButton: true,
+                                confirmButtonText: 'doorgaan'
+                                })
+                                    }
+                    
+                    ">Gokken</button>
+              </div>
+        </div>
+      </form>
+      <%= pokemon.name %>
+</main>
+
+</body>
