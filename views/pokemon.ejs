@@ -9,7 +9,7 @@
     <main class="p-lg-3">
       <section class="d-flex flex-wrap justify-content">
         <% for (let i = 0; i<pokemons.length; i++){%>
-        <article class="pokemonkaart">
+        <article class="pokemonkaart" onclick="location.href='/pokemon-detail/<%=pokemons[i].id%>'">
           <div class="row">
             <img src="<%= pokemons[i]._sprites.front_default %>" class="spriteimg"/>
           </div>
