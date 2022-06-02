@@ -8,26 +8,31 @@
     <%-include('partials/navbar')%>
 
     <main>   
-<section class="dashboard py-5">
-  
-  <article class="d-flex justify-content-center flex-wrap flex-row">
-    <img src="/images/pokemonvgl.jpg" height="auto" width="100%" class="px-5 mb-5 mt-2"/>
-    <button class="btn btn-danger m-auto mb-2" onclick='window.location.href="/vergelijking"'>Vergelijk Pokemons</button>
-  </article>
-      
-  <article class="d-flex justify-content-center flex-wrap flex-row">
-    <img src="/images/pokemoncol.jpg" height="300rem" width="100%" class="px-5 mb-5  mt-2"/>
-    <button type="Bekijken" class="btn btn-danger m-auto mb-2">Bekijken</button>
-  </article>
-
-  <article class="d-flex justify-content-center flex-wrap flex-row">
-    <img src="/images/mypokemon.jpg" height="300rem" width="100%" class="px-5 mb-5  mt-2"/>
-    <button type="Pokemon" class="btn btn-danger m-auto mb-2" onclick='window.location.href="/pokemon"'>Huidige Pokemon </button>
-  </article>
-</section>
-
-
-  </main>
+      <section class="d-flex flex-wrap justify-content-around py-5">
+        <%
+        for(let item of [
+        {
+          text: "Vergelijk Pokemons",
+          image: "/images/pokemonvgl.jpg",
+          url: "/vergelijking"
+        },
+        {
+          text: "Bekijken",
+          image: "/images/pokemoncol.jpg",
+          url: ""
+        },
+        {
+          text: "Huidige Pokemon",
+          image: "/images/mypokemon.jpg",
+          url: "/pokemon"
+        },
+        ]) { %>
+          <article class="d-flex justify-content-center flex-wrap flex-row border border-danger w-25">
+            <img src="<%= item.image %>" height="auto" width="100%" class="px-5 mb-5 mt-2"/>
+            <button class="btn btn-danger m-auto mb-2" onclick='window.location.href="<%= item.url %>"'><%= item.text %> </button>
+          </article>
+        <% } %>
+      </section>
+    </main>
   </body> 
 </html>
-s

@@ -8,6 +8,8 @@ section.index article:hover {
   cursor: pointer;
 }
 
+/*
+Verwijder eind project, of enable indien tijd over.
 body.contact main {
   margin: 2rem 0 0 0;
   border: 3px solid black;
@@ -24,6 +26,7 @@ body.contact main form label {
   font-size: 1.5rem;
   width: 80%;
 }
+*/
 
 .imgWrap {
   display: flex;
@@ -56,27 +59,12 @@ img#logo {
   color: inherit;
 }
 
-section.dashboard {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  column-gap: 5%;
-  row-gap: 5%;
-  width: 90%;
-  margin: 0 auto;
-}
-
-section.dashboard article {
-  border: 1px red solid;
-  width: 30%;
-  min-width: 300px;
-}
-.pokeballcontainer{
+.pokeballcontainer {
   background-color: rgb(251,27,27,0.5);
   border-radius: 200px;
 }
 
-.pokemonkaart{
+.pokemonkaart {
     display: grid;
     text-align: center;
     padding: 0.5rem; 
