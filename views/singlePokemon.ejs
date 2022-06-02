@@ -8,11 +8,13 @@
     <main>
         <%-include('partials/navbar.ejs');-%>
         <div class="center pro50">
-            <h1 class="txtcenter"><%=data.name.charAt(0).toUpperCase() + data.name.slice(1)%></h1>
+            <h1 class="txtcenter"><%=data.name.charAt(0).toUpperCase() + data.name.slice(1)%> <%if (database){%><span class="captured">(Captured)</span><%}%></h1>
             <img src="<%=data._sprites.front_default%>" alt="<%=data.name%> picture" class="singlePokemonSprite">
             <div class="pa2">
                 <h2>Beschrijving</h2>
+                <%if (database){%>
                 <p>Bijnaam: </p>
+                <%}%>
                 <p>Stats: </p>
                 <table>
                     <% for (let i = 0; i < data._stats.length; i++) { console.log(data._stats[i].stat) %>
@@ -24,6 +26,7 @@
                 <%}%>
             </table>
             </div>
+            <div class="centerPage"><button class="btn btn-danger mao1" onclick='window.location.href="/pokemon"'>Terug naar Pokédex</button></div>
         </div>
     </main>
     

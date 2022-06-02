@@ -151,8 +151,9 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
 
 app.get("/pokemon-detail/:id", async (req: any, res: any) => {
   let data = await api.getById(req.params.id);
+  let database = false;
   console.log(data)
-  res.render("singlePokemon", { data: data });
+  res.render("singlePokemon", { data: data, database: database });
 });
 
 app.listen(

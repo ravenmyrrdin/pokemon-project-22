@@ -120,9 +120,23 @@ table {
   border-spacing: 1rem;
   width: 75%;
   border-collapse: collapse;
-  margin: -1rem auto 0 auto;
+  margin: -1rem auto 1rem auto;
 }
 table tr {
   border-bottom: 1px solid black;
   list-style: circle;
+}
+
+.captured {
+  color: red;
+  font-size: 1rem;
+}
+
+.mao1 {
+  margin-bottom: 1rem;
+}
+
+.centerPage{
+  margin: 0 auto;
+  width: fit-content;
 }
