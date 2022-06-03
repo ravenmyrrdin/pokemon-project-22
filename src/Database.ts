@@ -43,14 +43,15 @@ export const updateUser = async(user: IUser) =>
     try
     {
         console.log("updating user");
-        console.dir(user);
+        console.dir(user.currentPokemonId);
         await client.connect();
         const repo = await client.db("ITProject");
         const collection = await repo.collection("pokemons")
 
         await collection.updateOne({_id: user._id}, {
             $set: {
-                capturedPokemon: user.capturedPokemon
+                capturedPokemon: user.capturedPokemon,
+                currentPokemonId: user.currentPokemonId
             }
         });
     }
