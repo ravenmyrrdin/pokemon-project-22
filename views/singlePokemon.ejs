@@ -26,7 +26,12 @@
                 <%}%>
             </table>
             </div>
-            <div class="centerPage"><button class="btn btn-danger mao1" onclick='window.location.href="/pokemon"'>Terug naar Pokédex</button></div>
+            <div class="centerPage">
+                <%if (database){%>
+                <button class="btn btn-danger mao1" onclick="releasePokemon(<%-data.id%>)">Laat Pokémon vrij</button>
+                <%}%>
+                <button class="btn btn-danger mao1" onclick='window.location.href="/pokemon"'>Terug naar Pokédex</button>
+            </div>
         </div>
     </main>
     

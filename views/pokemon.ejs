@@ -19,13 +19,16 @@
         Swal.fire({
             title: 'Wil je <%= pokemons[i].name %> proberen vangen?',
             showDenyButton: true,
-            showCancelButton: false,
+            showCancelButton: true,
             confirmButtonText: 'Battle',
-            denyButtonText: `Flee`,
+            denyButtonText: `Bekijk Pokémon`,
+            cancelButtonText: `Flee`
           }).then((result) => {
             /* Read more about isConfirmed,  isDenied below */
             if (result.isConfirmed) {
-              window.location.replace('/capture/<%= i+1 %>');
+              window.location.replace('/capture/<%= pokemons[i].id %>');
+            } else if (result.isDenied) {
+              window.location.replace('/pokemon-detail/<%= pokemons[i].id %>');
             }
           })">
           <div class="row">

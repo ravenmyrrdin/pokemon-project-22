@@ -75,6 +75,23 @@ let insertUser = async (pokemon) => {
     }
 }
 
+export const releasePokemon = async (pokemonId: number) => {
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+        console.log("Client connected!")
+        // DBCalls
+        await client.db("ITProject").collection("pokemons").deleteOne({id: pokemonId});
+        console.log("DBCalls done!")
+ 
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+        console.log("Client closed!")
+    }
+}
+
 async function test() {
     
    

@@ -2,7 +2,7 @@ import { PokemonGame } from "./api/PokemonGame";
 import { IPokemonStat } from "./api/IPokemonStat";
 import { Pokemon } from "./api/Pokemon";
 import { PokemonAPI } from "./api/PokemonAPI";
-import { getUser, setUser } from "./Database";
+import { getUser, setUser, releasePokemon } from "./Database";
 
 const setupSession = async(req, res, next) => {
   let token = req.cookies.sessionToken;
@@ -166,9 +166,9 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
 
 app.get("/pokemon-detail/:id", async (req: any, res: any) => {
   let data = await api.getById(req.params.id);
-  let database = false;
+  let database = true;
   console.log(data)
-  res.render("singlePokemon", { data: data, database: database });
+  res.render("singlePokemon", { data: data, database: database, releasePokemon: releasePokemon });
 });
 
 app.listen(
