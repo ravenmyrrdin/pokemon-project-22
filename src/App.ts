@@ -212,10 +212,9 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
 
 app.get("/pokemon-detail/:id", async (req: any, res: any) => {
   let data = await api.getById(req.params.id);
-  let database = req.user?.capturedPokemon;
-  // console.log(data)
-  console.log("Pokemon na current instellen: " + req.user.currentPokemonId);
-  res.render("singlePokemon", { data: data, database: database, releasePokemon: releasePokemon, capturedPokemon: req.user.capturedPokemon === undefined ? [] : req.user.capturedPokemon});
+  let capturedData = req.user?.capturedPokemon.filter(i => i.id == req.params.id);
+
+  res.render("singlePokemon", { data: data, capturedData: capturedData, releasePokemon: releasePokemon});
 });
 
 app.post("/currentPokemon", async(req: any, res: any) => {
