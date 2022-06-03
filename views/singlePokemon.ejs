@@ -27,10 +27,13 @@
             </table>
             </div>
             <div class="centerPage">
-                <%if (database){%>
-                    <!-- onclick="await releasePokemon(<%-data.id%>); window.location.href" -->
-                <button class="btn btn-danger mao1">Laat Pokémon vrij</button>
-                <%}%>
+                <%if (database) {if (database.includes(data.id)){%><%}}%>
+                <form action="/currentPokemon" method="POST">
+                    <label for="currentId"></label>
+                    <input type="hidden" name="currentId" value="<%=data.id%>">
+                    <input type="submit" class="btn btn-danger mao1" value="Stel in als buddy">
+                </form>
+                
                 <button class="btn btn-danger mao1" onclick='window.location.href="/pokemon"'>Terug naar Pokédex</button>
             </div>
         </div>
