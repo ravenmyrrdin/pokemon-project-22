@@ -29,8 +29,9 @@ const setupSession = async(req, res, next) => {
 const express = require("express");
 const app = express();
 const api = new PokemonAPI();
-var cookieParser = require("cookie-parser");
-
+const fs = require('fs');
+var cookieParser = require('cookie-parser')
+var pokemon: Pokemon= null;
 
 app.set("port", process.env.PORT || 8080);
 app.set("view engine", "ejs");
@@ -140,6 +141,39 @@ app.get("/dashboard", (req: any, res: any) => {
   res.render("dashboard", {buddy: req.user.capturedPokemon.filter(i => i.id === req.user.currentPokemonId)[0]});
 });
 
+app.get("/whosthatpokemon", async (req: any, res: any) => {
+  
+  
+  //json writing
+    //Json flag
+    const writeJson = false;
+    var pokeNames: string[] = [];
+
+    if(writeJson){
+      
+
+      for (let i = 1; i < 898; i++) {
+        const pokeName = (await api.getById(i)).name;
+        console.log(pokeName);
+        pokeNames.push(pokeName);
+      }
+  
+      let json = JSON.stringify(pokeNames);
+      fs.writeFile('./json/pokemons.json', json, function(err, result) {
+        if(err) console.log('error', err);
+      });
+    }else{
+      pokeNames = require('./json/pokemons.json');
+    }
+  
+  const getal = Math.floor((Math.random()*897)+1);
+  pokemon = await api.getById(getal);
+  try{
+    res.render("whosthat", {pokemon: await pokemon,pokeNames: await pokeNames});
+  }catch (err){console.error(err);}
+});
+
+app.post("/vergelijking/:a/:b", async (req: any, res: any) =>  res.redirect(`/vergelijking/${req.body.aIdentifier}/${req.body.bIdentifier}`));
 app.get("/vergelijking", async (req: any, res: any) =>
   res.redirect("/vergelijking/1/2")
 );
