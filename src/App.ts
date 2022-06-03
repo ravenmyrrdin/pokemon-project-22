@@ -137,7 +137,7 @@ app.post("/captured/:sessionId", async(req, res) => {
 
 
 app.get("/dashboard", (req: any, res: any) => {
-  res.render("dashboard");
+  res.render("dashboard", {buddy: req.user.capturedPokemon.filter(i => i.id === req.user.currentPokemonId)[0]});
 });
 
 app.get("/vergelijking", async (req: any, res: any) =>
@@ -215,7 +215,7 @@ app.get("/pokemon-detail/:id", async (req: any, res: any) => {
   let database = req.user?.capturedPokemon;
   // console.log(data)
   console.log("Pokemon na current instellen: " + req.user.currentPokemonId);
-  res.render("singlePokemon", { data: data, database: database, releasePokemon: releasePokemon });
+  res.render("singlePokemon", { data: data, database: database, releasePokemon: releasePokemon, capturedPokemon: req.user.capturedPokemon === undefined ? [] : req.user.capturedPokemon});
 });
 
 app.post("/currentPokemon", async(req: any, res: any) => {
