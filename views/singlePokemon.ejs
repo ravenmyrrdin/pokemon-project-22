@@ -8,18 +8,20 @@
     <main>
         <%-include('partials/navbar.ejs');-%>
         <div class="center pro50">
-            <h1 class="txtcenter"><%=data.name.charAt(0).toUpperCase() + data.name.slice(1)%> <%if (database) {if (database.includes(data.id)){%><span class="captured">(Captured)</span><%}}%></h1>
+            <h1 class="txtcenter">
+                <%=data.name.charAt(0).toUpperCase() + data.name.slice(1)%> <%if (capturedData) { %><span class="captured">(Captured)</span><% }%>
+            </h1>
             <img src="<%=data._sprites.front_default%>" alt="<%=data.name%> picture" class="singlePokemonSprite">
             <div class="pa2">
                 <h2>Beschrijving</h2>
-                <%if (database) {if (database.includes(data.id)){%>
-                <p>Bijnaam: </p>
-                <%}}%>
+                <% if (capturedData) { %>
+                <p>Bijnaam: <%= capturedData.name?.length ? capturedData.name : "Geen bijnaam" %></p>
+                <%}%>
                 <p>Stats: </p>
                 <table>
                     <% for (let i = 0; i < data._stats.length; i++) { console.log(data._stats[i].stat) %>
                     <tr>
-                        <td>•    </td>
+                        <td>•</td>
                         <td><%=data._stats[i].stat.name.charAt(0).toUpperCase() + data._stats[i].stat.name.slice(1) %>: </td>
                         <td><%=data._stats[i].base_stat%></td>
                     </tr>
@@ -27,12 +29,13 @@
             </table>
             </div>
             <div class="centerPage">
-                <%if (database) {if (database.includes(data.id)){%><%}}%>
-                <form action="/currentPokemon" method="POST">
-                    <label for="currentId"></label>
-                    <input type="hidden" name="currentId" value="<%=data.id%>">
-                    <input type="submit" class="btn btn-danger mao1" value="Stel in als buddy">
-                </form>
+                <% if(capturedData) { %>
+                    <form action="/currentPokemon" method="POST">
+                        <label for="currentId"></label>
+                        <input type="hidden" name="currentId" value="<%=data.id%>">
+                        <input type="submit" class="btn btn-danger mao1" value="Stel in als buddy">
+                    </form>
+                <% } %>
                 
                 <button class="btn btn-danger mao1" onclick='window.location.href="/pokemon"'>Terug naar Pokédex</button>
             </div>
