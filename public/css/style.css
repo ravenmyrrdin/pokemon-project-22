@@ -88,8 +88,8 @@ img#logo {
 }
 
 .whosthatimg{
-  width: 40rem;
-  height: 40rem;
+  width: 30rem;
+  height: 30rem;
   transition: filter .5s ease-out;
   filter: brightness(0);
 }
