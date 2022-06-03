@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IUser } from "./IUser";
 const { MongoClient } = require('mongodb');
 const uri = "mongodb+srv://dittodev:Hu7kTUgtKol1NDI3@itproject.x3zaj.mongodb.net/ITProject?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -13,7 +14,7 @@ export interface Pokemon{
     name:string
 }
 
-let getUser = async(sessionToken: string) => 
+export const getUser = async(sessionToken: string) => 
 {
     let output;
     try
@@ -35,7 +36,7 @@ let getUser = async(sessionToken: string) =>
     }
 }
 
-let setUser = async(sessionToken: IUser) => 
+export const setUser = async(user: IUser) => 
 {
     let output;
     try
@@ -44,7 +45,7 @@ let setUser = async(sessionToken: IUser) =>
         const repo = await client.db("ITProject");
         const collection = await repo.collection("pokemons")
 
-        output = await collection.findOne({sessionToken: sessionToken});
+        output = await collection.insertOne(user);
     }
     catch
     {
@@ -73,7 +74,11 @@ let insertUser = async (pokemon) => {
         console.log("Client closed!")
     }
 }
-console.log(pikachu);
 
-console.dir(getUser(""));
+async function test() {
+    
+   
+    console.dir(await getUser(""));
+}
 
+test();

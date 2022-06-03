@@ -2,17 +2,26 @@ import { PokemonGame } from "./api/PokemonGame";
 import { IPokemonStat } from "./api/IPokemonStat";
 import { Pokemon } from "./api/Pokemon";
 import { PokemonAPI } from "./api/PokemonAPI";
+import { getUser, setUser } from "./Database";
 
-const checkSessionToken = (req, res, next) => {
-  var cookie = req.cookies.cookieName;
-  if (cookie === undefined) {
+const setupSession = async(req, res, next) => {
+  let token = req.cookies.sessionToken;
+  if (!token) {
     let days = 365;
-    res.cookie("sessionToken", `${Math.random()}`.slice(2), {
+    let token = `${Math.random()}`.slice(2);
+    res.cookie("sessionToken", token, {
       maxAge: 24 * 60 * 60 * 1000 * days,
       httpOnly: true,
     });
-  }
 
+    await setUser({
+        sessionToken: token,
+        capturedPokemon: [],
+        currentPokemonId: 0
+    });
+  };
+
+  req.user = await getUser(token);
   next();
 };
 
@@ -26,14 +35,9 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(checkSessionToken);
+app.use(setupSession);
 
 app.get("/", (req: any, res: any) => {
-  // Cookies that have not been signed
-  console.dir(req.cookies);
-
-  // Cookies that have been signed
-  console.log("Signed Cookies: ", req.signedCookies);
   res.render("index");
 });
 
