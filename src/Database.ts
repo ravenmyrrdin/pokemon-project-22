@@ -36,7 +36,7 @@ export const getUser = async(sessionToken: string) =>
     }
 }
 
-export const setUser = async(user: IUser) => 
+export const updateUser = async(user: IUser) => 
 {
     let output;
     try
@@ -45,7 +45,7 @@ export const setUser = async(user: IUser) =>
         const repo = await client.db("ITProject");
         const collection = await repo.collection("pokemons")
 
-        output = await collection.updateOne(user);
+        output = await collection.updateOne(user, );
     }
     catch
     {
