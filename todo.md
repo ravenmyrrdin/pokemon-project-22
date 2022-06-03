@@ -1,4 +1,4 @@
 - Huidige pokemon shortcut dashboard
 - Pokemon check voor buddy instellen 
-- Zoek search 
+- Who's that pokemon stat change if juist
 - Huidige pokemon dynamisch maken
