@@ -84,6 +84,7 @@ img#logo {
 .pokeballimg{
   width: 1.5rem;
   height: 1.5rem;
+  visibility: hidden;
 }
 
 .spriteimg{

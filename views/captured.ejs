@@ -1,0 +1,36 @@
+<!--
+
+-->
+
+<!DOCTYPE html>
+<html lang="nl-BE">
+  <head>
+    <title>Pokedex</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <%- include('partials/head'); %>
+  </head>
+  <body>
+    <%- include('partials/navbar.ejs'); %>
+    <main class="p-lg-3 ">
+        <section class="container border border-danger">
+            <article class="row     ">
+                <img src="<%= pokemon._sprites.front_default %>"  class="col-sm" />
+                <div class="col-sm bg-danger container text-white">
+                    <p class="h2 text-center">
+                        <%= buddy === undefined ? "Battling without buddy" : "Battling with: buddy.name" %>
+                    </p>
+                    
+                    Kans om te vangen: <%= 100 - pokemon._stats[2].base_stat %>%<br />
+                    Pokeballs over: <%= pokeballs %>    
+
+                    <form method="POST">
+                        <input type="hidden" name="sessionId" value="<%= sessionId %>" />
+                        <input type="submit" value="Gooi pokeball" class="w-100" />
+                    </form>
+                </div>
+            </article>
+
+        </section>
+    </main>
+  </body>
+</html>

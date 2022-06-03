@@ -3,6 +3,7 @@ import { IPokemonStat } from "./api/IPokemonStat";
 import { Pokemon } from "./api/Pokemon";
 import { PokemonAPI } from "./api/PokemonAPI";
 import { getUser, setUser, releasePokemon } from "./Database";
+import { IUser } from "./IUser";
 
 const setupSession = async(req, res, next) => {
   let token = req.cookies.sessionToken;
@@ -82,15 +83,19 @@ app.post("/capture/:index", async (req: any, res: any) => {
   const sessionId = req.body.sessionId;
   sessions[sessionId]--;
 
-  const index = req.params.index;
+  const index = Number.parseInt(req.params.index);
   const pokemon: Pokemon = await api.getById(index);
 
   let buddy = req.user?.capturedPokemon[req.user?.capturedPokemonId];
   if(Math.random()*100 <= (100 - pokemon.getStat(IPokemonStat.Defence) + (buddy !== undefined ? buddy.getStat(IPokemonStat.Defence) : 0) ))
   {
-    
+    let user: IUser = req.user; 
+    if(user)
+    {
 
-    return res.send("Pokemon captured");
+      user.capturedPokemon.push()
+      return res.send("Pokemon captured");
+    } else res.redirect(503);
   }
   else
   {
