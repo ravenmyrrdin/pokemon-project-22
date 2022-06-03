@@ -1,7 +1,12 @@
+<!--
+
+-->
+
 <!DOCTYPE html>
 <html lang="nl-BE">
   <head>
     <title>Pokedex</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     <%- include('partials/head'); %>
   </head>
   <body>
@@ -9,13 +14,26 @@
     <main class="p-lg-3">
       <section class="d-flex flex-wrap justify-content">
         <% for (let i = 0; i<pokemons.length; i++){%>
-        <article class="pokemonkaart">
+
+        <article class="pokemonkaart" onclick="
+        Swal.fire({
+            title: 'Wil je <%= pokemons[i].name %> proberen vangen?',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Battle',
+            denyButtonText: `Flee`,
+          }).then((result) => {
+            /* Read more about isConfirmed,  isDenied below */
+            if (result.isConfirmed) {
+              window.location.replace('/capture/<%= i+1 %>');
+            }
+          })">
           <div class="row">
             <img src="<%= pokemons[i]._sprites.front_default %>" class="spriteimg"/>
           </div>
           <div class="row">
             <div class="col">
-              <%= pokemons[i].name %>
+              <%= pokemons[i].name.charAt(0).toUpperCase() + pokemons[i].name.slice(1) %>
             </div>
             <div class="col">
               <img src="/images/pokeball.png" class="pokeballimg"\>
