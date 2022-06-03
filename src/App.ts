@@ -2,7 +2,7 @@ import { PokemonGame } from "./api/PokemonGame";
 import { IPokemonStat } from "./api/IPokemonStat";
 import { Pokemon } from "./api/Pokemon";
 import { PokemonAPI } from "./api/PokemonAPI";
-import { getUser, setUser, releasePokemon } from "./Database";
+import { getUser, setUser, releasePokemon, updateUser } from "./Database";
 import { IUser } from "./IUser";
 
 const setupSession = async(req, res, next) => {
@@ -205,10 +205,12 @@ app.get("/pokemon-detail/:id", async (req: any, res: any) => {
   res.render("singlePokemon", { data: data, database: database, releasePokemon: releasePokemon });
 });
 
-app.post("/currentPokemon", (req: any, res: any) => {
+app.post("/currentPokemon", async(req: any, res: any) => {
   // if (req.body.currentPokemon != null) {
-  req.user.currentPokemonId = req.body.currenId;
-  console.log("huidige pokemon " + req.user.currentPokemonId);
+    const user = req.user;
+    user.currentPokemonId = Number.parseInt(req.body.currentId);
+    
+    await updateUser(user);
 // }
   res.redirect("pokemon-detail/" + req.body.currentId);
 })

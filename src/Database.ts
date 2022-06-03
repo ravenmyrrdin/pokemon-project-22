@@ -122,15 +122,3 @@ export const releasePokemon = async (pokemonId: number) => {
     }
 }
 
-async function test() {
-    const user: IUser = await getUser("");
-    user.capturedPokemon.push({
-        id: 1,
-        name: "tester"
-    });
-    await updateUser(user);
-
-    console.dir(await getUser(""));
-}
-
-test();
