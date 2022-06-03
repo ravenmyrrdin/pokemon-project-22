@@ -183,3 +183,8 @@ table tr {
   position: relative;
   display: inline-block;
 }
+
+.swal-icon img{
+  width: 120px;
+  height: 120px;
+}
