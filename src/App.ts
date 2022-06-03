@@ -69,7 +69,7 @@ app.get("/capture/:index", async (req: any, res: any) => {
   sessions[sessionId] = 3;
   const index = req.params.index;
   const pokemon: Pokemon = await api.getById(index);
-  let buddy = req.user.capturedPokemon[req.user.capturedPokemonId];
+  let buddy = req.user?.capturedPokemon[req.user?.capturedPokemonId];
   try {
     res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId], buddy: buddy, sessionId: sessionId});
   } catch (err) {
@@ -89,7 +89,7 @@ app.post("/capture/:index", async (req: any, res: any) => {
   if(Math.random()*100 <= (100 - pokemon.getStat(IPokemonStat.Defence) + (buddy !== undefined ? buddy.getStat(IPokemonStat.Defence) : 0) ))
   {
     
-    
+
     return res.send("Pokemon captured");
   }
   else
