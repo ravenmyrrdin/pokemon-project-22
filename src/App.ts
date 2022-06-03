@@ -63,17 +63,13 @@ app.get("/pokemon/:page", async (req: any, res: any) => {
 //   res.render("catch");
 // });
 
-app.get("/catch/:index", async (req: any, res: any) => {
+app.get("/capture/:index", async (req: any, res: any) => {
   const index = req.params.index;
-  // if (index > 0 && index != null) {
-  //   const pokemon: Pokemon = await api.getById(index);
-  //   res.render("catching", { pokemon: await pokemon });
-  // } else {
-  //   res.render("404")
-  // }
   const pokemon: Pokemon = await api.getById(index);
+  let buddy = req.user.capturedPokemon[req.user.capturedPokemonId];
+  // ^^^^^^^^^^^^^^^^^^^^^^^^
   try {
-    res.render("catching", { pokemon: await pokemon });
+    res.render("capture", { pokemon: await pokemon, pokeballs: 3, buddy: buddy});
   } catch (err) {
     console.error(err);
   }
