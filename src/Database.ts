@@ -45,6 +45,28 @@ export const setUser = async(user: IUser) =>
         const repo = await client.db("ITProject");
         const collection = await repo.collection("pokemons")
 
+        output = await collection.updateOne(user);
+    }
+    catch
+    {
+
+    }
+    finally
+    {
+        client.close();
+        return output;
+    }
+}
+
+export const setUser = async(user: IUser) => 
+{
+    let output;
+    try
+    {
+        await client.connect();
+        const repo = await client.db("ITProject");
+        const collection = await repo.collection("pokemons")
+
         output = await collection.insertOne(user);
     }
     catch
