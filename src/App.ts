@@ -30,6 +30,7 @@ const app = express();
 const api = new PokemonAPI();
 var cookieParser = require("cookie-parser");
 
+
 app.set("port", process.env.PORT || 8080);
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -62,17 +63,31 @@ app.get("/pokemon/:page", async (req: any, res: any) => {
 // app.get("/catch", (req: any, res: any) => {
 //   res.render("catch");
 // });
-
+let sessions: {[key: string]: number} = {};
 app.get("/capture/:index", async (req: any, res: any) => {
+  const sessionId = `${Math.random()}`.slice(2);
+  sessions[sessionId] = 3;
   const index = req.params.index;
   const pokemon: Pokemon = await api.getById(index);
   let buddy = req.user.capturedPokemon[req.user.capturedPokemonId];
-  // ^^^^^^^^^^^^^^^^^^^^^^^^
   try {
-    res.render("capture", { pokemon: await pokemon, pokeballs: 3, buddy: buddy});
+    res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId], buddy: buddy, sessionId: sessionId});
   } catch (err) {
     console.error(err);
   }
+});
+
+app.post("/capture/:index", async (req: any, res: any) => {
+  /*
+  const index = req.params.index;
+  const pokemon: Pokemon = await api.getById(index);
+  let buddy = req.user.capturedPokemon[req.user.capturedPokemonId];
+  try {
+    res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId], buddy: buddy, sessionId: sessionId});
+  } catch (err) {
+    console.error(err);
+  }
+  */
 });
 
 app.get("/dashboard", (req: any, res: any) => {
