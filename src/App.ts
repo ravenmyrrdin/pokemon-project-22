@@ -28,6 +28,7 @@ const setupSession = async(req, res, next) => {
 const express = require("express");
 const app = express();
 const api = new PokemonAPI();
+const fs = require('fs');
 var cookieParser = require('cookie-parser')
 var pokemon: Pokemon= null;
 
@@ -123,10 +124,34 @@ app.get("/dashboard", (req: any, res: any) => {
 });
 
 app.get("/whosthatpokemon", async (req: any, res: any) => {
+  
+  
+  //json writing
+    //Json flag
+    const writeJson = false;
+    var pokeNames: string[] = [];
+
+    if(writeJson){
+      
+
+      for (let i = 1; i < 898; i++) {
+        const pokeName = (await api.getById(i)).name;
+        console.log(pokeName);
+        pokeNames.push(pokeName);
+      }
+  
+      let json = JSON.stringify(pokeNames);
+      fs.writeFile('./json/pokemons.json', json, function(err, result) {
+        if(err) console.log('error', err);
+      });
+    }else{
+      pokeNames = require('./json/pokemons.json');
+    }
+  
   const getal = Math.floor((Math.random()*897)+1);
   pokemon = await api.getById(getal);
   try{
-    res.render("whosthat", {pokemon: await pokemon});
+    res.render("whosthat", {pokemon: await pokemon,pokeNames: await pokeNames});
   }catch (err){console.error(err);}
 });
 
