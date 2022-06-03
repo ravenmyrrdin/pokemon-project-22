@@ -30,7 +30,7 @@
                 <%if (database) {if (database.includes(data.id)){%><%}}%>
                 <form action="/currentPokemon" method="POST">
                     <label for="currentId"></label>
-                    <input type="hidden" name="currentId" value="<%-data.id%>">
+                    <input type="hidden" name="currentId" value="<%=data.id%>">
                     <input type="submit" class="btn btn-danger mao1" value="Stel in als buddy">
                 </form>
                 

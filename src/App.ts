@@ -201,13 +201,14 @@ app.get("/pokemon-detail/:id", async (req: any, res: any) => {
   let data = await api.getById(req.params.id);
   let database = req.user?.capturedPokemon;
   // console.log(data)
+  console.log("Pokemon na current instellen: " + req.user.currentPokemonId);
   res.render("singlePokemon", { data: data, database: database, releasePokemon: releasePokemon });
 });
 
 app.post("/currentPokemon", (req: any, res: any) => {
   // if (req.body.currentPokemon != null) {
   req.user.currentPokemonId = req.body.currenId;
-  console.log(req.user.currentPokemonId);
+  console.log("huidige pokemon " + req.user.currentPokemonId);
 // }
   res.redirect("pokemon-detail/" + req.body.currentId);
 })
