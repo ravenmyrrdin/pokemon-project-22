@@ -85,7 +85,7 @@ app.post("/capture/:index", async (req: any, res: any) => {
   const index = req.params.index;
   const pokemon: Pokemon = await api.getById(index);
 
-  let buddy = req.user.capturedPokemon[req.user.capturedPokemonId];
+  let buddy = req.user?.capturedPokemon[req.user?.capturedPokemonId];
   if(Math.random()*100 <= (100 - pokemon.getStat(IPokemonStat.Defence) + (buddy !== undefined ? buddy.getStat(IPokemonStat.Defence) : 0) ))
   {
     
