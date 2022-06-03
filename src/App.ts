@@ -78,6 +78,33 @@ app.get("/capture/:index", async (req: any, res: any) => {
 });
 
 app.post("/capture/:index", async (req: any, res: any) => {
+  
+  const sessionId = req.body.sessionId;
+  sessions[sessionId]--;
+
+  const index = req.params.index;
+  const pokemon: Pokemon = await api.getById(index);
+  
+  let buddy = req.user.capturedPokemon[req.user.capturedPokemonId];
+  if(Math.random()*100 <= (100 - pokemon.getStat(IPokemonStat.Defence) + (buddy !== undefined ? buddy.getStat(IPokemonStat.Defence) : 0) ))
+  {
+    
+    return res.send("Pokemon captured");
+  }
+  else
+  {
+    if(sessions[sessionId] <= 0)
+    {
+      delete sessions[sessionId];
+      return res.redirect("/pokemon/0");
+    }
+    try {
+      return res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId], buddy: buddy, sessionId: sessionId});
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  
   /*
   const index = req.params.index;
   const pokemon: Pokemon = await api.getById(index);

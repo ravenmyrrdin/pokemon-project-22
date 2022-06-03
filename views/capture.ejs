@@ -15,15 +15,17 @@
         <section class="container border border-danger">
             <article class="row     ">
                 <img src="<%= pokemon._sprites.front_default %>"  class="col-sm" />
-                <div class="col-sm bg-danger container">
-                    <%= buddy === undefined ? "No current pokemon" : "Battling with: buddy.name" %><br />
-
+                <div class="col-sm bg-danger container text-white">
+                    <p class="h2 text-center">
+                        <%= buddy === undefined ? "Battling without buddy" : "Battling with: buddy.name" %>
+                    </p>
+                    
                     Kans om te vangen: <%= 100 - pokemon._stats[2].base_stat %>%<br />
                     Pokeballs over: <%= pokeballs %>    
 
                     <form method="POST">
-                        <input type="hidden" value="<%= sessionId %>" />
-                        <input type="submit" value="Gooi pokeball" />
+                        <input type="hidden" name="sessionId" value="<%= sessionId %>" />
+                        <input type="submit" value="Gooi pokeball" class="w-100" />
                     </form>
                 </div>
             </article>
