@@ -1,0 +1,33 @@
+<!--
+
+-->
+
+<!DOCTYPE html>
+<html lang="nl-BE">
+  <head>
+    <title>Pokedex</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <%- include('partials/head'); %>
+  </head>
+  <body>
+    <%- include('partials/navbar.ejs'); %>
+    <main class="p-lg-3 ">
+        <section class="container border border-danger">
+            <article>
+              <header class="w-100 bg-danger p-2 text-center">
+                <p class="h1">Proficiat! je hebt <%= pokemon.name %> gevangen!</p>
+              </header>
+              <main class="container">
+                <form method="POST" class="p-2 w-50 row mx-auto">
+                  <label for="bijnaam" class="col-sm">Bijnaam: </label>
+                  <input type="text" id="bijnaam" name="bijnaam" placeholder="<%= pokemon.name %>" class="col-sm" />
+                  
+                  <input type="submit" class="mt-2" value="doorgaan" />
+                </form>
+              </main>
+            </article>  
+
+        </section>
+    </main>
+  </body>
+</html>

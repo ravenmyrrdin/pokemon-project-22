@@ -10,6 +10,7 @@
     <main>   
       <section class="d-flex flex-wrap justify-content-around py-5">
         <%
+        
         for(let item of [
         {
           text: "Vergelijk Pokemons",
@@ -20,18 +21,18 @@
           text: "Bekijk Pokédex",
           image: "/images/pokemoncol.jpg",
           url: "/pokemon"
-        },
-        {
-          text: "Huidige Pokemon",
-          image: "/images/mypokemon.jpg",
-          url: "/pokemon-detail/5"
-        },
+        }
         ]) { %>
           <article class="d-md-flex justify-content-center flex-wrap flex-row border border-4 border-danger rounded" style="min-width: 300px; width:25%">
             <img src="<%= item.image %>" height="auto" width="100%" class="px-5 mb-5 mt-2"/>
             <button class="btn btn-danger m-auto mb-2" onclick='window.location.href="<%= item.url %>"'><%= item.text %> </button>
           </article>
         <% } %>
+        
+        <article class="d-md-flex justify-content-center flex-wrap flex-row border border-4 border-danger rounded" style="min-width: 300px; width:25%">
+          <img src="/images/mypokemon.jpg" height="auto" width="100%" class="px-5 mb-5 mt-2"/>
+          <button class="btn btn-danger m-auto mb-2" onclick='window.location.href="/pokemon-detail/<%= buddy.id %>"'>Huidige buddy</button>
+        </article>
       </section>
     </main>
   </body> 

@@ -1,4 +1,4 @@
-# !TODO: 
-- Add data sanitization 
-- Add IWebRequest implementation for GET Requests.
-- Add internal TPL Constructor.
+- Huidige pokemon shortcut dashboard
+- Pokemon check voor buddy instellen 
+- Zoek search 
+- Huidige pokemon dynamisch maken

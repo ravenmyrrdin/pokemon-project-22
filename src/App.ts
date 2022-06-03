@@ -2,7 +2,8 @@ import { PokemonGame } from "./api/PokemonGame";
 import { IPokemonStat } from "./api/IPokemonStat";
 import { Pokemon } from "./api/Pokemon";
 import { PokemonAPI } from "./api/PokemonAPI";
-import { getUser, setUser, releasePokemon } from "./Database";
+import { getUser, setUser, releasePokemon, updateUser } from "./Database";
+import { IUser } from "./IUser";
 
 const setupSession = async(req, res, next) => {
   let token = req.cookies.sessionToken;
@@ -64,15 +65,24 @@ app.get("/pokemon/:page", async (req: any, res: any) => {
 // app.get("/catch", (req: any, res: any) => {
 //   res.render("catch");
 // });
-let sessions: {[key: string]: number} = {};
+interface BattleSession { 
+  pokemonId: number, 
+  pokeballsLeft: number
+}
+let sessions: {[key: string]: BattleSession} = {};
 app.get("/capture/:index", async (req: any, res: any) => {
+  console.dir(req.user);  
   const sessionId = `${Math.random()}`.slice(2);
-  sessions[sessionId] = 3;
-  const index = req.params.index;
+  const index = Number.parseInt(req.params.index);
+  sessions[sessionId] = {
+    pokemonId: index, 
+    pokeballsLeft: 3
+  };
+
   const pokemon: Pokemon = await api.getById(index);
   let buddy = req.user?.capturedPokemon[req.user?.capturedPokemonId];
   try {
-    res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId], buddy: buddy, sessionId: sessionId});
+    res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId].pokeballsLeft, buddy: buddy, sessionId: sessionId});
   } catch (err) {
     console.error(err);
   }
@@ -81,46 +91,54 @@ app.get("/capture/:index", async (req: any, res: any) => {
 app.post("/capture/:index", async (req: any, res: any) => {
   
   const sessionId = req.body.sessionId;
-  sessions[sessionId]--;
+  sessions[sessionId].pokeballsLeft--;
 
-  const index = req.params.index;
+  const index = Number.parseInt(req.params.index);
   const pokemon: Pokemon = await api.getById(index);
 
   let buddy = req.user?.capturedPokemon[req.user?.capturedPokemonId];
   if(Math.random()*100 <= (100 - pokemon.getStat(IPokemonStat.Defence) + (buddy !== undefined ? buddy.getStat(IPokemonStat.Defence) : 0) ))
   {
-    
-
-    return res.send("Pokemon captured");
+    let user: IUser = req.user; 
+    if(user)
+    {
+      return res.redirect("/captured/"+sessionId);
+    } else res.redirect(503);
   }
   else
   {
-    if(sessions[sessionId] <= 0)
+    if(sessions[sessionId].pokeballsLeft <= 0)
     {
-      delete sessions[sessionId];
       return res.redirect("/pokemon/0");
     }
     try {
-      return res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId], buddy: buddy, sessionId: sessionId});
+      return res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId].pokeballsLeft, buddy: buddy, sessionId: sessionId});
     } catch (err) {
       console.error(err);
     }
-  }
-  
-  /*
-  const index = req.params.index;
-  const pokemon: Pokemon = await api.getById(index);
-  let buddy = req.user.capturedPokemon[req.user.capturedPokemonId];
-  try {
-    res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId], buddy: buddy, sessionId: sessionId});
-  } catch (err) {
-    console.error(err);
-  }
-  */
+}
 });
 
+app.get("/captured/:sessionId", async(req, res) => res.render("captured", {pokemon: await api.getById(sessions[req.params.sessionId].pokemonId)}));
+app.post("/captured/:sessionId", async(req, res) => {
+  const sessionData = sessions[req.params.sessionId];
+  if(sessionData)
+  {
+    req.user.capturedPokemon.push({
+      id: sessionData.pokemonId,
+      name: req.body.bijnaam.length ? req.body.bijnaam : (await api.getById(sessionData.pokemonId)).name
+    });
+
+    await updateUser(req.user);
+    return res.redirect("/pokemon/0");
+  } else return res.send("invalid session");
+
+});
+
+
+
 app.get("/dashboard", (req: any, res: any) => {
-  res.render("dashboard");
+  res.render("dashboard", {buddy: req.user.capturedPokemon.filter(i => i.id === req.user.currentPokemonId)[0]});
 });
 
 app.get("/whosthatpokemon", async (req: any, res: any) => {
@@ -229,9 +247,19 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
 app.get("/pokemon-detail/:id", async (req: any, res: any) => {
   let data = await api.getById(req.params.id);
   let database = req.user?.capturedPokemon;
-  console.log(data)
-  res.render("singlePokemon", { data: data, database: database, releasePokemon: releasePokemon });
+  // console.log(data)
+  console.log("Pokemon na current instellen: " + req.user.currentPokemonId);
+  res.render("singlePokemon", { data: data, database: database, releasePokemon: releasePokemon, capturedPokemon: req.user.capturedPokemon === undefined ? [] : req.user.capturedPokemon});
 });
+
+app.post("/currentPokemon", async(req: any, res: any) => {
+  // if (req.body.currentPokemon != null) {
+    const user = req.user;
+    user.currentPokemonId = Number.parseInt(req.body.currentId);
+    await updateUser(user);
+// }
+  res.redirect("pokemon-detail/" + req.body.currentId);
+})
 
 app.listen(
   app.get("port"),
