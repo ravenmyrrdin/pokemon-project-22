@@ -6,5 +6,6 @@ export interface IUser
     _id?: ObjectId,
     sessionToken: string, 
     capturedPokemon: Pokemon[],
-    currentPokemonId: number
+    currentPokemonId: number,
+    playerBoost?: number
 }

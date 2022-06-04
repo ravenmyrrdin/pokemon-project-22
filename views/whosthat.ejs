@@ -137,7 +137,6 @@ if(el){
               <div class="col-1">
                 
                 <button class="btn btn-danger mb-2" onclick="
-
                     if(pokemonName == document.getElementById('pokenaam').value){
                         Swal.fire({
                             title: 'Correct!',
@@ -147,9 +146,9 @@ if(el){
                             confirmButtonText: 'doorgaan',
                             timer: 1500
                             }).then(function(){ 
-                              location.reload();
-                              }
-                            )
+                              window.location.href=`/addBoost/<%= sessionId %>/`+pokemonName;
+                            }
+                          )
                     }else{
                        Swal.fire({
                                 title: 'Fout',

@@ -18,7 +18,8 @@ const setupSession = async(req, res, next) => {
     await setUser({
         sessionToken: token,
         capturedPokemon: [],
-        currentPokemonId: 0
+        currentPokemonId: 0,
+        playerBoost: 0
     });
   };
 
@@ -72,11 +73,12 @@ interface BattleSession {
   pokeballsLeft: number,
   success: boolean
 }
-let sessions: {[key: string]: BattleSession} = {};
+
+let battleSessions: {[key: string]: BattleSession} = {};
 app.get("/capture/:index", async (req: any, res: any) => {
   const sessionId = `${Math.random()}`.slice(2);
   const index = Number.parseInt(req.params.index);
-  sessions[sessionId] = {
+  battleSessions[sessionId] = {
     pokemonId: index, 
     pokeballsLeft: 3,
     success: false
@@ -85,9 +87,9 @@ app.get("/capture/:index", async (req: any, res: any) => {
   const pokemon: Pokemon = await api.getById(index);
   
   let buddy = req.user?.currentPokemonId != 0 ? await api.getById(req.user.currentPokemonId) : undefined;
-  let captureChance = (100 - pokemon.getStat(IPokemonStat.Defence) + (buddy !== undefined ? buddy.getStat(IPokemonStat.Defence) : 0));
+  let captureChance = (100 - pokemon.getStat(IPokemonStat.Defence) + ((buddy !== undefined ? buddy.getStat(IPokemonStat.Attack) : 0)+(req.user?.playerBoost ? req.user.playerBoost : 0)));
   try {
-    res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId].pokeballsLeft, buddy: buddy, sessionId: sessionId, chance: captureChance});
+    res.render("capture", { pokemon: await pokemon, pokeballs: battleSessions[sessionId].pokeballsLeft, buddy: buddy, sessionId: sessionId, chance: captureChance});
   } catch (err) {
     console.error(err);
   }
@@ -96,26 +98,26 @@ app.get("/capture/:index", async (req: any, res: any) => {
 app.post("/capture/:index", async (req: any, res: any) => {
   
   const sessionId = req.body.sessionId;
-  sessions[sessionId].pokeballsLeft--;
+  battleSessions[sessionId].pokeballsLeft--;
 
   const index = Number.parseInt(req.params.index);
   const pokemon: Pokemon = await api.getById(index);
 
   let buddy = req.user?.currentPokemonId != 0 ? await api.getById(req.user.currentPokemonId) : undefined;
-  let captureChance = (100 - pokemon.getStat(IPokemonStat.Defence) + (buddy !== undefined ? buddy.getStat(IPokemonStat.Defence) : 0));
-  sessions[sessionId].success = Math.random()*100 <= captureChance;
-  if(sessions[sessionId].success)
+  let captureChance = (100 - pokemon.getStat(IPokemonStat.Defence) + ((buddy !== undefined ? buddy.getStat(IPokemonStat.Attack) : 0)+(req.user?.playerBoost ? req.user.playerBoost : 0)));
+  battleSessions[sessionId].success = Math.random()*100 <= captureChance;
+  if(battleSessions[sessionId].success)
   {
     return res.redirect("/captured/"+sessionId);
   }
   else
   {
-    if(sessions[sessionId].pokeballsLeft <= 0)
+    if(battleSessions[sessionId].pokeballsLeft <= 0)
     {
       return res.redirect("/pokemon/0");
     }
     try {
-      return res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId].pokeballsLeft, buddy: buddy, sessionId: sessionId, chance: captureChance});
+      return res.render("capture", { pokemon: await pokemon, pokeballs: battleSessions[sessionId].pokeballsLeft, buddy: buddy, sessionId: sessionId, chance: captureChance});
     } catch (err) {
       console.error(err);
     }
@@ -123,7 +125,7 @@ app.post("/capture/:index", async (req: any, res: any) => {
 });
 
 app.get("/captured/:sessionId", async(req, res) => {
-  const battleSessionData= sessions[req.params.sessionId];
+  const battleSessionData= battleSessions[req.params.sessionId];
   if(battleSessionData)
   {
     if(battleSessionData.success)
@@ -132,7 +134,7 @@ app.get("/captured/:sessionId", async(req, res) => {
   } else res.redirect("/");
 });
 app.post("/captured/:sessionId", async(req, res) => {
-  const sessionData = sessions[req.params.sessionId];
+  const sessionData = battleSessions[req.params.sessionId];
   if(sessionData)
   {
     console.dir(sessionData);
@@ -142,9 +144,9 @@ app.post("/captured/:sessionId", async(req, res) => {
         id: sessionData.pokemonId,
         name: req.body.bijnaam.length ? req.body.bijnaam : (await api.getById(sessionData.pokemonId)).name
       });
-    } else res.send("Nice try");
+      await updateUser(req.user);
+    } else return res.send("Nice try");
 
-    await updateUser(req.user);
     return res.redirect("/pokemon-detail/"+sessionData.pokemonId);
   } else return res.send("invalid session");
 
@@ -156,9 +158,25 @@ app.get("/dashboard", (req: any, res: any) => {
   res.render("dashboard", {buddy: req.user?.capturedPokemon.filter(i => i.id === req.user.currentPokemonId)[0]});
 });
 
+let whoIsThatSessions: {[key: string]: string} = {}
+app.get("/addboost/:session/:name", async(req: any, res: any) => 
+{
+  if(Object.keys(whoIsThatSessions).includes(req.params.session))
+  {
+    if(whoIsThatSessions[req.params.session] == req.params.name)
+    {
+      delete whoIsThatSessions[req.params.session];
+      if(req.user.playerBoost)
+        req.user.playerBoost++;
+      else req.user.playerBoost = 1;
+
+      await updateUser(req.user);
+      console.dir(req.user);
+    } else return res.send("Nice try, 'mr hacker'");
+  }
+  return res.send("<script type='text/javascript'>window.location.href = document.referrer;</script>");
+});
 app.get("/whosthatpokemon", async (req: any, res: any) => {
-  
-  
   //json writing
     //Json flag
     const writeJson = false;
@@ -182,9 +200,15 @@ app.get("/whosthatpokemon", async (req: any, res: any) => {
   
   const getal = Math.floor((Math.random()*897)+1);
   pokemon = await api.getById(getal);
+  const sessionId= `${Math.random()}`.slice(2);
+
   try{
-    res.render("whosthat", {pokemon: await pokemon,pokeNames: await pokeNames});
-  }catch (err){console.error(err);}
+    whoIsThatSessions[sessionId] = pokemon.name;
+    res.render("whosthat", {pokemon: pokemon,pokeNames: pokeNames, sessionId: sessionId});
+  }catch (err){
+    console.error(err);
+  }
+
 });
 
 app.post("/vergelijking/:a/:b", async (req: any, res: any) =>  res.redirect(`/vergelijking/${req.body.aIdentifier}/${req.body.bIdentifier}`));
