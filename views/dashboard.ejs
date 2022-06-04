@@ -29,10 +29,12 @@
           </article>
         <% } %>
         
-        <article class="d-md-flex justify-content-center flex-wrap flex-row border border-4 border-danger rounded" style="min-width: 300px; width:25%">
-          <img src="/images/mypokemon.jpg" height="auto" width="100%" class="px-5 mb-5 mt-2"/>
-          <button class="btn btn-danger m-auto mb-2" onclick='window.location.href="/pokemon-detail/<%= buddy.id %>"'>Huidige buddy</button>
-        </article>
+        <% if(buddy) { %>
+          <article class="d-md-flex justify-content-center flex-wrap flex-row border border-4 border-danger rounded" style="min-width: 300px; width:25%">
+            <img src="/images/mypokemon.jpg" height="auto" width="100%" class="px-5 mb-5 mt-2"/>
+            <button class="btn btn-danger m-auto mb-2" onclick='window.location.href="/pokemon-detail/<%= buddy.id %>"'>Huidige buddy</button>
+          </article>
+        <% } %>
       </section>
     </main>
   </body> 

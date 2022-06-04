@@ -138,7 +138,7 @@ app.post("/captured/:sessionId", async(req, res) => {
 
 
 app.get("/dashboard", (req: any, res: any) => {
-  res.render("dashboard", {buddy: req.user.capturedPokemon.filter(i => i.id === req.user.currentPokemonId)[0]});
+  res.render("dashboard", {buddy: req.user?.capturedPokemon.filter(i => i.id === req.user.currentPokemonId)[0]});
 });
 
 app.get("/whosthatpokemon", async (req: any, res: any) => {
