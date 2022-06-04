@@ -13,6 +13,7 @@
       let pokemonName = '<%= pokemon.name %>';
       let pokeNames = '<%= pokeNames %>'.split(",");
       console.log(pokemonName);
+      var success = false;
 
     //Autocomplete volgens W3schools
     function autocomplete(inp, arr) {
@@ -78,6 +79,7 @@
           /*and simulate a click on the "active" item:*/
           if (x) x[currentFocus].click();
         }
+        document.getElementById("gokBtn").click();
       }
   });
   function addActive(x) {
@@ -124,7 +126,7 @@ if(el){
 <body>
   <%- include('partials/navbar.ejs'); %>
 <main>
-    <form class="justify-content-center" onsubmit="return false" autocomplete="off">
+    <form class="justify-content-center" onsubmit="return false" autocomplete="off" method="POST" action="/whosthatpokemon">
         <div class="form-row ">
           <div class="col-4 offset-4 ">
             <img src="<%= pokemon._sprites.front_default %>" class="whosthatimg "/>
@@ -137,20 +139,22 @@ if(el){
               <div class="col-1">
                 
                 <button class="btn btn-danger mb-2" onclick="
-
+  
                     if(pokemonName == document.getElementById('pokenaam').value){
+                      success =true;
                         Swal.fire({
                             title: 'Correct!',
                             text: 'Het was inderdaad <%= pokemon.name %>',
                             imageUrl: '<%= pokemon._sprites.front_default %>',
                             showConfirmButton: true,
-                            confirmButtonText: 'doorgaan',
-                            timer: 1500
+                            confirmButtonText: 'doorgaan'
                             }).then(function(){ 
                               location.reload();
                               }
+
                             )
                     }else{
+                      success = false;
                        Swal.fire({
                                 title: 'Fout',
                                 text: 'Dit was niet de juiste pokemon, het was <%= pokemon.name %> ', 
@@ -162,8 +166,7 @@ if(el){
                                 }
                                 )
                                     }
-                    
-                    ">Gokken</button>
+                    " id="gokBtn">Gokken</button>
               </div>
         </div>
       </form>

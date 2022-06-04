@@ -18,7 +18,8 @@ const setupSession = async(req, res, next) => {
     await setUser({
         sessionToken: token,
         capturedPokemon: [],
-        currentPokemonId: 0
+        currentPokemonId: 0,
+        multiplier: 0
     });
   };
 
@@ -262,9 +263,20 @@ app.post("/currentPokemon", async(req: any, res: any) => {
     await updateUser(user);
 // }
   res.redirect("pokemon-detail/" + req.body.currentId);
-})
+});
+
+app.post("/whosthatpokemon",async (req:any, res:any) => {
+  console.log("posted!");
+  const user = req.user;
+  if(req.success){
+    user.multiplier++;
+    await updateUser(user);
+    console.log('user updated');
+  }
+});
 
 app.listen(
   app.get("port"),
   console.log(`[SERVER]: Running on http://localhost:${app.get("port")}`)
 );
+

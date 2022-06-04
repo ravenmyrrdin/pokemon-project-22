@@ -7,4 +7,5 @@ export interface IUser
     sessionToken: string, 
     capturedPokemon: Pokemon[],
     currentPokemonId: number
+    multiplier: number;
 }

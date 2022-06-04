@@ -51,7 +51,8 @@ export const updateUser = async(user: IUser) =>
         await collection.updateOne({_id: user._id}, {
             $set: {
                 capturedPokemon: user.capturedPokemon,
-                currentPokemonId: user.currentPokemonId
+                currentPokemonId: user.currentPokemonId,
+                multiplier: user.multiplier
             }
         });
     }
