@@ -2,7 +2,7 @@ import { PokemonGame } from "./api/PokemonGame";
 import { IPokemonStat } from "./api/IPokemonStat";
 import { Pokemon } from "./api/Pokemon";
 import { PokemonAPI } from "./api/PokemonAPI";
-import { getUser, setUser, releasePokemon, updateUser } from "./Database";
+import { getUser, setUser, updateUser } from "./Database";
 import { IUser } from "./IUser";
 
 const setupSession = async(req, res, next) => {
@@ -103,11 +103,7 @@ app.post("/capture/:index", async (req: any, res: any) => {
   let captureChance = (100 - pokemon.getStat(IPokemonStat.Defence) + (buddy !== undefined ? buddy.getStat(IPokemonStat.Defence) : 0));
   if(Math.random()*100 <= captureChance )
   {
-    let user: IUser = req.user; 
-    if(user)
-    {
-      return res.redirect("/captured/"+sessionId);
-    } else res.redirect(503);
+    return res.redirect("/captured/"+sessionId);
   }
   else
   {
@@ -134,7 +130,7 @@ app.post("/captured/:sessionId", async(req, res) => {
     });
 
     await updateUser(req.user);
-    return res.redirect("/pokemon/0");
+    return res.redirect("/pokemon-detail/"+sessionData.pokemonId);
   } else return res.send("invalid session");
 
 });
@@ -248,12 +244,31 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
   });
 });
 
-app.get("/pokemon-detail/:id", async (req: any, res: any) => {
+  app.get("/pokemon-detail/:id", async (req: any, res: any) => {
+    let data = await api.getById(req.params.id);
+    let capturedData = req.user?.capturedPokemon.filter(i => i.id == req.params.id)[0];
+
+    res.render("singlePokemon", { data: data, capturedData: capturedData});
+  });
+
+
+app.get("/release/:id", async (req: any, res: any) => {
+  if(req.user)
+  {
+    // Ja typeless parse, dit vermijd de noodzaak om deze naar een nummer om te zetten ':) 
+    req.user.capturedPokemon = req.user.capturedPokemon.filter(i => i.id != req.params.id);
+    if(req.user.currentPokemonId == req.params.id) 
+      req.user.currentPokemonId = 0;
+
+    await updateUser(req.user);
+  }
   let data = await api.getById(req.params.id);
   let capturedData = req.user?.capturedPokemon.filter(i => i.id == req.params.id)[0];
 
-  res.render("singlePokemon", { data: data, capturedData: capturedData, releasePokemon: releasePokemon});
+  res.send("<script type='text/javascript'>window.location.href = document.referrer;</script>");
 });
+
+
 
 app.post("/currentPokemon", async(req: any, res: any) => {
   // if (req.body.currentPokemon != null) {

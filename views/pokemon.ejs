@@ -24,7 +24,7 @@
         Swal.fire({
             title: 'Wil je <%= pokemons[i].name %> <%= capturedPokemon.includes(pokemons[i].id) ? `vrijlaten` : `proberen vangen` %>?',
             showCancelButton: true,
-              showDenyButton: true, 
+              showDenyButton: true,   
             denyButtonText: `Bekijk Pokémon`,
             <% if(capturedPokemon.includes(pokemons[i].id)) { %>
               confirmButtonText: 'Vrijlaten',
