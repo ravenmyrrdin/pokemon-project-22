@@ -22,16 +22,21 @@
         class="pokemonkaart <%= capturedPokemon.includes(pokemons[i].id) ? 'bg-success' : 'bg-danger'%>"
         onclick="
         Swal.fire({
-            title: 'Wil je <%= pokemons[i].name %> proberen vangen?',
-            showDenyButton: true,
+            title: 'Wil je <%= pokemons[i].name %> <%= capturedPokemon.includes(pokemons[i].id) ? `vrijlaten` : `proberen vangen` %>?',
             showCancelButton: true,
-            confirmButtonText: 'Battle',
+              showDenyButton: true, 
             denyButtonText: `Bekijk Pokémon`,
-            cancelButtonText: `Flee`
+            <% if(capturedPokemon.includes(pokemons[i].id)) { %>
+              confirmButtonText: 'Vrijlaten',
+              cancelButtonText: `Annuleren`
+            <% } else { %>
+              confirmButtonText: 'Battle',
+              cancelButtonText: `Flee`
+            <% } %>
           }).then((result) => {
             /* Read more about isConfirmed,  isDenied below */
             if (result.isConfirmed) {
-              window.location.replace('/capture/<%= pokemons[i].id %>');
+              window.location.replace('/<%= capturedPokemon.includes(pokemons[i].id) ? `release` : `capture` %>/<%= pokemons[i].id %>');
             } else if (result.isDenied) {
               window.location.replace('/pokemon-detail/<%= pokemons[i].id %>');
             }
@@ -41,7 +46,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <%= pokemons[i].name.charAt(0).toUpperCase() + pokemons[i].name.slice(1) %>
+              <strong class="text-white"><%= pokemons[i].name.charAt(0).toUpperCase() + pokemons[i].name.slice(1) %></strong>
             </div>
             <div class="col">
               <img src="/images/pokeball.png" class="pokeballimg"\>
