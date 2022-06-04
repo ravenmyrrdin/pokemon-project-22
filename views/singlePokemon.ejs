@@ -29,7 +29,7 @@
             </table>
             </div>
             <div class="centerPage">
-                <% if(capturedData) { %>
+                <% if(capturedData && !isCurrentBuddy) { %>
                     <form action="/currentPokemon" method="POST">
                         <label for="currentId"></label>
                         <input type="hidden" name="currentId" value="<%=data.id%>">
