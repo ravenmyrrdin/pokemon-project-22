@@ -12,9 +12,11 @@
   <body>
     <%- include('partials/navbar.ejs'); %>
     <main class="p-lg-3">
-      <section>
-
+      <% if(buddyId) { %>
+      <section class="d-flex justify-content-center">
+        <button class="ml-100 btn btn-danger" onclick="window.location.href='/pokemon-detail/<%= buddyId %>'">Ga naar huidige buddy</button>
       </section>
+      <% } %>
       <section class="d-flex flex-wrap justify-content">
         <% for (let i = 0; i<pokemons.length; i++){%>
 

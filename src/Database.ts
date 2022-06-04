@@ -42,8 +42,6 @@ export const updateUser = async(user: IUser) =>
     let output;
     try
     {
-        console.log("updating user");
-        console.dir(user.currentPokemonId);
         await client.connect();
         const repo = await client.db("ITProject");
         const collection = await repo.collection("pokemons")

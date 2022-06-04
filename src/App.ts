@@ -59,7 +59,8 @@ app.get("/pokemon/:page", async (req: any, res: any) => {
   res.render("pokemon", {
     pokemons: await Promise.all(pokemonFetchers),
     pageId: page,
-    capturedPokemon: req.user?.capturedPokemon ? req.user?.capturedPokemon.map(i => i.id) : []
+    capturedPokemon: req.user?.capturedPokemon ? req.user?.capturedPokemon.map(i => i.id) : [],
+    buddyId: req.user?.currentPokemonId
   });
 });
 
@@ -73,7 +74,6 @@ interface BattleSession {
 }
 let sessions: {[key: string]: BattleSession} = {};
 app.get("/capture/:index", async (req: any, res: any) => {
-  console.dir(req.user);  
   const sessionId = `${Math.random()}`.slice(2);
   const index = Number.parseInt(req.params.index);
   sessions[sessionId] = {
@@ -122,14 +122,22 @@ app.post("/capture/:index", async (req: any, res: any) => {
 }
 });
 
-app.get("/captured/:sessionId", async(req, res) => res.render("captured", {pokemon: await api.getById(sessions[req.params.sessionId].pokemonId)}));
+app.get("/captured/:sessionId", async(req, res) => {
+  const battleSessionData= sessions[req.params.sessionId];
+  if(battleSessionData)
+  {
+    if(battleSessionData.success)
+      res.render("captured", {pokemon: await api.getById(battleSessionData.pokemonId)});
+    else res.send("Nice try");
+  } else res.redirect("/");
+});
 app.post("/captured/:sessionId", async(req, res) => {
   const sessionData = sessions[req.params.sessionId];
   if(sessionData)
   {
+    console.dir(sessionData);
     if(sessionData.success)
     {
-
       req.user.capturedPokemon.push({
         id: sessionData.pokemonId,
         name: req.body.bijnaam.length ? req.body.bijnaam : (await api.getById(sessionData.pokemonId)).name
@@ -161,7 +169,6 @@ app.get("/whosthatpokemon", async (req: any, res: any) => {
 
       for (let i = 1; i < 898; i++) {
         const pokeName = (await api.getById(i)).name;
-        console.log(pokeName);
         pokeNames.push(pokeName);
       }
   
