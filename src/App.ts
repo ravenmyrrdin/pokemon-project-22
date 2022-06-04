@@ -250,7 +250,7 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
 
 app.get("/pokemon-detail/:id", async (req: any, res: any) => {
   let data = await api.getById(req.params.id);
-  let capturedData = req.user?.capturedPokemon.filter(i => i.id == req.params.id);
+  let capturedData = req.user?.capturedPokemon.filter(i => i.id == req.params.id)[0];
 
   res.render("singlePokemon", { data: data, capturedData: capturedData, releasePokemon: releasePokemon});
 });
