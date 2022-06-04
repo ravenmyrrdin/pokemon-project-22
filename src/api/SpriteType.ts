@@ -1,5 +1,7 @@
-export enum SpriteType
+enum SpriteType
 {
     Default,
     Shiny
 }
+
+export = SpriteType;

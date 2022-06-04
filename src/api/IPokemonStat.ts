@@ -1,4 +1,4 @@
-export enum IPokemonStat 
+enum IPokemonStat 
 {
     HP = 0, 
     Attack, 
@@ -7,3 +7,5 @@ export enum IPokemonStat
     SpecialDefence,
     Speed
 }   
+
+export = IPokemonStat;

@@ -1,9 +1,8 @@
-import { IAbility } from './IAbility';
-import { PokemonGame } from './PokemonGame';
-import { SpriteType } from './SpriteType';
-import { IPokemonStat } from './IPokemonStat';
 import { StringTools } from '../StringTools';
-import { fileURLToPath } from 'url';
+import IAbility from './IAbility';
+import IPokemonStat from './IPokemonStat';
+import { PokemonGame } from './PokemonGame';
+import SpriteType from './SpriteType';
 /**
  * Scraped pokemon result data object
  */

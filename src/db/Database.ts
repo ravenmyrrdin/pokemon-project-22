@@ -1,16 +1,10 @@
-import axios from "axios";
-import { PokemonAPI } from "./api/PokemonAPI";
 import { IUser } from "./IUser";
 const { MongoClient } = require('mongodb');
 const uri = "mongodb+srv://dittodev:Hu7kTUgtKol1NDI3@itproject.x3zaj.mongodb.net/ITProject?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-let pikachu:Pokemon={
-    id:25,
-    name:"pikachu"
-}
 
-export interface Pokemon{
+export interface ICapturedPokemon {
     id?:number,
     name:string
 }

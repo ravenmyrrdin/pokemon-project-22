@@ -1,9 +1,8 @@
 import { PokemonGame } from "./api/PokemonGame";
-import { IPokemonStat } from "./api/IPokemonStat";
 import { Pokemon } from "./api/Pokemon";
-import { PokemonAPI } from "./api/PokemonAPI";
-import { getUser, setUser, updateUser } from "./Database";
-import { IUser } from "./IUser";
+import { getUser, setUser, updateUser } from "./db/Database";
+import IPokemonStat from "./api/IPokemonStat";
+import PokemonAPI from "./api/PokemonAPI";
 
 const setupSession = async(req, res, next) => {
   let token = req.cookies.sessionToken;
@@ -29,7 +28,6 @@ const setupSession = async(req, res, next) => {
 
 const express = require("express");
 const app = express();
-const api = new PokemonAPI();
 const fs = require('fs');
 var cookieParser = require('cookie-parser')
 var pokemon: Pokemon= null;
@@ -54,7 +52,7 @@ app.get("/pokemon/:page", async (req: any, res: any) => {
   let page = Number.parseInt(req.params.page);
   let itemsOnPage = 30;
   for (let i = itemsOnPage * page + 1; i < itemsOnPage * (page + 1) + 1; i++) {
-    const pokemon = api.getById(i);
+    const pokemon = PokemonAPI.getById(i);
     pokemonFetchers.push(pokemon);
   }
   res.render("pokemon", {
@@ -84,9 +82,9 @@ app.get("/capture/:index", async (req: any, res: any) => {
     success: false
   };
 
-  const pokemon: Pokemon = await api.getById(index);
+  const pokemon: Pokemon = await PokemonAPI.getById(index);
   
-  let buddy = req.user?.currentPokemonId != 0 ? await api.getById(req.user.currentPokemonId) : undefined;
+  let buddy = req.user?.currentPokemonId != 0 ? await PokemonAPI.getById(req.user.currentPokemonId) : undefined;
   let captureChance = (100 - pokemon.getStat(IPokemonStat.Defence) + ((buddy !== undefined ? buddy.getStat(IPokemonStat.Attack) : 0)+(req.user?.playerBoost ? req.user.playerBoost : 0)));
   try {
     res.render("capture", { pokemon: await pokemon, pokeballs: battleSessions[sessionId].pokeballsLeft, buddy: buddy, sessionId: sessionId, chance: captureChance});
@@ -101,9 +99,9 @@ app.post("/capture/:index", async (req: any, res: any) => {
   battleSessions[sessionId].pokeballsLeft--;
 
   const index = Number.parseInt(req.params.index);
-  const pokemon: Pokemon = await api.getById(index);
+  const pokemon: Pokemon = await PokemonAPI.getById(index);
 
-  let buddy = req.user?.currentPokemonId != 0 ? await api.getById(req.user.currentPokemonId) : undefined;
+  let buddy = req.user?.currentPokemonId != 0 ? await PokemonAPI.getById(req.user.currentPokemonId) : undefined;
   let captureChance = (100 - pokemon.getStat(IPokemonStat.Defence) + ((buddy !== undefined ? buddy.getStat(IPokemonStat.Attack) : 0)+(req.user?.playerBoost ? req.user.playerBoost : 0)));
   battleSessions[sessionId].success = Math.random()*100 <= captureChance;
   if(battleSessions[sessionId].success)
@@ -129,7 +127,7 @@ app.get("/captured/:sessionId", async(req, res) => {
   if(battleSessionData)
   {
     if(battleSessionData.success)
-      res.render("captured", {pokemon: await api.getById(battleSessionData.pokemonId)});
+      res.render("captured", {pokemon: await PokemonAPI.getById(battleSessionData.pokemonId)});
     else res.send("Nice try");
   } else res.redirect("/");
 });
@@ -142,7 +140,7 @@ app.post("/captured/:sessionId", async(req, res) => {
     {
       req.user.capturedPokemon.push({
         id: sessionData.pokemonId,
-        name: req.body.bijnaam.length ? req.body.bijnaam : (await api.getById(sessionData.pokemonId)).name
+        name: req.body.bijnaam.length ? req.body.bijnaam : (await PokemonAPI.getById(sessionData.pokemonId)).name
       });
       await updateUser(req.user);
     } else return res.send("Nice try");
@@ -171,7 +169,6 @@ app.get("/addboost/:session/:name", async(req: any, res: any) =>
       else req.user.playerBoost = 1;
 
       await updateUser(req.user);
-      console.dir(req.user);
     } else return res.send("Nice try, 'mr hacker'");
   }
   return res.send("<script type='text/javascript'>window.location.href = document.referrer;</script>");
@@ -186,7 +183,7 @@ app.get("/whosthatpokemon", async (req: any, res: any) => {
       
 
       for (let i = 1; i < 898; i++) {
-        const pokeName = (await api.getById(i)).name;
+        const pokeName = (await PokemonAPI.getById(i)).name;
         pokeNames.push(pokeName);
       }
   
@@ -199,13 +196,13 @@ app.get("/whosthatpokemon", async (req: any, res: any) => {
     }
   
   const getal = Math.floor((Math.random()*897)+1);
-  pokemon = await api.getById(getal);
+  pokemon = await PokemonAPI.getById(getal);
   const sessionId= `${Math.random()}`.slice(2);
 
   try{
     whoIsThatSessions[sessionId] = pokemon.name;
     res.render("whosthat", {pokemon: pokemon,pokeNames: pokeNames, sessionId: sessionId});
-  }catch (err){
+  }catch (err){ 
     console.error(err);
   }
 
@@ -224,11 +221,11 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
     await Promise.all(
       [
         /^[0-9]+$/.test(req.params.a)
-          ? api.getById(Number.parseInt(req.params.a))
-          : api.getByName(req.params.a),
+          ? PokemonAPI.getById(Number.parseInt(req.params.a))
+          : PokemonAPI.getByName(req.params.a),
         /^[0-9]+$/.test(req.params.b)
-          ? api.getById(Number.parseInt(req.params.b))
-          : api.getByName(req.params.b),
+          ? PokemonAPI.getById(Number.parseInt(req.params.b))
+          : PokemonAPI.getByName(req.params.b),
       ].map((p) => p.catch((e) => e))
     )
   ).map((i) => (i instanceof Error ? undefined : i));
@@ -283,7 +280,7 @@ app.get("/vergelijking/:a/:b", async (req: any, res: any) => {
 });
 
   app.get("/pokemon-detail/:id", async (req: any, res: any) => {
-    let data = await api.getById(req.params.id);
+    let data = await PokemonAPI.getById(req.params.id);
     let capturedData = req.user?.capturedPokemon.filter(i => i.id == req.params.id)[0];
     let isCurrentBuddy = req.user ? req.user.currentPokemonId == req.params.id : false;
     res.render("singlePokemon", { data: data, capturedData: capturedData, isCurrentBuddy: isCurrentBuddy});
@@ -300,10 +297,8 @@ app.get("/release/:id", async (req: any, res: any) => {
 
     await updateUser(req.user);
   }
-  let data = await api.getById(req.params.id);
-  let capturedData = req.user?.capturedPokemon.filter(i => i.id == req.params.id)[0];
 
-  res.send("<script type='text/javascript'>window.location.href = document.referrer;</script>");
+  return res.send("<script type='text/javascript'>window.location.href = document.referrer;</script>");
 });
 
 
@@ -314,8 +309,9 @@ app.post("/currentPokemon", async(req: any, res: any) => {
     user.currentPokemonId = Number.parseInt(req.body.currentId);
     await updateUser(user);
 // }
-  res.redirect("pokemon-detail/" + req.body.currentId);
+  return res.redirect("pokemon-detail/" + req.body.currentId);
 })
+
 
 app.listen(
   app.get("port"),

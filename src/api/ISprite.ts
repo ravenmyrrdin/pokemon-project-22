@@ -1,7 +1,7 @@
 /**
  * Sprite data of pokemon
  */
-export interface ISprite {
+export default interface ISprite {
     back_default?: string;
     back_female?: string;
     back_shiny?: string;

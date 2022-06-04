@@ -1,9 +1,8 @@
 /**
  * Ability data of pokemon
  */
-export interface IAbility 
+export default interface IAbility 
 {
   name: string,
   url: string
 }
-

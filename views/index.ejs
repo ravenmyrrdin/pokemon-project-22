@@ -9,36 +9,38 @@
     <%- include('partials/navbar.ejs');%>
     <main>
       <section
-        class="d-lg-flex flex-row flex-lg-fill justify-content-center flex-lg-wrap bd-highlight mb-lg-8 w-75 mx-auto overflow-hidden index"
+        class="d-lg-flex flex-row flex-lg-fill justify-content-center flex-lg-wrap bd-highlight mb-lg-8 w-75 mx-auto overflow-hidden ml-2 index"
       >
       <%
         let images = ["/images/logo-mtg-circle.png", "/images/logo-lego-circle.png", "/images/logo-lotr-circle.png", "/images/logo-fifa-circle.png", "images/logo-fortnite-circle.png"]
         for(let image of images) {
       %>  
         <article
-        class="p-2 bd-highlight"
+        class="p-2"
         onClick="Swal.fire({
           icon: 'error',
           title: 'Sorry',
           text: 'Dit project is momenteel niet beschikbaar!', 
         })"
         >
-          <div class="imgWrap">
+          <div class="d-flex justify-content-center">
             <img
               src="<%= image %>"
-              alt="Logo van fortnite"
+              alt="Logo van een categorie"
+              class="rounded-circle bg-light"
               height="300rem"
             />
           </div>
         </article>
       <% } %>
       
-        <article class="p-2 bd-highlight">
-          <a href="/dashboard" 
-            ><div class="imgWrap">
-              <img
+        <article class="p-2">
+          <a href="/dashboard">
+            <div class="d-flex justify-content-center">
+              <img  
                 src="images/logo-pokemon-circle.png"
                 alt="Logo van Pokémon"
+                class="rounded-circle bg-white"
                 height="300rem"
               /></div
           ></a>
