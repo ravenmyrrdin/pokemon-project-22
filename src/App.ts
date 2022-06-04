@@ -68,7 +68,8 @@ app.get("/pokemon/:page", async (req: any, res: any) => {
 // });
 interface BattleSession { 
   pokemonId: number, 
-  pokeballsLeft: number
+  pokeballsLeft: number,
+  success: boolean
 }
 let sessions: {[key: string]: BattleSession} = {};
 app.get("/capture/:index", async (req: any, res: any) => {
@@ -77,7 +78,8 @@ app.get("/capture/:index", async (req: any, res: any) => {
   const index = Number.parseInt(req.params.index);
   sessions[sessionId] = {
     pokemonId: index, 
-    pokeballsLeft: 3
+    pokeballsLeft: 3,
+    success: false
   };
 
   const pokemon: Pokemon = await api.getById(index);
@@ -101,7 +103,8 @@ app.post("/capture/:index", async (req: any, res: any) => {
 
   let buddy = req.user?.currentPokemonId != 0 ? await api.getById(req.user.currentPokemonId) : undefined;
   let captureChance = (100 - pokemon.getStat(IPokemonStat.Defence) + (buddy !== undefined ? buddy.getStat(IPokemonStat.Defence) : 0));
-  if(Math.random()*100 <= captureChance )
+  sessions[sessionId].success = Math.random()*100 <= captureChance;
+  if(sessions[sessionId].success)
   {
     return res.redirect("/captured/"+sessionId);
   }
@@ -124,10 +127,14 @@ app.post("/captured/:sessionId", async(req, res) => {
   const sessionData = sessions[req.params.sessionId];
   if(sessionData)
   {
-    req.user.capturedPokemon.push({
-      id: sessionData.pokemonId,
-      name: req.body.bijnaam.length ? req.body.bijnaam : (await api.getById(sessionData.pokemonId)).name
-    });
+    if(sessionData.success)
+    {
+
+      req.user.capturedPokemon.push({
+        id: sessionData.pokemonId,
+        name: req.body.bijnaam.length ? req.body.bijnaam : (await api.getById(sessionData.pokemonId)).name
+      });
+    } else res.send("Nice try");
 
     await updateUser(req.user);
     return res.redirect("/pokemon-detail/"+sessionData.pokemonId);
