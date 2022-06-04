@@ -12,10 +12,15 @@
   <body>
     <%- include('partials/navbar.ejs'); %>
     <main class="p-lg-3">
+      <section>
+
+      </section>
       <section class="d-flex flex-wrap justify-content">
         <% for (let i = 0; i<pokemons.length; i++){%>
 
-        <article class="pokemonkaart" onclick="
+        <article 
+        class="pokemonkaart <%= capturedPokemon.includes(pokemons[i].id) ? 'bg-success' : 'bg-danger'%>"
+        onclick="
         Swal.fire({
             title: 'Wil je <%= pokemons[i].name %> proberen vangen?',
             showDenyButton: true,

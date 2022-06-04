@@ -59,6 +59,7 @@ app.get("/pokemon/:page", async (req: any, res: any) => {
   res.render("pokemon", {
     pokemons: await Promise.all(pokemonFetchers),
     pageId: page,
+    capturedPokemon: req.user?.capturedPokemon ? req.user?.capturedPokemon.map(i => i.id) : []
   });
 });
 
@@ -80,9 +81,11 @@ app.get("/capture/:index", async (req: any, res: any) => {
   };
 
   const pokemon: Pokemon = await api.getById(index);
-  let buddy = req.user?.capturedPokemon[req.user?.capturedPokemonId];
+  
+  let buddy = req.user?.currentPokemonId != 0 ? await api.getById(req.user.currentPokemonId) : undefined;
+  let captureChance = (100 - pokemon.getStat(IPokemonStat.Defence) + (buddy !== undefined ? buddy.getStat(IPokemonStat.Defence) : 0));
   try {
-    res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId].pokeballsLeft, buddy: buddy, sessionId: sessionId});
+    res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId].pokeballsLeft, buddy: buddy, sessionId: sessionId, chance: captureChance});
   } catch (err) {
     console.error(err);
   }
@@ -96,8 +99,9 @@ app.post("/capture/:index", async (req: any, res: any) => {
   const index = Number.parseInt(req.params.index);
   const pokemon: Pokemon = await api.getById(index);
 
-  let buddy = req.user?.capturedPokemon[req.user?.capturedPokemonId];
-  if(Math.random()*100 <= (100 - pokemon.getStat(IPokemonStat.Defence) + (buddy !== undefined ? buddy.getStat(IPokemonStat.Defence) : 0) ))
+  let buddy = req.user?.currentPokemonId != 0 ? await api.getById(req.user.currentPokemonId) : undefined;
+  let captureChance = (100 - pokemon.getStat(IPokemonStat.Defence) + (buddy !== undefined ? buddy.getStat(IPokemonStat.Defence) : 0));
+  if(Math.random()*100 <= captureChance )
   {
     let user: IUser = req.user; 
     if(user)
@@ -112,7 +116,7 @@ app.post("/capture/:index", async (req: any, res: any) => {
       return res.redirect("/pokemon/0");
     }
     try {
-      return res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId].pokeballsLeft, buddy: buddy, sessionId: sessionId});
+      return res.render("capture", { pokemon: await pokemon, pokeballs: sessions[sessionId].pokeballsLeft, buddy: buddy, sessionId: sessionId, chance: captureChance});
     } catch (err) {
       console.error(err);
     }
