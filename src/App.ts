@@ -185,11 +185,11 @@ app.get("/whosthatpokemon", async (req: any, res: any) => {
       }
   
       let json = JSON.stringify(pokeNames);
-      fs.writeFile('./json/pokemons.json', json, function(err, result) {
+      fs.writeFile('../json/pokemons.json', json, function(err, result) {
         if(err) console.log('error', err);
       });
     }else{
-      pokeNames = require('./json/pokemons.json');
+      pokeNames = require('../json/pokemons.json');
     }
   
   const getal = Math.floor((Math.random()*897)+1);
