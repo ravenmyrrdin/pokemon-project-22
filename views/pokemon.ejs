@@ -40,19 +40,17 @@
               window.location.replace('/pokemon-detail/<%= pokemons[i].id %>');
             } 
           })">
-          <main class="row">
+          <main class="row-sm">
             <img src="<%= pokemons[i]._sprites.front_default %>" class="spriteimg"/>
           </main>
-          <footer class="row">
-            <div class="col">
+          <footer class="row-sm">
+            <div class="col-sm">
               <strong class="text-white"><%= pokemons[i].name.charAt(0).toUpperCase() + pokemons[i].name.slice(1) %></strong>
             </div>
 
-            <div class="col">
-            <% if(capturedPokemon.includes(pokemons[i].id)) { %>
-                <img src="/images/pokeball.png" class="w-2rem" \>
-            <% } %> 
-          </div>
+            <div class="col-sm">
+                <img src="/images/pokeball.png" class="w-2rem <%= capturedPokemon.includes(pokemons[i].id) ? 'visible' : 'invisible' %>" \>
+            </div>
           </footer>
         </article>
         <%  }%>

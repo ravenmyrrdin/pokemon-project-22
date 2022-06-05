@@ -12,12 +12,6 @@
     <script defer>
       let pokemonName = '<%= pokemon.name %>';
       let pokeNames = '<%= pokeNames %>'.split(",");
-<<<<<<< HEAD
-      console.log(pokemonName);
-      var success = false;
-
-=======
->>>>>>> 9248df9c73b66d9d91ca66be470750d70ebbd2c2
     //Autocomplete volgens W3schools
     function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
@@ -142,8 +136,7 @@ if(el){
                         text: 'Het was inderdaad <%= pokemon.name %>',
                         imageUrl: '<%= pokemon._sprites.front_default %>',
                         showConfirmButton: true,
-                        confirmButtonText: 'doorgaan',
-                        timer: 1500
+                        confirmButtonText: 'doorgaan'
                         }).then(function(){ 
                           window.location.href=`/addBoost/<%= sessionId %>/`+pokemonName;
                         }
