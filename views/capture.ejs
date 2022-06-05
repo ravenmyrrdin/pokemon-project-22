@@ -13,21 +13,26 @@
     <%- include('partials/navbar.ejs'); %>
     <main class="p-lg-3 ">
         <section class="container border border-danger">
-            <article class="row     ">
-                <img src="<%= pokemon._sprites.front_default %>"  class="col-sm" />
-                <div class="col-sm bg-danger container text-white">
+            <article class="row">
+                <img src="<%= pokemon._sprites.front_default %>"  class="col-lg" />
+
+                <main class="col-lg bg-danger container text-white position-relative">
                     <p class="h2 text-center">
-                        <%= buddy === undefined ? "Battling without buddy" : "Battling with: buddy.name" %>
+                        <% if(buddy) {%>
+                            Battling with: <%= buddy.name %>
+                        <% } else { %>
+                            Battling without buddy 
+                        <% } %>
                     </p>
                     
                     Kans om te vangen: <%= chance %>%<br />
                     Pokeballs over: <%= pokeballs %>    
 
-                    <form method="POST">
+                    <form method="POST" class="d-flex justify-content-center">
                         <input type="hidden" name="sessionId" value="<%= sessionId %>" />
-                        <input type="submit" value="Gooi pokeball" class="w-100" />
+                        <input type="image" src="https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-transparent-png-2.png" class="w-50 hover-overlay"  alt="submit" />
                     </form>
-                </div>
+                </main>
             </article>
 
         </section>

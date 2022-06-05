@@ -1,11 +1,8 @@
 import axios from "axios";
-import { IPokemonStat } from "./IPokemonStat";
 import { Pokemon } from "./Pokemon";
-import { PokemonGame } from "./PokemonGame";
-import { SpriteType } from "./SpriteType";
 
-export class PokemonAPI {
-  public async getByName(name: string): Promise<Pokemon> {
+class PokemonAPI {
+  public static async getByName(name: string): Promise<Pokemon> {
     const apiData = (
       await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
     ).data;
@@ -14,10 +11,11 @@ export class PokemonAPI {
     return pokemon;
   }
 
-  public async getById(id: number) {
+  public static async getById(id: number) {
     return new Pokemon(
       await (await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)).data
     );
   }
 }
 
+export = PokemonAPI;

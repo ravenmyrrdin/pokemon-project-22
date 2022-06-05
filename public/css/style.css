@@ -2,65 +2,15 @@
   --darkRed: rgb(251,27,27,0.5);
 }
 
-section.index article {
-  margin: 2rem 0 0 0;
-}
+.w-2rem { width: 2rem; height: 2rem; }
+.w-10rem { width: 10rem; height: 10rem; }
+.pointer { cursor: pointer; }
+.hover-overlay:hover{ transition: filter 1s ease-out; filter: brightness(1.4); }
 
 section.index article:hover {
   background-color: #64646475;
   border-radius: 2rem;
   cursor: pointer;
-}
-
-/*
-Verwijder eind project, of enable indien tijd over.
-body.contact main {
-  margin: 2rem 0 0 0;
-  border: 3px solid black;
-  border-radius: 2rem;
-}
-
-body.contact main form div,
-body.contact main form label {
-  margin: 1rem 0 0 0;
-}
-
-.input-group input[type="submit"]#contact {
-  margin: 0 auto;
-  font-size: 1.5rem;
-  width: 80%;
-}
-*/
-
-.imgWrap {
-  display: flex;
-  justify-content: center;
-}
-
-.imgWrap img {
-  border-radius: 50%;
-  background-color: white;
-}
-
-img#logo {
-  border-radius: 50%;
-}
-
-.popup {
-  text-align: center;
-}
-
-.popup h1 {
-  margin: 3rem 0 1rem 0;
-}
-
-.popup button {
-  margin: 2rem 0 0 0;
-}
-
-.popup button a {
-  text-decoration: none;
-  color: inherit;
 }
 
 .pokeballcontainer {
@@ -69,33 +19,18 @@ img#logo {
 }
 
 .pokemonkaart {
-    display: grid;
-    text-align: center;
     padding: 0.5rem; 
-    background-color: #e1c3c3eb;
-    border-radius: 1rem;
-    margin: 1rem;  
+    margin: 1rem;  /* M-1 bootstrap is niet rem based */
 }
 
-.pokemonkaart:hover {
-  background-color: #e1c3c3b5;
-}
-
-.pokeballimg{
-  width: 1.5rem;
-  height: 1.5rem;
-  visibility: hidden;
-}
 
 .spriteimg{
   width: 10rem;
   height: 10rem;
 }
 
-.whosthatimg{
-  width: 30rem;
-  height: 30rem;
-  transition: filter .5s ease-out;
+.cover {
+  transition: filter .5s ease-in-out;
   filter: brightness(0);
 }
 
@@ -122,21 +57,6 @@ img#logo {
   margin: 0 auto;
   text-align: center;
   display: block;
-}
-
-.pa2 {
-  padding-left: 2rem;
-}
-
-table {
-  border-spacing: 1rem;
-  width: 75%;
-  border-collapse: collapse;
-  margin: -1rem auto 1rem auto;
-}
-table tr {
-  border-bottom: 1px solid black;
-  list-style: circle;
 }
 
 .captured {

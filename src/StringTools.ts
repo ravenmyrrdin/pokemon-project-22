@@ -27,7 +27,7 @@
          const map = {1: "i", 5: "v", 10: "x"}
  
          if (original < 1 || original > 3999) {
-         throw new Error('Error: Input integer limited to 1 through 3,999');
+            throw new Error('Error: Input integer limited to 1 through 3,999');
          }
      
          const numerals = [

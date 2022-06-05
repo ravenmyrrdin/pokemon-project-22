@@ -12,9 +12,12 @@
     <script defer>
       let pokemonName = '<%= pokemon.name %>';
       let pokeNames = '<%= pokeNames %>'.split(",");
+<<<<<<< HEAD
       console.log(pokemonName);
       var success = false;
 
+=======
+>>>>>>> 9248df9c73b66d9d91ca66be470750d70ebbd2c2
     //Autocomplete volgens W3schools
     function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
@@ -125,51 +128,43 @@ if(el){
   </head>
 <body>
   <%- include('partials/navbar.ejs'); %>
-<main>
-    <form class="justify-content-center" onsubmit="return false" autocomplete="off" method="POST" action="/whosthatpokemon">
-        <div class="form-row ">
-          <div class="col-4 offset-4 ">
-            <img src="<%= pokemon._sprites.front_default %>" class="whosthatimg "/>
-          </div>
-        </div> 
-        <div class="row justify-content-center mx-auto" >
-            <div class="col-6 autocomplete">
-                <input type="text" name="pokenaam" id="pokenaam" class="form-control " placeholder="Naam van de pokemon">
-              </div>
-              <div class="col-1">
-                
-                <button class="btn btn-danger mb-2" onclick="
-  
-                    if(pokemonName == document.getElementById('pokenaam').value){
-                      success =true;
-                        Swal.fire({
-                            title: 'Correct!',
-                            text: 'Het was inderdaad <%= pokemon.name %>',
+  <main class="justify-content-center w-75 flex-column mx-auto d-flex">
+      <section class="w-100">
+        <header>
+            <img src="<%= pokemon._sprites.front_default %>" class="w-25 mx-auto d-block cover mx-auto" />
+        </header>
+        <main class="autocomplete w-100">
+          <input type="text" name="pokenaam" id="pokenaam" class="mx-auto w-100" placeholder="Naam van de pokemon">
+          <button class="btn btn-danger mb-2 w-100" onclick="
+             if(pokemonName == document.getElementById('pokenaam').value){
+                    Swal.fire({
+                        title: 'Correct!',
+                        text: 'Het was inderdaad <%= pokemon.name %>',
+                        imageUrl: '<%= pokemon._sprites.front_default %>',
+                        showConfirmButton: true,
+                        confirmButtonText: 'doorgaan',
+                        timer: 1500
+                        }).then(function(){ 
+                          window.location.href=`/addBoost/<%= sessionId %>/`+pokemonName;
+                        }
+                      )
+                }else{
+                  Swal.fire({
+                            title: 'Fout',
+                            text: 'Dit was niet de juiste pokemon, het was <%= pokemon.name %> ', 
                             imageUrl: '<%= pokemon._sprites.front_default %>',
                             showConfirmButton: true,
                             confirmButtonText: 'doorgaan'
                             }).then(function(){ 
-                              location.reload();
-                              }
-
+                            location.reload();
+                            }
                             )
-                    }else{
-                      success = false;
-                       Swal.fire({
-                                title: 'Fout',
-                                text: 'Dit was niet de juiste pokemon, het was <%= pokemon.name %> ', 
-                                imageUrl: '<%= pokemon._sprites.front_default %>',
-                                showConfirmButton: true,
-                                confirmButtonText: 'doorgaan'
-                                }).then(function(){ 
-                                 location.reload();
                                 }
-                                )
-                                    }
-                    " id="gokBtn">Gokken</button>
-              </div>
-        </div>
-      </form>
-</main>
-
+                
+                ">Gokken</button>
+            </main>
+        </article>
+      </section>
+  </main>
 </body>
+</html>

@@ -1,45 +1,51 @@
 <!DOCTYPE html>
-<html lang="nl-BE">
-<head>
-    <%-include('partials/head');%>
-    <title>Pokemon | <%=data.name%></title>
-</head>
-<body>
-    <main>
-        <%-include('partials/navbar.ejs');-%>
-        <div class="center pro50">
-            <h1 class="txtcenter">
-                <%=data.name.charAt(0).toUpperCase() + data.name.slice(1)%> <%if (capturedData) { %><span class="captured">(Captured)</span><% }%>
-            </h1>
-            <img src="<%=data._sprites.front_default%>" alt="<%=data.name%> picture" class="singlePokemonSprite">
-            <div class="pa2">
-                <h2>Beschrijving</h2>
-                <% if (capturedData) { %>
-                <p>Bijnaam: <%= capturedData.name?.length ? capturedData.name : "Geen bijnaam" %></p>
-                <%}%>
-                <p>Stats: </p>
-                <table>
-                    <% for (let i = 0; i < data._stats.length; i++) { console.log(data._stats[i].stat) %>
-                    <tr>
-                        <td>•</td>
-                        <td><%=data._stats[i].stat.name.charAt(0).toUpperCase() + data._stats[i].stat.name.slice(1) %>: </td>
-                        <td><%=data._stats[i].base_stat%></td>
-                    </tr>
-                <%}%>
-            </table>
-            </div>
-            <div class="centerPage">
-                <% if(capturedData && !isCurrentBuddy) { %>
-                    <form action="/currentPokemon" method="POST">
-                        <label for="currentId"></label>
-                        <input type="hidden" name="currentId" value="<%=data.id%>">
-                        <input type="submit" class="btn btn-danger mao1" value="Stel in als buddy">
-                    </form>
-                <% } %>
-                <button class="btn btn-danger mao1" onclick='window.location.href="/pokemon"'>Terug naar Pokédex</button>
-            </div>
-        </div>
-    </main>
-    
-</body>
-</html>
+    <html lang="nl-BE">
+    <head>
+        <%-include('partials/head');%>
+        <title>Pokemon | <%=data.name%></title>
+    </head>
+    <body>
+        <%-include('partials/navbar.ejs');-%>   
+        <main>
+            <section class="mx-auto w-50 border border-danger border-3 rounded my-5">
+                <article class="d-flex flex-column justify-content-center">
+                    <header class="text-center h1">
+                        <%=data.name.charAt(0).toUpperCase() + data.name.slice(1)%> 
+                        <%if (capturedData) { %><span class="captured">(Captured)</span><% }%>
+
+                        <img src="<%=data._sprites.front_default%>" alt="<%=data.name%> picture" class="singlePokemonSprite">
+                    </header>
+                    <main class="w-75 mx-auto">
+                        <p class="h2">Beschrijving</p>
+
+                        <% if (capturedData) { %>
+                            <p>Bijnaam: <%= capturedData.name?.length ? capturedData.name : "Geen bijnaam" %></p>
+                        <%}%>
+
+                        <p class="h2 py-2">Stats: </p>
+                        <table class="table w-100">
+                            <% for (let i = 0; i < data._stats.length; i++) { console.log(data._stats[i].stat) %>
+                                <tr>
+                                    <td>&raquo;</td>
+                                    <td><%=data._stats[i].stat.name.charAt(0).toUpperCase() + data._stats[i].stat.name.slice(1) %>: </td>
+                                    <td><%=data._stats[i].base_stat%></td>
+                                </tr>
+                            <%}%>
+                        </table>
+                    </main>
+                    
+                    <footer class="w-75 mx-auto">    
+                        <% if(capturedData && !isCurrentBuddy) { %>
+                            <form action="/currentPokemon" method="POST" class="w-100">
+                                <label for="currentId"></label>
+                                <input type="hidden" name="currentId" value="<%=data.id%>">
+                                <input type="submit" class="btn btn-danger mao1 mx-auto d-block" value="Stel in als buddy">
+                            </form>
+                        <% } %>
+                        <button class="btn btn-danger mao1 mx-auto d-block" onclick='window.location.href="/pokemon"'>Terug naar Pokédex</button>
+                    </footer>
+                </article>
+            </section>
+        </main>
+    </body>
+    </html>
