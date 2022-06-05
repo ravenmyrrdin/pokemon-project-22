@@ -15,7 +15,8 @@
         <section class="container border border-danger">
             <article class="row">
                 <img src="<%= pokemon._sprites.front_default %>"  class="col-lg" />
-                <div class="col-lg bg-danger container text-white position-relative">
+
+                <main class="col-lg bg-danger container text-white position-relative">
                     <p class="h2 text-center">
                         <% if(buddy) {%>
                             Battling with: <%= buddy.name %>
@@ -29,9 +30,9 @@
 
                     <form method="POST" class="d-flex justify-content-center">
                         <input type="hidden" name="sessionId" value="<%= sessionId %>" />
-                        <input type="image" src="https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-transparent-png-2.png" class="w-50 position-absolute"  alt="submit" />
+                        <input type="image" src="https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-transparent-png-2.png" class="w-50 hover-overlay"  alt="submit" />
                     </form>
-                </div>
+                </main>
             </article>
 
         </section>

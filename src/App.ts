@@ -63,9 +63,6 @@ app.get("/pokemon/:page", async (req: any, res: any) => {
   });
 });
 
-// app.get("/catch", (req: any, res: any) => {
-//   res.render("catch");
-// });
 interface BattleSession { 
   pokemonId: number, 
   pokeballsLeft: number,

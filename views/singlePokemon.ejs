@@ -26,7 +26,7 @@
                         <table class="table w-100">
                             <% for (let i = 0; i < data._stats.length; i++) { console.log(data._stats[i].stat) %>
                                 <tr>
-                                    <td>•</td>
+                                    <td>&raquo;</td>
                                     <td><%=data._stats[i].stat.name.charAt(0).toUpperCase() + data._stats[i].stat.name.slice(1) %>: </td>
                                     <td><%=data._stats[i].base_stat%></td>
                                 </tr>
@@ -36,10 +36,10 @@
                     
                     <footer class="w-75 mx-auto">    
                         <% if(capturedData && !isCurrentBuddy) { %>
-                            <form action="/currentPokemon" method="POST">
+                            <form action="/currentPokemon" method="POST" class="w-100">
                                 <label for="currentId"></label>
                                 <input type="hidden" name="currentId" value="<%=data.id%>">
-                                <input type="submit" class="btn btn-danger mao1" value="Stel in als buddy">
+                                <input type="submit" class="btn btn-danger mao1 mx-auto d-block" value="Stel in als buddy">
                             </form>
                         <% } %>
                         <button class="btn btn-danger mao1 mx-auto d-block" onclick='window.location.href="/pokemon"'>Terug naar Pokédex</button>

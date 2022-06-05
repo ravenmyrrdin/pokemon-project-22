@@ -4,6 +4,8 @@
 
 .w-2rem { width: 2rem; height: 2rem; }
 .w-10rem { width: 10rem; height: 10rem; }
+.pointer { cursor: pointer; }
+.hover-overlay:hover{ transition: filter 1s ease-out; filter: brightness(1.4); }
 
 section.index article:hover {
   background-color: #64646475;
@@ -28,7 +30,7 @@ section.index article:hover {
 }
 
 .cover {
-  transition: filter .5s ease-out;
+  transition: filter .5s ease-in-out;
   filter: brightness(0);
 }
 
